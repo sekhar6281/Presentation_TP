@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Anti-Piracy Protection System</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Segoe UI',sans-serif; background:#000; color:#fff; overflow:hidden; width:100vw; height:100vh; }
+
+    .slide { display:none; width:100vw; height:100vh; position:absolute; top:0; left:0; overflow:hidden; }
+    .slide.active { display:flex; }
+
+    /* progress bar */
+    .s-progress { position:fixed; bottom:0; left:0; height:3px; background:rgba(0,180,255,0.7); width:0%; z-index:999; transition:none; box-shadow:0 0 8px rgba(0,200,255,0.6); }
+    /* invisible pause button at bottom center */
+    .s-pause-btn { position:fixed; bottom:3px; left:50%; transform:translateX(-50%); width:120px; height:28px; background:transparent; border:none; cursor:pointer; z-index:999; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp    { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+    @keyframes slideRight{ from{opacity:0;transform:translateX(-40px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes slideLeft { from{opacity:0;transform:translateX(40px)}  to{opacity:1;transform:translateX(0)} }
+    @keyframes expandWidth{ from{width:0} to{width:60%} }
+    @keyframes glowPulse { 0%,100%{text-shadow:0 0 20px rgba(255,42,42,0.7)} 50%{text-shadow:0 0 40px rgba(255,42,42,1)} }
+    @keyframes arrowDrop { 0%{stroke-dashoffset:400} 100%{stroke-dashoffset:0} }
+    @keyframes countUp   { from{opacity:0;transform:scale(0.6)} to{opacity:1;transform:scale(1)} }
+
+    /* ════ SLIDE 1 ════ */
+    #slide1 { background:radial-gradient(ellipse at center,#0a1628 0%,#000 70%); flex-direction:column; align-items:center; justify-content:center; gap:48px; padding:40px; }
+    #slide1::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,150,255,0.08) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; }
+    #slide1.active .s1-title  { animation:fadeUp 0.7s ease both; }
+    #slide1.active .s1-divider{ animation:expandWidth 0.8s 0.5s ease both; }
+    #slide1.active .s1-flow   { animation:fadeUp 0.7s 0.4s ease both; }
+    .s1-title { font-size:clamp(2rem,4.5vw,3.2rem); font-weight:800; text-align:center; position:relative; z-index:1; opacity:0; }
+    .s1-title .highlight { color:#ff2a2a; animation:glowPulse 2.5s 1.2s infinite; }
+    .s1-divider { width:0; height:2px; background:linear-gradient(90deg,transparent,#ff2a2a,transparent); box-shadow:0 0 12px #ff2a2a; position:relative; z-index:1; margin-top:-36px; }
+    .s1-flow { display:flex; align-items:center; position:relative; z-index:1; width:100%; max-width:1100px; justify-content:center; opacity:0; }
+    .s1-card { display:flex; flex-direction:column; align-items:center; justify-content:space-between; width:200px; min-height:220px; border:1.5px solid rgba(0,150,255,0.5); border-radius:16px; padding:20px 16px; background:rgba(0,30,70,0.55); backdrop-filter:blur(4px); box-shadow:0 0 18px rgba(0,120,255,0.2); position:relative; gap:16px; transition:transform 0.3s,box-shadow 0.3s; }
+    .s1-card:hover { transform:translateY(-6px); box-shadow:0 0 30px rgba(0,150,255,0.4); }
+    .s1-card.danger { border-color:rgba(255,42,42,0.7); background:rgba(60,0,0,0.55); box-shadow:0 0 24px rgba(255,30,30,0.35); }
+    .s1-badge { position:absolute; top:-18px; left:50%; transform:translateX(-50%); width:36px; height:36px; border-radius:50%; border:2px solid #0096ff; background:#000c1f; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:700; color:#0096ff; box-shadow:0 0 10px rgba(0,150,255,0.5); }
+    .s1-card.danger .s1-badge { border-color:#ff2a2a; color:#ff2a2a; background:#1a0000; }
+    .s1-icon { font-size:3rem; line-height:1; }
+    .s1-label { font-size:0.95rem; font-weight:600; text-align:center; color:#cce8ff; line-height:1.4; }
+    .s1-arrow { font-size:2rem; color:#0096ff; padding:0 8px; text-shadow:0 0 10px #0096ff; flex-shrink:0; }
+    .s1-arrow.danger { color:#ff2a2a; text-shadow:0 0 10px #ff2a2a; }
+    .danger-arrows { display:flex; gap:6px; color:#ff2a2a; font-size:1.4rem; }
+    .rupee { font-size:2.6rem; color:#ff2a2a; text-shadow:0 0 16px rgba(255,42,42,0.8); }
+
+    /* ════ SLIDE 2 ════ */
+    #slide2 { background:#0d0000; flex-direction:row; align-items:stretch; }
+    .s2-left { flex:1.1; display:flex; flex-direction:column; justify-content:center; padding:60px 50px 60px 70px; gap:36px; position:relative; z-index:2; }
+    .s2-title .line1 { font-size:clamp(2rem,4vw,3rem); font-weight:900; color:#fff; display:block; }
+    .s2-title .line2 { font-size:clamp(2rem,4vw,3rem); font-weight:900; display:block; }
+    .s2-title .line2 .red { color:#ff2a2a; }
+    .s2-divider { width:0; height:2px; background:linear-gradient(90deg,#ff2a2a,transparent); box-shadow:0 0 8px #ff2a2a; margin-top:-16px; }
+    .s2-points { display:flex; flex-direction:column; gap:20px; }
+    .s2-point { display:flex; align-items:center; gap:20px; opacity:0; }
+    .s2-point-icon { width:52px; height:52px; border-radius:50%; border:2px solid rgba(180,0,0,0.6); background:rgba(120,0,0,0.25); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; box-shadow:0 0 12px rgba(200,0,0,0.3); }
+    .s2-point-text { font-size:clamp(0.95rem,1.6vw,1.15rem); color:#e0e0e0; font-weight:500; }
+    .s2-point-text .red { color:#ff2a2a; font-weight:700; }
+    .s2-right { flex:0.9; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; padding:40px; gap:20px; }
+    .s2-right::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 60% 40%,rgba(120,0,0,0.45) 0%,transparent 70%); pointer-events:none; }
+    .s2-revenue-label { font-size:clamp(0.9rem,1.4vw,1.1rem); font-weight:700; letter-spacing:3px; color:#cc0000; text-transform:uppercase; opacity:0; position:relative; z-index:2; }
+    .s2-revenue-number { font-size:clamp(4rem,9vw,7rem); font-weight:900; color:#cc0000; line-height:1; opacity:0; position:relative; z-index:2; text-shadow:0 0 40px rgba(200,0,0,0.6); }
+    .s2-chart { position:relative; z-index:2; opacity:0; width:320px; height:180px; }
+    .s2-chart svg { width:100%; height:100%; }
+    .chart-bars rect { fill:rgba(180,0,0,0.35); }
+    .chart-arrow { fill:none; stroke:#ff2a2a; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:400; stroke-dashoffset:400; }
+    .arrow-head { fill:#ff2a2a; }
+    #slide2.active .s2-title .line1  { animation:slideRight 0.6s 0.1s ease both; }
+    #slide2.active .s2-title .line2  { animation:slideRight 0.6s 0.3s ease both; }
+    #slide2.active .s2-divider       { animation:expandWidth 0.7s 0.5s ease both; }
+    #slide2.active .s2-point:nth-child(1){ animation:slideRight 0.5s 0.6s ease both; }
+    #slide2.active .s2-point:nth-child(2){ animation:slideRight 0.5s 0.8s ease both; }
+    #slide2.active .s2-point:nth-child(3){ animation:slideRight 0.5s 1.0s ease both; }
+    #slide2.active .s2-point:nth-child(4){ animation:slideRight 0.5s 1.2s ease both; }
+    #slide2.active .s2-point:nth-child(5){ animation:slideRight 0.5s 1.4s ease both; }
+    #slide2.active .s2-revenue-label { animation:fadeIn 0.6s 0.5s ease both; }
+    #slide2.active .s2-revenue-number{ animation:countUp 0.8s 0.8s ease both; }
+    #slide2.active .s2-chart         { animation:fadeIn 0.6s 1.0s ease both; }
+    #slide2.active .chart-arrow      { animation:arrowDrop 1.2s 1.3s ease both; }
+    .s2-title .line1,.s2-title .line2{ opacity:0; }
+
+    /* ════ SLIDE 3 ════ */
+    #slide3 { background:#0e0500; flex-direction:column; align-items:center; justify-content:center; gap:22px; position:relative; }
+    #slide3::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(180,80,0,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(180,80,0,0.07) 1px,transparent 1px); background-size:48px 48px; pointer-events:none; }
+    .s3-radar { position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); z-index:0; }
+    .s3-radar-ring { position:absolute; border-radius:50%; border:1px solid rgba(200,80,0,0.25); top:50%; left:50%; transform:translate(-50%,-50%); }
+    .s3-shield-wrap { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; opacity:0; }
+    .s3-shield { width:120px; height:140px; position:relative; }
+    .s3-shield svg { width:100%; height:100%; filter:drop-shadow(0 0 24px rgba(255,140,0,0.8)) drop-shadow(0 0 8px rgba(255,200,100,0.5)); }
+    .s3-shield-inner { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.4rem; padding-bottom:12px; }
+    .s3-badge { display:flex; align-items:center; gap:8px; border:1.5px solid rgba(100,140,255,0.5); border-radius:30px; padding:8px 24px; font-size:0.85rem; font-weight:700; letter-spacing:3px; color:#aac4ff; background:rgba(20,30,80,0.5); backdrop-filter:blur(6px); position:relative; z-index:2; opacity:0; }
+    .s3-badge-dot { width:8px; height:8px; border-radius:2px; background:#5588ff; box-shadow:0 0 8px #5588ff; }
+    .s3-title-wrap { text-align:center; position:relative; z-index:2; opacity:0; }
+    .s3-title-wrap .t1 { font-size:clamp(2.4rem,5.5vw,4rem); font-weight:900; color:#fff; line-height:1.1; }
+    .s3-title-wrap .t2 { font-size:clamp(2.4rem,5.5vw,4rem); font-weight:900; color:#3399ff; line-height:1.1; text-shadow:0 0 30px rgba(50,150,255,0.5); }
+    .s3-subtitle { font-size:clamp(0.9rem,1.6vw,1.1rem); color:rgba(200,200,200,0.7); text-align:center; position:relative; z-index:2; opacity:0; }
+    @keyframes radarPulse { 0%{opacity:0.4;transform:translate(-50%,-50%) scale(1)} 100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)} }
+    @keyframes shieldGlow { 0%,100%{filter:drop-shadow(0 0 20px rgba(255,140,0,0.8))} 50%{filter:drop-shadow(0 0 40px rgba(255,160,0,1))} }
+    @keyframes floatShield { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    #slide3.active .s3-shield-wrap{ animation:fadeUp 0.7s 0.1s ease both; }
+    #slide3.active .s3-badge      { animation:fadeIn 0.6s 0.6s ease both; }
+    #slide3.active .s3-title-wrap { animation:fadeUp 0.7s 0.8s ease both; }
+    #slide3.active .s3-subtitle   { animation:fadeIn 0.6s 1.2s ease both; }
+    #slide3.active .s3-shield svg { animation:shieldGlow 3s 1s infinite,floatShield 4s 1s ease-in-out infinite; }
+    #slide3.active .s3-radar-ring { animation:radarPulse 3s 0.5s ease-out infinite; }
+    #slide3.active .s3-radar-ring:nth-child(2){ animation-delay:1s; }
+    #slide3.active .s3-radar-ring:nth-child(3){ animation-delay:1.8s; }
+
+    /* ════ SLIDE 4 ════ */
+    #slide4 {
+      background: radial-gradient(ellipse at center,#020d1f 0%,#000 80%);
+      flex-direction:column; align-items:center; justify-content:center;
+      gap:0; position:relative;
+    }
+    #slide4::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.05) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+
+    .s4-head {
+      font-size:0.95rem; font-weight:700; letter-spacing:0.16em;
+      text-transform:uppercase; color:rgba(100,190,255,0.55);
+      margin-bottom:22px; opacity:0;
+    }
+    .s4-layout { display:flex; flex-direction:column; align-items:center; }
+    .s4-middle { display:flex; flex-direction:row; align-items:center; }
+
+    .s4-shield-wrap {
+      position:relative; width:120px; height:120px; z-index:5; opacity:0;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .s4-orbit-ring { position:absolute; border-radius:50%; border:1px solid rgba(0,150,255,0.18); top:50%; left:50%; transform:translate(-50%,-50%); }
+    .s4-shield { width:108px; height:124px; position:relative; z-index:2; }
+    .s4-shield svg { width:100%; height:100%; }
+    .s4-lock { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.3rem; padding-bottom:10px; z-index:3; }
+
+    .s4-con-v {
+      width:2px; height:48px; align-self:center;
+      background:linear-gradient(to bottom,rgba(0,170,255,0.8),rgba(0,170,255,0.25));
+      transform-origin:top center; opacity:0;
+    }
+    .s4-con-v.bottom { background:linear-gradient(to top,rgba(0,170,255,0.8),rgba(0,170,255,0.25)); transform-origin:bottom center; }
+    .s4-con-h {
+      width:52px; height:2px;
+      background:linear-gradient(to right,rgba(0,170,255,0.25),rgba(0,170,255,0.8));
+      transform-origin:left center; opacity:0;
+    }
+    .s4-con-h.rev {
+      background:linear-gradient(to left,rgba(0,170,255,0.25),rgba(0,170,255,0.8));
+      transform-origin:right center;
+    }
+
+    .s4-card {
+      position:relative; width:205px;
+      background:rgba(0,12,45,0.92); border:1.5px solid rgba(0,120,240,0.45);
+      border-radius:14px; padding:14px 14px 13px;
+      backdrop-filter:blur(8px); box-shadow:0 0 22px rgba(0,80,200,0.22);
+      opacity:0; overflow:hidden;
+      transition:box-shadow 0.3s,border-color 0.3s;
+    }
+    .s4-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#00aaff,transparent); }
+    .s4-card:hover { box-shadow:0 0 34px rgba(0,160,255,0.5); border-color:rgba(0,180,255,0.75); }
+    .s4-card-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+    .s4-card-icon { width:34px; height:34px; border-radius:8px; background:rgba(0,70,180,0.35); border:1px solid rgba(0,120,255,0.3); display:flex; align-items:center; justify-content:center; font-size:1.05rem; flex-shrink:0; }
+    .s4-card-title { font-size:0.88rem; font-weight:800; color:#4dccff; }
+    .s4-card-desc  { font-size:0.79rem; color:rgba(170,205,255,0.85); line-height:1.55; }
+    .s4-card-layer { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(0,170,255,0.45); margin-bottom:5px; }
+
+    @keyframes shieldBlueGlow {
+      0%,100%{ filter:drop-shadow(0 0 16px rgba(0,180,255,0.9)) drop-shadow(0 0 36px rgba(0,120,255,0.5)); }
+      50%    { filter:drop-shadow(0 0 30px rgba(0,220,255,1))   drop-shadow(0 0 55px rgba(0,160,255,0.8)); }
+    }
+    @keyframes orbitSpin {
+      from{ transform:translate(-50%,-50%) rotate(0deg); }
+      to  { transform:translate(-50%,-50%) rotate(360deg); }
+    }
+    @keyframes popCard { from{opacity:0;transform:scale(0.82)} to{opacity:1;transform:scale(1)} }
+    @keyframes lineIn  { from{opacity:0;transform:scaleY(0)} to{opacity:1;transform:scaleY(1)} }
+    @keyframes lineInH { from{opacity:0;transform:scaleX(0)} to{opacity:1;transform:scaleX(1)} }
+
+    #slide4.active .s4-head              { animation:countUp  0.6s 0.1s ease both; }
+    #slide4.active .s4-shield-wrap       { animation:countUp  0.8s 0.3s ease both; }
+    #slide4.active .s4-shield            { animation:shieldBlueGlow 3s 1s ease-in-out infinite; }
+    #slide4.active .s4-orbit-ring.spin   { animation:orbitSpin 12s linear infinite; }
+    #slide4.active .s4-con-v.top         { animation:lineIn  0.35s 1.2s ease both; }
+    #slide4.active .s4-card.top          { animation:popCard 0.4s  1.5s ease both; }
+    #slide4.active .s4-con-h.right       { animation:lineInH 0.35s 2.5s ease both; }
+    #slide4.active .s4-card.right        { animation:popCard 0.4s  2.8s ease both; }
+    #slide4.active .s4-con-v.bottom      { animation:lineIn  0.35s 3.8s ease both; }
+    #slide4.active .s4-card.bottom       { animation:popCard 0.4s  4.1s ease both; }
+    #slide4.active .s4-con-h.rev.left    { animation:lineInH 0.35s 5.1s ease both; }
+    #slide4.active .s4-card.left         { animation:popCard 0.4s  5.4s ease both; }
+    /* ════ SLIDE 5 — IR Detection ════ */
+    #slide5 {
+      background:radial-gradient(ellipse at 30% 50%,#1a0404 0%,#000 70%);
+      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
+    }
+    #slide5::before {
+      content:''; position:absolute; inset:0;
+      background-image:radial-gradient(circle,rgba(255,40,0,0.04) 1px,transparent 1px);
+      background-size:36px 36px; pointer-events:none;
+    }
+    #slide5::after {
+      content:''; position:absolute; top:-120px; left:-120px;
+      width:600px; height:600px;
+      background:radial-gradient(circle,rgba(255,30,0,0.07) 0%,transparent 65%);
+      pointer-events:none;
+    }
+    .s5-left {
+      flex:0 0 54%; padding:50px 36px 50px 60px;
+      display:flex; flex-direction:column; justify-content:center; gap:18px;
+      position:relative; z-index:1;
+    }
+    .s5-left::after {
+      content:''; position:absolute; right:0; top:8%; bottom:8%;
+      width:1px; background:linear-gradient(to bottom,transparent,rgba(255,60,0,0.25),transparent);
+    }
+    .s5-right {
+      flex:0 0 46%; padding:40px 50px 40px 36px;
+      display:flex; flex-direction:column; justify-content:center; align-items:center; gap:22px;
+      position:relative; z-index:1;
+    }
+    .s5-tag {
+      font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase;
+      color:#ff4400; border:1px solid rgba(255,60,0,0.3);
+      display:inline-block; padding:4px 12px; border-radius:4px;
+      background:rgba(255,40,0,0.08); width:fit-content; opacity:0;
+    }
+    .s5-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
+    .s5-title .s5-accent { color:#ff3300; }
+    .s5-lead {
+      font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65;
+      max-width:430px; opacity:0;
+    }
+    .s5-steps { display:flex; flex-direction:column; gap:12px; }
+    .s5-step {
+      display:flex; gap:14px; align-items:flex-start; padding:12px 16px;
+      border-radius:10px; background:rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.06); opacity:0;
+      transition:background 0.3s,border-color 0.3s;
+    }
+    .s5-step:hover { background:rgba(255,60,0,0.06); border-color:rgba(255,80,0,0.22); }
+    .s5-step-num { font-size:1.35rem; font-weight:900; color:rgba(255,60,0,0.45); line-height:1; flex-shrink:0; width:28px; }
+    .s5-step-title { font-size:0.87rem; font-weight:700; color:#ffccbb; margin-bottom:4px; }
+    .s5-step-desc  { font-size:0.78rem; color:rgba(195,195,195,0.7); line-height:1.5; }
+    .s5-vis-label {
+      font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase;
+      color:rgba(255,255,255,0.3); opacity:0;
+    }
+    .s5-compare { display:flex; gap:14px; align-items:center; opacity:0; }
+    .s5-eye-box {
+      display:flex; flex-direction:column; align-items:center; gap:10px;
+      background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1);
+      border-radius:14px; padding:16px 14px; width:138px;
+    }
+    .s5-eye-box.danger { border-color:rgba(255,50,0,0.3); background:rgba(80,0,0,0.12); }
+    .s5-eye-icon  { font-size:1.7rem; }
+    .s5-eye-title { font-size:0.76rem; font-weight:700; color:rgba(255,255,255,0.8); }
+    .s5-screen-preview {
+      width:108px; height:68px; border-radius:6px; overflow:hidden;
+      border:1px solid rgba(255,255,255,0.12); position:relative;
+    }
+    .s5-screen-preview.clear {
+      background:linear-gradient(135deg,#1a3060 0%,#0d4a8a 40%,#1a2560 100%);
+    }
+    .s5-screen-preview.glare {
+      background:#ffffff;
+    }
+    .s5-film-bars {
+      position:absolute; inset:0;
+      background:linear-gradient(90deg,
+        rgba(30,80,160,0.6) 0%,rgba(20,120,80,0.6) 25%,
+        rgba(120,60,20,0.6) 55%,rgba(80,20,80,0.6) 80%,
+        rgba(30,80,160,0.6) 100%);
+    }
+    .s5-film-text {
+      position:absolute; bottom:4px; left:50%; transform:translateX(-50%);
+      font-size:0.52rem; font-weight:700; color:rgba(255,255,255,0.9);
+      white-space:nowrap; text-shadow:0 1px 3px rgba(0,0,0,0.9);
+    }
+    .s5-film-text.white { color:rgba(160,120,0,0.85); }
+    .s5-glare-effect {
+      position:absolute; inset:0;
+      background:radial-gradient(circle at 50% 45%,#ffffff 0%,#fffde8 60%,#fff5b0 100%);
+    }
+    .s5-eye-status {
+      font-size:0.66rem; font-weight:600; padding:3px 8px; border-radius:4px; white-space:nowrap;
+    }
+    .s5-eye-status.ok  { color:#00dd77; background:rgba(0,200,100,0.1); border:1px solid rgba(0,200,100,0.22); }
+    .s5-eye-status.bad { color:#ff4422; background:rgba(255,50,0,0.1);  border:1px solid rgba(255,60,0,0.28); }
+    .s5-vs { font-size:0.82rem; font-weight:900; color:rgba(255,255,255,0.22); flex-shrink:0; }
+    .s5-wavelength {
+      display:flex; align-items:center; gap:12px; padding:10px 20px;
+      background:rgba(255,40,0,0.07); border:1px solid rgba(255,60,0,0.2); border-radius:8px; opacity:0;
+    }
+    .s5-wave-label { font-size:0.7rem; color:rgba(255,200,180,0.55); }
+    .s5-wave-val   { font-size:1.6rem; font-weight:900; color:#ff4422; }
+    .s5-wave-tag   { font-size:0.66rem; color:rgba(255,180,150,0.7); background:rgba(255,60,0,0.12); padding:2px 8px; border-radius:4px; }
+
+    @keyframes irGlowPulse {
+      0%,100% { box-shadow:0 0 18px rgba(255,40,0,0.25),inset 0 0 16px rgba(255,30,0,0.04); }
+      50%     { box-shadow:0 0 38px rgba(255,40,0,0.55),inset 0 0 24px rgba(255,30,0,0.1); }
+    }
+    #slide5.active .s5-tag          { animation:fadeUp    0.5s 0.2s ease both; }
+    #slide5.active .s5-title        { animation:fadeUp    0.6s 0.4s ease both; }
+    #slide5.active .s5-lead         { animation:fadeUp    0.5s 0.7s ease both; }
+    #slide5.active .s5-step:nth-child(1) { animation:slideRight 0.5s 1.0s ease both; }
+    #slide5.active .s5-step:nth-child(2) { animation:slideRight 0.5s 1.3s ease both; }
+    #slide5.active .s5-step:nth-child(3) { animation:slideRight 0.5s 1.6s ease both; }
+    #slide5.active .s5-vis-label    { animation:fadeIn    0.4s 0.5s ease both; }
+    #slide5.active .s5-compare      { animation:fadeUp    0.6s 0.9s ease both; }
+    #slide5.active .s5-wavelength   { animation:fadeUp    0.5s 1.9s ease both; }
+    #slide5.active .s5-eye-box.danger { animation:irGlowPulse 2s 2.2s ease-in-out infinite; }
+
+    /* ════ SLIDE 6 — TPVM ════ */
+    #slide6 {
+      background:radial-gradient(ellipse at 30% 50%,#0d0520 0%,#000 70%);
+      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
+    }
+    #slide6::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(140,40,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide6::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(120,30,240,0.06) 0%,transparent 65%); pointer-events:none; }
+
+    .s6-left  { flex:0 0 54%; padding:50px 36px 50px 60px; display:flex; flex-direction:column; justify-content:center; gap:18px; position:relative; z-index:1; }
+    .s6-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(140,60,255,0.25),transparent); }
+    .s6-right { flex:0 0 46%; padding:40px 50px 40px 36px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:22px; position:relative; z-index:1; }
+
+    .s6-tag   { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#a855f7; border:1px solid rgba(168,85,247,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(140,50,255,0.08); width:fit-content; opacity:0; }
+    .s6-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
+    .s6-title .s6-accent { color:#a855f7; }
+    .s6-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
+    .s6-steps { display:flex; flex-direction:column; gap:12px; }
+    .s6-step  { display:flex; gap:14px; align-items:flex-start; padding:12px 16px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); opacity:0; transition:background 0.3s,border-color 0.3s; }
+    .s6-step:hover { background:rgba(140,50,255,0.06); border-color:rgba(160,80,255,0.22); }
+    .s6-step-num   { font-size:1.35rem; font-weight:900; color:rgba(168,85,247,0.45); line-height:1; flex-shrink:0; width:28px; }
+    .s6-step-title { font-size:0.87rem; font-weight:700; color:#d8b4fe; margin-bottom:4px; }
+    .s6-step-desc  { font-size:0.78rem; color:rgba(195,195,195,0.7); line-height:1.5; }
+
+    .s6-vis-label { font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.3); opacity:0; }
+    .s6-compare   { display:flex; gap:14px; align-items:center; opacity:0; }
+    .s6-view-box  { display:flex; flex-direction:column; align-items:center; gap:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:16px 14px; width:138px; }
+    .s6-view-box.distorted { border-color:rgba(168,85,247,0.35); background:rgba(60,0,100,0.12); }
+    .s6-view-icon  { font-size:1.7rem; }
+    .s6-view-title { font-size:0.76rem; font-weight:700; color:rgba(255,255,255,0.8); }
+    .s6-preview    { width:108px; height:68px; border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.12); position:relative; }
+    .s6-preview.clear { background:linear-gradient(135deg,#1a3060 0%,#0d4a8a 40%,#1a2560 100%); }
+    .s6-preview.bad   { background:#0a0a1a; }
+    .s6-film-bars2    { position:absolute; inset:0; background:linear-gradient(90deg,rgba(30,80,160,0.6) 0%,rgba(20,120,80,0.6) 25%,rgba(120,60,20,0.6) 55%,rgba(80,20,80,0.6) 80%,rgba(30,80,160,0.6) 100%); }
+    .s6-distort-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(80,0,160,0.7) 0%,rgba(40,0,80,0.8) 50%,rgba(60,0,120,0.6) 100%); }
+    .s6-distort-lines   { position:absolute; inset:0; background:repeating-linear-gradient(0deg,rgba(140,50,255,0.35) 0px,rgba(140,50,255,0.35) 2px,transparent 2px,transparent 8px); }
+    .s6-preview-label   { position:absolute; bottom:4px; left:50%; transform:translateX(-50%); font-size:0.52rem; font-weight:700; white-space:nowrap; }
+    .s6-preview-label.ok  { color:rgba(255,255,255,0.9); text-shadow:0 1px 3px rgba(0,0,0,0.9); }
+    .s6-preview-label.bad { color:rgba(200,150,255,0.9); }
+    .s6-view-status { font-size:0.66rem; font-weight:600; padding:3px 8px; border-radius:4px; white-space:nowrap; }
+    .s6-view-status.ok  { color:#00dd77; background:rgba(0,200,100,0.1); border:1px solid rgba(0,200,100,0.22); }
+    .s6-view-status.bad { color:#b060ff; background:rgba(140,50,255,0.1); border:1px solid rgba(160,80,255,0.28); }
+    .s6-vs   { font-size:0.82rem; font-weight:900; color:rgba(255,255,255,0.22); flex-shrink:0; }
+    .s6-stat { display:flex; align-items:center; gap:12px; padding:10px 20px; background:rgba(140,50,255,0.07); border:1px solid rgba(168,85,247,0.2); border-radius:8px; opacity:0; }
+    .s6-stat-label { font-size:0.7rem; color:rgba(220,180,255,0.55); }
+    .s6-stat-val   { font-size:1.6rem; font-weight:900; color:#a855f7; }
+    .s6-stat-tag   { font-size:0.66rem; color:rgba(200,170,255,0.7); background:rgba(140,50,255,0.12); padding:2px 8px; border-radius:4px; }
+
+    @keyframes tpvmPulse { 0%,100%{box-shadow:0 0 18px rgba(168,85,247,0.2)} 50%{box-shadow:0 0 38px rgba(168,85,247,0.5)} }
+    #slide6.active .s6-tag          { animation:fadeUp    0.5s 0.2s ease both; }
+    #slide6.active .s6-title        { animation:fadeUp    0.6s 0.4s ease both; }
+    #slide6.active .s6-lead         { animation:fadeUp    0.5s 0.7s ease both; }
+    #slide6.active .s6-step:nth-child(1) { animation:slideRight 0.5s 1.0s ease both; }
+    #slide6.active .s6-step:nth-child(2) { animation:slideRight 0.5s 1.3s ease both; }
+    #slide6.active .s6-step:nth-child(3) { animation:slideRight 0.5s 1.6s ease both; }
+    #slide6.active .s6-vis-label    { animation:fadeIn    0.4s 0.5s ease both; }
+    #slide6.active .s6-compare      { animation:fadeUp    0.6s 0.9s ease both; }
+    #slide6.active .s6-stat         { animation:fadeUp    0.5s 1.9s ease both; }
+    #slide6.active .s6-view-box.distorted { animation:tpvmPulse 2s 2.2s ease-in-out infinite; }
+
+    /* ════ SLIDE 7 — Watermarking ════ */
+    #slide7 {
+      background:radial-gradient(ellipse at 70% 50%,#021a14 0%,#000 70%);
+      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
+    }
+    #slide7::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,180,120,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide7::after  { content:''; position:absolute; top:-120px; right:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(0,160,100,0.06) 0%,transparent 65%); pointer-events:none; }
+
+    .s7-left  { flex:0 0 54%; padding:50px 36px 50px 60px; display:flex; flex-direction:column; justify-content:center; gap:18px; position:relative; z-index:1; }
+    .s7-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(0,180,120,0.25),transparent); }
+    .s7-right { flex:0 0 46%; padding:40px 50px 40px 36px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px; position:relative; z-index:1; }
+
+    .s7-tag   { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#10b981; border:1px solid rgba(16,185,129,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(0,180,100,0.08); width:fit-content; opacity:0; }
+    .s7-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
+    .s7-title .s7-accent { color:#10b981; }
+    .s7-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
+    .s7-steps { display:flex; flex-direction:column; gap:12px; }
+    .s7-step  { display:flex; gap:14px; align-items:flex-start; padding:12px 16px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); opacity:0; transition:background 0.3s,border-color 0.3s; }
+    .s7-step:hover { background:rgba(0,180,100,0.06); border-color:rgba(16,185,129,0.22); }
+    .s7-step-num   { font-size:1.35rem; font-weight:900; color:rgba(16,185,129,0.45); line-height:1; flex-shrink:0; width:28px; }
+    .s7-step-title { font-size:0.87rem; font-weight:700; color:#6ee7b7; margin-bottom:4px; }
+    .s7-step-desc  { font-size:0.78rem; color:rgba(195,195,195,0.7); line-height:1.5; }
+
+    .s7-wm-frame { width:200px; height:130px; border-radius:10px; position:relative; overflow:hidden; background:linear-gradient(135deg,#0d3020 0%,#0a4030 50%,#0d3020 100%); border:1px solid rgba(16,185,129,0.25); opacity:0; }
+    .s7-wm-film  { position:absolute; inset:0; background:linear-gradient(90deg,rgba(10,80,50,0.7) 0%,rgba(20,100,60,0.7) 30%,rgba(40,80,40,0.7) 60%,rgba(10,90,50,0.7) 100%); }
+    .s7-wm-dots  { position:absolute; inset:0; background-image:radial-gradient(circle,rgba(16,185,129,0.55) 1px,transparent 1px); background-size:12px 12px; background-position:6px 6px; }
+    .s7-wm-badge { position:absolute; bottom:8px; right:8px; font-size:0.55rem; font-weight:800; letter-spacing:0.1em; color:#10b981; background:rgba(0,0,0,0.7); padding:2px 6px; border-radius:3px; border:1px solid rgba(16,185,129,0.4); }
+    .s7-wm-label { font-size:0.6rem; color:rgba(255,255,255,0.3); text-align:center; margin-top:-8px; }
+
+    .s7-trace       { display:flex; flex-direction:column; gap:8px; width:220px; opacity:0; }
+    .s7-trace-title { font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.25); text-align:center; }
+    .s7-trace-row   { display:flex; justify-content:space-between; align-items:center; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.15); border-radius:6px; padding:6px 12px; }
+    .s7-trace-key   { font-size:0.7rem; color:rgba(200,200,200,0.55); }
+    .s7-trace-val   { font-size:0.72rem; font-weight:700; color:#6ee7b7; }
+
+    @keyframes wmGlow { 0%,100%{box-shadow:0 0 16px rgba(16,185,129,0.2)} 50%{box-shadow:0 0 32px rgba(16,185,129,0.5)} }
+    #slide7.active .s7-tag           { animation:fadeUp    0.5s 0.2s ease both; }
+    #slide7.active .s7-title         { animation:fadeUp    0.6s 0.4s ease both; }
+    #slide7.active .s7-lead          { animation:fadeUp    0.5s 0.7s ease both; }
+    #slide7.active .s7-step:nth-child(1) { animation:slideRight 0.5s 1.0s ease both; }
+    #slide7.active .s7-step:nth-child(2) { animation:slideRight 0.5s 1.3s ease both; }
+    #slide7.active .s7-step:nth-child(3) { animation:slideRight 0.5s 1.6s ease both; }
+    #slide7.active .s7-wm-frame      { animation:fadeUp 0.6s 0.9s ease both,wmGlow 2s 2s ease-in-out infinite; }
+    #slide7.active .s7-trace         { animation:fadeUp    0.5s 1.5s ease both; }
+
+    /* ════ SLIDE 8 — Takedown System ════ */
+    #slide8 {
+      background:radial-gradient(ellipse at 30% 50%,#140a00 0%,#000 70%);
+      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
+    }
+    #slide8::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(240,100,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide8::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(240,80,0,0.06) 0%,transparent 65%); pointer-events:none; }
+
+    .s8-left  { flex:0 0 54%; padding:50px 36px 50px 60px; display:flex; flex-direction:column; justify-content:center; gap:18px; position:relative; z-index:1; }
+    .s8-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(240,100,0,0.25),transparent); }
+    .s8-right { flex:0 0 46%; padding:40px 50px 40px 36px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px; position:relative; z-index:1; }
+
+    .s8-tag   { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#f97316; border:1px solid rgba(249,115,22,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(240,90,0,0.08); width:fit-content; opacity:0; }
+    .s8-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
+    .s8-title .s8-accent { color:#f97316; }
+    .s8-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
+    .s8-steps { display:flex; flex-direction:column; gap:12px; }
+    .s8-step  { display:flex; gap:14px; align-items:flex-start; padding:12px 16px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); opacity:0; transition:background 0.3s,border-color 0.3s; }
+    .s8-step:hover { background:rgba(240,90,0,0.06); border-color:rgba(249,115,22,0.22); }
+    .s8-step-num   { font-size:1.35rem; font-weight:900; color:rgba(249,115,22,0.45); line-height:1; flex-shrink:0; width:28px; }
+    .s8-step-title { font-size:0.87rem; font-weight:700; color:#fed7aa; margin-bottom:4px; }
+    .s8-step-desc  { font-size:0.78rem; color:rgba(195,195,195,0.7); line-height:1.5; }
+
+    .s8-platforms { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; opacity:0; }
+    .s8-platform  { display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; min-width:100px; transition:border-color 0.3s; }
+    .s8-platform.hit { border-color:rgba(249,115,22,0.28); background:rgba(240,90,0,0.05); }
+    .s8-plat-icon   { font-size:1.4rem; }
+    .s8-plat-name   { font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.75); }
+    .s8-plat-status { font-size:0.6rem; font-weight:700; padding:2px 6px; border-radius:3px; }
+    .s8-plat-status.scanning { color:#f97316; background:rgba(249,115,22,0.1); border:1px solid rgba(249,115,22,0.25); }
+    .s8-plat-status.done     { color:#00dd77; background:rgba(0,200,100,0.1); border:1px solid rgba(0,200,100,0.22); }
+
+    .s8-counter       { display:flex; flex-direction:column; align-items:center; gap:4px; padding:12px 28px; background:rgba(249,115,22,0.07); border:1px solid rgba(249,115,22,0.2); border-radius:10px; opacity:0; }
+    .s8-counter-val   { font-size:2.4rem; font-weight:900; color:#f97316; line-height:1; }
+    .s8-counter-label { font-size:0.66rem; color:rgba(255,200,150,0.55); letter-spacing:0.08em; text-transform:uppercase; }
+
+    @keyframes tdPulse { 0%,100%{box-shadow:0 0 16px rgba(249,115,22,0.2)} 50%{box-shadow:0 0 32px rgba(249,115,22,0.5)} }
+    #slide8.active .s8-tag          { animation:fadeUp    0.5s 0.2s ease both; }
+    #slide8.active .s8-title        { animation:fadeUp    0.6s 0.4s ease both; }
+    #slide8.active .s8-lead         { animation:fadeUp    0.5s 0.7s ease both; }
+    #slide8.active .s8-step:nth-child(1) { animation:slideRight 0.5s 1.0s ease both; }
+    #slide8.active .s8-step:nth-child(2) { animation:slideRight 0.5s 1.3s ease both; }
+    #slide8.active .s8-step:nth-child(3) { animation:slideRight 0.5s 1.6s ease both; }
+    #slide8.active .s8-platforms    { animation:fadeUp    0.6s 0.9s ease both; }
+    #slide8.active .s8-counter      { animation:fadeUp 0.5s 1.8s ease both,tdPulse 2s 2.5s ease-in-out infinite; }
+
+    /* ════ SLIDE 9 — Takedown Requirements ════ */
+    #slide9 {
+      background:radial-gradient(ellipse at 40% 50%,#0a0d1a 0%,#000 75%);
+      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
+    }
+    #slide9::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(180,140,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide9::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle,rgba(200,160,0,0.05) 0%,transparent 65%); pointer-events:none; }
+
+    .s9-left  { flex:0 0 38%; padding:50px 30px 50px 60px; display:flex; flex-direction:column; justify-content:center; gap:20px; position:relative; z-index:1; }
+    .s9-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(200,160,0,0.25),transparent); }
+    .s9-right { flex:0 0 62%; padding:36px 48px 36px 40px; display:flex; flex-direction:column; justify-content:center; gap:16px; position:relative; z-index:1; }
+
+    .s9-tag   { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#d4a017; border:1px solid rgba(212,160,23,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(200,150,0,0.08); width:fit-content; opacity:0; }
+    .s9-title { font-size:2.6rem; font-weight:900; line-height:1.1; opacity:0; }
+    .s9-title .s9-accent { color:#d4a017; }
+    .s9-lead  { font-size:0.88rem; color:rgba(200,200,200,0.75); line-height:1.65; opacity:0; }
+    .s9-note  {
+      font-size:0.75rem; color:rgba(212,160,23,0.7); line-height:1.6;
+      padding:10px 14px; border-left:2px solid rgba(212,160,23,0.4);
+      background:rgba(212,160,23,0.05); border-radius:0 6px 6px 0; opacity:0;
+    }
+
+    .s9-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .s9-card {
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07);
+      border-radius:12px; padding:18px 16px; display:flex; flex-direction:column; gap:10px;
+      opacity:0; transition:background 0.3s,border-color 0.3s;
+    }
+    .s9-card:hover { background:rgba(200,150,0,0.06); border-color:rgba(212,160,23,0.25); }
+    .s9-card-top  { display:flex; align-items:center; gap:10px; }
+    .s9-card-icon { width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+    .s9-card-icon.gold   { background:rgba(212,160,23,0.12); border:1px solid rgba(212,160,23,0.25); }
+    .s9-card-icon.blue   { background:rgba(50,120,255,0.12); border:1px solid rgba(50,120,255,0.25); }
+    .s9-card-icon.green  { background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.25); }
+    .s9-card-icon.purple { background:rgba(168,85,247,0.12); border:1px solid rgba(168,85,247,0.25); }
+    .s9-card-title { font-size:0.88rem; font-weight:800; color:#fff; }
+    .s9-card-sub   { font-size:0.7rem; color:rgba(180,180,180,0.55); margin-top:1px; }
+    .s9-card-points { display:flex; flex-direction:column; gap:5px; }
+    .s9-point {
+      display:flex; align-items:flex-start; gap:7px;
+      font-size:0.74rem; color:rgba(200,200,200,0.75); line-height:1.45;
+    }
+    .s9-point::before { content:'›'; color:#d4a017; flex-shrink:0; font-weight:700; }
+    .s9-card:nth-child(2) .s9-point::before { color:#5090ff; }
+    .s9-card:nth-child(3) .s9-point::before { color:#10b981; }
+    .s9-card:nth-child(4) .s9-point::before { color:#a855f7; }
+
+    #slide9.active .s9-tag    { animation:fadeUp    0.5s 0.2s ease both; }
+    #slide9.active .s9-title  { animation:fadeUp    0.6s 0.4s ease both; }
+    #slide9.active .s9-lead   { animation:fadeUp    0.5s 0.7s ease both; }
+    #slide9.active .s9-note   { animation:fadeUp    0.5s 1.0s ease both; }
+    #slide9.active .s9-card:nth-child(1) { animation:fadeUp 0.5s 0.6s ease both; }
+    #slide9.active .s9-card:nth-child(2) { animation:fadeUp 0.5s 0.9s ease both; }
+    #slide9.active .s9-card:nth-child(3) { animation:fadeUp 0.5s 1.2s ease both; }
+    #slide9.active .s9-card:nth-child(4) { animation:fadeUp 0.5s 1.5s ease both; }
+
+    /* s9 extras for API result row */
+    .s9-result {
+      display:flex; align-items:center; gap:12px; padding:10px 16px;
+      background:rgba(0,200,100,0.06); border:1px solid rgba(0,200,100,0.2);
+      border-radius:8px; opacity:0;
+    }
+    .s9-result-icon  { font-size:1.2rem; flex-shrink:0; }
+    .s9-result-text  { font-size:0.78rem; font-weight:700; color:#4ade80; }
+    .s9-result-sub   { font-size:0.68rem; color:rgba(150,220,170,0.65); margin-top:2px; }
+    .s9-grid-label   { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25); opacity:0; }
+    #slide9.active .s9-grid-label { animation:fadeIn 0.4s 0.4s ease both; }
+    #slide9.active .s9-result     { animation:fadeUp 0.5s 2.0s ease both; }
+
+    /* ════ SLIDE 10 — Producer Dashboard ════ */
+    #slide10 {
+      background:radial-gradient(ellipse at 50% 30%,#010d1f 0%,#000 75%);
+      flex-direction:column; align-items:center; justify-content:flex-start;
+      padding:24px 48px 20px; position:relative; overflow:hidden;
+    }
+    #slide10::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+
+    .s10-header { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:6px; margin-bottom:14px; opacity:0; }
+    .s10-tag    { font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,180,255,0.7); background:rgba(0,120,255,0.08); border:1px solid rgba(0,140,255,0.18); padding:3px 14px; border-radius:20px; }
+    .s10-title-row { display:flex; align-items:center; gap:14px; }
+    .s10-title-icon { width:44px; height:44px; border-radius:50%; background:rgba(0,100,255,0.15); border:2px solid rgba(0,120,255,0.3); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
+    .s10-h1   { font-size:2rem; font-weight:900; }
+    .s10-h1 span { color:#3b82f6; }
+
+    .s10-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; width:100%; margin-bottom:12px; opacity:0; }
+    .s10-stat  { display:flex; align-items:center; gap:12px; padding:13px 16px; border-radius:12px; border:1px solid; }
+    .s10-stat.red   { background:rgba(220,30,30,0.07);  border-color:rgba(220,30,30,0.22); }
+    .s10-stat.green { background:rgba(0,180,80,0.07);   border-color:rgba(0,200,80,0.22); }
+    .s10-stat.amber { background:rgba(220,150,0,0.07);  border-color:rgba(240,160,0,0.22); }
+    .s10-stat.blue  { background:rgba(30,100,255,0.07); border-color:rgba(60,130,255,0.22); }
+    .s10-stat-icon  { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+    .s10-stat.red   .s10-stat-icon { background:rgba(220,30,30,0.15);  border:1px solid rgba(220,30,30,0.3); }
+    .s10-stat.green .s10-stat-icon { background:rgba(0,180,80,0.15);   border:1px solid rgba(0,200,80,0.3); }
+    .s10-stat.amber .s10-stat-icon { background:rgba(220,150,0,0.15);  border:1px solid rgba(240,160,0,0.3); }
+    .s10-stat.blue  .s10-stat-icon { background:rgba(30,100,255,0.15); border:1px solid rgba(60,130,255,0.3); }
+    .s10-stat-val   { font-size:1.75rem; font-weight:900; line-height:1; }
+    .s10-stat.red   .s10-stat-val { color:#f87171; }
+    .s10-stat.green .s10-stat-val { color:#4ade80; }
+    .s10-stat.amber .s10-stat-val { color:#fbbf24; }
+    .s10-stat.blue  .s10-stat-val { color:#60a5fa; }
+    .s10-stat-label { font-size:0.68rem; color:rgba(170,170,170,0.65); margin-top:3px; }
+
+    .s10-panels { display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; opacity:0; flex:1; }
+    .s10-panel  { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px 18px; display:flex; flex-direction:column; gap:12px; }
+    .s10-panel-header { display:flex; align-items:center; gap:8px; }
+    .s10-panel-icon   { font-size:1rem; }
+    .s10-panel-title  { font-size:0.7rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+
+    .s10-plat-rows { display:flex; flex-direction:column; gap:11px; }
+    .s10-plat-row  { display:flex; align-items:center; gap:10px; }
+    .s10-plat-logo { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; color:#fff; font-weight:700; }
+    .s10-plat-logo.yt  { background:#cc0000; }
+    .s10-plat-logo.tg  { background:#1d8fce; }
+    .s10-plat-logo.fb  { background:#1877f2; }
+    .s10-plat-logo.ig  { background:#e1306c; }
+    .s10-plat-logo.web { background:#d97706; }
+    .s10-plat-name { font-size:0.82rem; font-weight:600; color:rgba(240,240,240,0.85); width:68px; flex-shrink:0; }
+    .s10-bar-wrap  { flex:1; height:8px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; }
+    .s10-bar { height:100%; border-radius:4px; width:0; }
+    .s10-bar.yt  { background:#3b82f6; }
+    .s10-bar.tg  { background:#4ade80; }
+    .s10-bar.fb  { background:#1877f2; }
+    .s10-bar.ig  { background:#e1306c; }
+    .s10-bar.web { background:#fbbf24; }
+    .s10-plat-pct { font-size:0.82rem; font-weight:700; width:36px; text-align:right; flex-shrink:0; }
+    .s10-plat-row:nth-child(1) .s10-plat-pct { color:#3b82f6; }
+    .s10-plat-row:nth-child(2) .s10-plat-pct { color:#4ade80; }
+    .s10-plat-row:nth-child(3) .s10-plat-pct { color:#1877f2; }
+    .s10-plat-row:nth-child(4) .s10-plat-pct { color:#e1306c; }
+    .s10-plat-row:nth-child(5) .s10-plat-pct { color:#fbbf24; }
+
+    .s10-alerts { display:flex; flex-direction:column; gap:9px; }
+    .s10-alert  { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:8px; border:1px solid; }
+    .s10-alert.danger  { background:rgba(160,20,20,0.12);  border-color:rgba(220,40,40,0.25); }
+    .s10-alert.success { background:rgba(0,130,55,0.1);    border-color:rgba(0,180,70,0.22); }
+    .s10-alert.info    { background:rgba(160,110,0,0.1);   border-color:rgba(220,160,0,0.22); }
+    .s10-alert-dot  { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .s10-alert.danger  .s10-alert-dot { background:#f87171; }
+    .s10-alert.success .s10-alert-dot { background:#4ade80; }
+    .s10-alert.info    .s10-alert-dot { background:#fbbf24; }
+    .s10-alert-text { flex:1; font-size:0.78rem; font-weight:600; }
+    .s10-alert.danger  .s10-alert-text { color:#f87171; }
+    .s10-alert.success .s10-alert-text { color:#4ade80; }
+    .s10-alert.info    .s10-alert-text { color:#fbbf24; }
+    .s10-alert-time { font-size:0.64rem; color:rgba(170,170,170,0.5); flex-shrink:0; }
+
+    @keyframes barGrow58 { to{width:58%} }
+    @keyframes barGrow15 { to{width:15%} }
+    @keyframes barGrow13 { to{width:13%} }
+    @keyframes barGrow9  { to{width:9%} }
+    @keyframes barGrow5  { to{width:5%} }
+    #slide10.active .s10-header  { animation:fadeUp 0.6s 0.2s ease both; }
+    #slide10.active .s10-stats   { animation:fadeUp 0.6s 0.5s ease both; }
+    #slide10.active .s10-panels  { animation:fadeUp 0.6s 1.0s ease both; }
+    #slide10.active .s10-bar.yt  { animation:barGrow58 0.9s 1.4s ease both; }
+    #slide10.active .s10-bar.tg  { animation:barGrow15 0.9s 1.6s ease both; }
+    #slide10.active .s10-bar.fb  { animation:barGrow13 0.9s 1.8s ease both; }
+    #slide10.active .s10-bar.ig  { animation:barGrow9  0.9s 2.0s ease both; }
+    #slide10.active .s10-bar.web { animation:barGrow5  0.9s 2.2s ease both; }
+
+    /* ════ SLIDE 11 — The Result ════ */
+    #slide11 {
+      background:radial-gradient(ellipse at 50% 50%,#020d1f 0%,#000 75%);
+      flex-direction:column; align-items:center; justify-content:flex-start;
+      padding:24px 44px 18px; position:relative; overflow:hidden;
+    }
+    #slide11::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+
+    .s11-tag   { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(100,200,255,0.8); background:rgba(0,120,255,0.08); border:1px solid rgba(0,150,255,0.22); padding:4px 18px; border-radius:20px; display:flex; align-items:center; gap:7px; opacity:0; margin-bottom:8px; }
+    .s11-title { font-size:2.6rem; font-weight:900; text-align:center; margin-bottom:14px; opacity:0; line-height:1.1; }
+    .s11-title .s11-red  { color:#f87171; }
+    .s11-title .s11-blue { color:#3b82f6; }
+
+    .s11-main  { display:grid; grid-template-columns:1fr 90px 1fr; gap:0; align-items:center; width:100%; flex:1; margin-bottom:14px; }
+    .s11-panel { border-radius:14px; padding:18px 20px; display:flex; flex-direction:column; opacity:0; }
+    .s11-panel.before { border:1.5px solid rgba(220,50,50,0.45); background:rgba(140,15,15,0.08); margin-right:10px; }
+    .s11-panel.after  { border:1.5px solid rgba(0,190,80,0.45);  background:rgba(0,120,50,0.08);  margin-left:10px; }
+
+    .s11-badge { font-size:0.72rem; font-weight:800; letter-spacing:0.12em; padding:4px 18px; border-radius:20px; text-align:center; width:fit-content; margin:0 auto 14px; }
+    .s11-panel.before .s11-badge { color:#f87171; background:rgba(220,50,50,0.14); border:1px solid rgba(220,50,50,0.35); }
+    .s11-panel.after  .s11-badge { color:#4ade80; background:rgba(0,190,80,0.1);   border:1px solid rgba(0,200,80,0.32); }
+
+    .s11-items { display:flex; flex-direction:column; gap:10px; }
+    .s11-item  { display:flex; align-items:center; gap:11px; }
+    .s11-item-icon { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.95rem; flex-shrink:0; }
+    .s11-panel.before .s11-item-icon { background:rgba(220,50,50,0.14); border:1px solid rgba(220,50,50,0.25); }
+    .s11-panel.after  .s11-item-icon { background:rgba(0,190,80,0.12);  border:1px solid rgba(0,200,80,0.25); }
+    .s11-item-text { font-size:0.82rem; color:rgba(220,220,220,0.85); }
+
+    .s11-center { display:flex; align-items:center; justify-content:center; opacity:0; }
+    .s11-shield-svg { width:80px; height:92px; }
+    @keyframes shieldResultGlow {
+      0%,100% { filter:drop-shadow(0 0 18px rgba(0,180,255,0.8)) drop-shadow(0 0 36px rgba(0,100,255,0.5)); }
+      50%     { filter:drop-shadow(0 0 32px rgba(0,210,255,1))   drop-shadow(0 0 56px rgba(0,140,255,0.8)); }
+    }
+    #slide11.active .s11-shield-svg { animation:shieldResultGlow 3s 1.5s ease-in-out infinite; }
+
+    .s11-banner { display:flex; align-items:center; justify-content:center; gap:12px; padding:12px 36px; background:rgba(0,100,255,0.07); border:1px solid rgba(0,150,255,0.2); border-radius:40px; opacity:0; }
+    .s11-banner-icon { font-size:1.1rem; }
+    .s11-banner-text { font-size:0.98rem; font-weight:600; color:rgba(210,230,255,0.9); }
+
+    #slide11.active .s11-tag          { animation:fadeUp    0.5s 0.2s ease both; }
+    #slide11.active .s11-title        { animation:fadeUp    0.7s 0.4s ease both; }
+    #slide11.active .s11-panel.before { animation:slideRight 0.6s 0.8s ease both; }
+    #slide11.active .s11-center       { animation:countUp   0.6s 1.0s ease both; }
+    #slide11.active .s11-panel.after  { animation:slideLeft  0.6s 0.8s ease both; }
+    #slide11.active .s11-banner       { animation:fadeUp    0.5s 1.4s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ SLIDE 1 ══════════ -->
+<div class="slide active" id="slide1">
+  <h1 class="s1-title">Your film is being <span class="highlight">stolen</span> every day.</h1>
+  <div class="s1-divider"></div>
+  <div class="s1-flow">
+    <div class="s1-card">
+      <div class="s1-badge">1</div>
+      <div class="s1-icon">🎬</div>
+      <div class="s1-label">Recorded<br>in theatre</div>
+    </div>
+    <div class="s1-arrow">➤</div>
+    <div class="s1-card">
+      <div class="s1-badge">2</div>
+      <div class="s1-icon">📲</div>
+      <div class="s1-label">Shared across<br>Social Media</div>
+    </div>
+    <div class="s1-arrow">➤</div>
+    <div class="s1-card">
+      <div class="s1-badge">3</div>
+      <div class="s1-icon">🌐</div>
+      <div class="s1-label">Goes viral<br>online</div>
+    </div>
+    <div class="s1-arrow danger">➤</div>
+    <div class="s1-card danger">
+      <div class="s1-badge">4</div>
+      <div class="s1-icon">💸</div>
+      <div class="s1-label" style="color:#ff2a2a;font-weight:800;">Crores Lost<br><span style="color:#ffaaaa;font-size:0.82rem;font-weight:600;">in 1 week</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 2 ══════════ -->
+<div class="slide" id="slide2">
+  <div class="s2-left">
+    <div class="s2-title">
+      <span class="line1">No control.</span>
+      <span class="line2"><span class="red">No revenue.</span> No hope.</span>
+    </div>
+    <div class="s2-divider"></div>
+    <div class="s2-points">
+      <div class="s2-point"><div class="s2-point-icon">📉</div><div class="s2-point-text"><span class="red">60–80%</span> revenue gone</div></div>
+      <div class="s2-point"><div class="s2-point-icon">⚠️</div><div class="s2-point-text">No control over piracy</div></div>
+      <div class="s2-point"><div class="s2-point-icon">⏱️</div><div class="s2-point-text">Manual work — days wasted</div></div>
+      <div class="s2-point"><div class="s2-point-icon">⚖️</div><div class="s2-point-text">No court evidence</div></div>
+      <div class="s2-point"><div class="s2-point-icon">👥</div><div class="s2-point-text">Distributors lose trust</div></div>
+    </div>
+  </div>
+  <div class="s2-right">
+    <div class="s2-revenue-label">Revenue Loss</div>
+    <div class="s2-revenue-number">60–80%</div>
+    <div class="s2-chart">
+      <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+        <g class="chart-bars">
+          <rect x="10"  y="20"  width="36" height="140"/>
+          <rect x="60"  y="50"  width="36" height="110"/>
+          <rect x="110" y="80"  width="36" height="80"/>
+          <rect x="160" y="110" width="36" height="50"/>
+          <rect x="210" y="135" width="36" height="25"/>
+          <rect x="260" y="148" width="36" height="12"/>
+        </g>
+        <polyline class="chart-arrow" points="10,25 60,55 110,85 160,115 210,140 270,162"/>
+        <polygon  class="arrow-head"  points="270,162 252,148 278,145"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 3 ══════════ -->
+<div class="slide" id="slide3">
+  <div class="s3-radar">
+    <div class="s3-radar-ring" style="width:260px;height:260px;"></div>
+    <div class="s3-radar-ring" style="width:380px;height:380px;"></div>
+    <div class="s3-radar-ring" style="width:500px;height:500px;"></div>
+  </div>
+  <div class="s3-shield-wrap">
+    <div class="s3-shield">
+      <svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 4 L92 22 L92 58 Q92 88 50 112 Q8 88 8 58 L8 22 Z" fill="url(#shieldGrad)" stroke="rgba(255,180,80,0.8)" stroke-width="2"/>
+        <path d="M50 14 L82 28 L82 57 Q82 80 50 100 Q18 80 18 57 L18 28 Z" fill="rgba(60,20,0,0.7)"/>
+        <defs>
+          <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c85a00"/>
+            <stop offset="100%" stop-color="#3d1200"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="s3-shield-inner">🎞️</div>
+    </div>
+  </div>
+  <div class="s3-badge"><div class="s3-badge-dot"></div>THE SOLUTION</div>
+  <div class="s3-title-wrap">
+    <div class="t1">Movie Anti-Piracy</div>
+    <div class="t2">Protection System</div>
+  </div>
+  <div class="s3-subtitle">Finds, proves and removes piracy without you lifting a finger.</div>
+</div>
+
+<!-- ══════════ SLIDE 4 ══════════ -->
+<div class="slide" id="slide4">
+  <div class="s4-layout">
+
+    <!-- TOP: IR Detection -->
+    <div class="s4-card top">
+      <div class="s4-card-header">
+        <div class="s4-card-icon">📡</div>
+        <div class="s4-card-title">IR Detection</div>
+      </div>
+      <div class="s4-card-desc">940nm IR LEDs flood the screen — invisible to humans, any camera gets overexposed into white glare.</div>
+    </div>
+
+    <div class="s4-con-v top"></div>
+
+    <!-- MIDDLE ROW -->
+    <div class="s4-middle">
+
+      <!-- LEFT: Takedown -->
+      <div class="s4-card left">
+        <div class="s4-card-header">
+          <div class="s4-card-icon">🚫</div>
+          <div class="s4-card-title">Takedown System</div>
+        </div>
+        <div class="s4-card-desc">Scans YouTube, Telegram &amp; torrent sites 24/7 — auto-files DMCA takedowns with zero manual effort.</div>
+      </div>
+
+      <div class="s4-con-h rev left"></div>
+
+      <!-- SHIELD CENTER -->
+      <div class="s4-shield-wrap">
+        <div class="s4-orbit-ring" style="width:155px;height:155px;"></div>
+        <div class="s4-orbit-ring spin" style="width:195px;height:195px;border-style:dashed;"></div>
+        <div class="s4-orbit-ring" style="width:238px;height:238px;"></div>
+        <div class="s4-shield">
+          <svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="blueShield" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a6fff"/>
+                <stop offset="100%" stop-color="#001a4d"/>
+              </linearGradient>
+            </defs>
+            <path d="M50 2 L95 20 L95 58 Q95 90 50 113 Q5 90 5 58 L5 20 Z" fill="rgba(0,100,255,0.15)"/>
+            <path d="M50 6 L90 22 L90 58 Q90 86 50 108 Q10 86 10 58 L10 22 Z" fill="url(#blueShield)" stroke="#40aaff" stroke-width="1.5"/>
+            <path d="M50 14 L82 28 L82 57 Q82 80 50 98 Q18 80 18 57 L18 28 Z" fill="none" stroke="rgba(80,180,255,0.15)" stroke-width="1"/>
+          </svg>
+          <div class="s4-lock">🔒</div>
+        </div>
+      </div>
+
+      <div class="s4-con-h right"></div>
+
+      <!-- RIGHT: TPVM -->
+      <div class="s4-card right">
+        <div class="s4-card-header">
+          <div class="s4-card-icon">🖥️</div>
+          <div class="s4-card-title">TPVM</div>
+        </div>
+        <div class="s4-card-desc">Adds 7 invisible layers per frame — audience sees perfectly, any recording captures only distorted noise.</div>
+      </div>
+
+    </div>
+
+    <div class="s4-con-v bottom"></div>
+
+    <!-- BOTTOM: Watermarking -->
+    <div class="s4-card bottom">
+      <div class="s4-card-header">
+        <div class="s4-card-icon">🔏</div>
+        <div class="s4-card-title">Watermarking</div>
+      </div>
+      <div class="s4-card-desc">Invisible fingerprint per screen &amp; showtime — any leaked copy instantly traces back to the exact source.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 5: IR Detection ══════════ -->
+<div class="slide" id="slide5">
+  <div class="s5-left">
+    <div class="s5-tag">Physical Deterrent</div>
+    <h2 class="s5-title">IR <span class="s5-accent">Detection</span><br>System</h2>
+    <p class="s5-lead">940nm infrared LEDs flood the theatre screen — invisible to the human eye, but completely overexpose any recording camera.</p>
+    <div class="s5-steps">
+      <div class="s5-step">
+        <div class="s5-step-num">01</div>
+        <div class="s5-step-body">
+          <div class="s5-step-title">IR LEDs Activated</div>
+          <div class="s5-step-desc">Arrays of 940nm IR LEDs mounted around the screen emit a continuous invisible flood of infrared light across the entire display area.</div>
+        </div>
+      </div>
+      <div class="s5-step">
+        <div class="s5-step-num">02</div>
+        <div class="s5-step-body">
+          <div class="s5-step-title">Human Eye Unaffected</div>
+          <div class="s5-step-desc">940nm is beyond the visible spectrum. The audience sees nothing — the movie plays perfectly as intended with no disturbance.</div>
+        </div>
+      </div>
+      <div class="s5-step">
+        <div class="s5-step-num">03</div>
+        <div class="s5-step-body">
+          <div class="s5-step-title">Camera Sensor Overloaded</div>
+          <div class="s5-step-desc">Phone cameras detect IR wavelengths. The sensor gets completely flooded — recording turns to pure white glare, totally unusable.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s5-right">
+    <div class="s5-vis-label">What they see</div>
+    <div class="s5-compare">
+      <div class="s5-eye-box">
+        <div class="s5-eye-icon">👁️</div>
+        <div class="s5-eye-title">Human Eye</div>
+        <div class="s5-screen-preview clear">
+          <div class="s5-film-bars"></div>
+          <div class="s5-film-text">Crystal Clear</div>
+        </div>
+        <div class="s5-eye-status ok">✓ Normal viewing</div>
+      </div>
+      <div class="s5-vs">VS</div>
+      <div class="s5-eye-box danger">
+        <div class="s5-eye-icon">📱</div>
+        <div class="s5-eye-title">Camera</div>
+        <div class="s5-screen-preview glare">
+          <div class="s5-glare-effect"></div>
+          <div class="s5-film-text white">White Glare</div>
+        </div>
+        <div class="s5-eye-status bad">✗ Unusable footage</div>
+      </div>
+    </div>
+    <div class="s5-wavelength">
+      <span class="s5-wave-label">Wavelength</span>
+      <span class="s5-wave-val">940 nm</span>
+      <span class="s5-wave-tag">Near-Infrared</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 6: TPVM ══════════ -->
+<div class="slide" id="slide6">
+  <div class="s6-left">
+    <div class="s6-tag">Visual Disruption</div>
+    <h2 class="s6-title">TPVM<br><span class="s6-accent">Technology</span></h2>
+    <p class="s6-lead">Temporal Pixel Visual Masking adds 7 invisible layers to every movie frame — perfect for the audience, completely distorted for any recording camera.</p>
+    <div class="s6-steps">
+      <div class="s6-step">
+        <div class="s6-step-num">01</div>
+        <div class="s6-step-body">
+          <div class="s6-step-title">7 Invisible Layers Per Frame</div>
+          <div class="s6-step-desc">TPVM injects 7 imperceptible masking layers onto every frame of the movie in real time during projection.</div>
+        </div>
+      </div>
+      <div class="s6-step">
+        <div class="s6-step-num">02</div>
+        <div class="s6-step-body">
+          <div class="s6-step-title">Audience Sees Perfectly</div>
+          <div class="s6-step-desc">Human persistence of vision merges the layers into a single clear image — the theatre experience is completely unaffected.</div>
+        </div>
+      </div>
+      <div class="s6-step">
+        <div class="s6-step-num">03</div>
+        <div class="s6-step-body">
+          <div class="s6-step-title">Recording Becomes Unusable</div>
+          <div class="s6-step-desc">Camera sensors capture each layer separately, producing a distorted, flickering, unwatchable recording.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s6-right">
+    <div class="s6-vis-label">What they see</div>
+    <div class="s6-compare">
+      <div class="s6-view-box">
+        <div class="s6-view-icon">👁️</div>
+        <div class="s6-view-title">Human Eye</div>
+        <div class="s6-preview clear">
+          <div class="s6-film-bars2"></div>
+          <div class="s6-preview-label ok">Crystal Clear</div>
+        </div>
+        <div class="s6-view-status ok">✓ Normal viewing</div>
+      </div>
+      <div class="s6-vs">VS</div>
+      <div class="s6-view-box distorted">
+        <div class="s6-view-icon">📱</div>
+        <div class="s6-view-title">Camera</div>
+        <div class="s6-preview bad">
+          <div class="s6-distort-overlay"></div>
+          <div class="s6-distort-lines"></div>
+          <div class="s6-preview-label bad">Distorted</div>
+        </div>
+        <div class="s6-view-status bad">✗ Flickering &amp; unusable</div>
+      </div>
+    </div>
+    <div class="s6-stat">
+      <span class="s6-stat-label">Masking Layers</span>
+      <span class="s6-stat-val">7</span>
+      <span class="s6-stat-tag">Per Frame</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 7: Watermarking ══════════ -->
+<div class="slide" id="slide7">
+  <div class="s7-left">
+    <div class="s7-tag">Digital Forensics</div>
+    <h2 class="s7-title">Digital<br><span class="s7-accent">Watermarking</span></h2>
+    <p class="s7-lead">Every frame carries an invisible, unique fingerprint tied to a specific screen and showtime — if a pirated copy leaks, the source is identified instantly.</p>
+    <div class="s7-steps">
+      <div class="s7-step">
+        <div class="s7-step-num">01</div>
+        <div class="s7-step-body">
+          <div class="s7-step-title">Invisible Fingerprint Embedded</div>
+          <div class="s7-step-desc">A unique watermark is embedded into every frame, invisible to the audience but detectable by forensic analysis tools.</div>
+        </div>
+      </div>
+      <div class="s7-step">
+        <div class="s7-step-num">02</div>
+        <div class="s7-step-body">
+          <div class="s7-step-title">Unique to Screen &amp; Showtime</div>
+          <div class="s7-step-desc">Each watermark encodes the exact theatre, screen number, and showtime — making every print uniquely traceable.</div>
+        </div>
+      </div>
+      <div class="s7-step">
+        <div class="s7-step-num">03</div>
+        <div class="s7-step-body">
+          <div class="s7-step-title">Instant Source Identification</div>
+          <div class="s7-step-desc">When a pirated copy is found online, the watermark is extracted and the exact leaking source is identified immediately.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s7-right">
+    <div class="s7-wm-frame">
+      <div class="s7-wm-film"></div>
+      <div class="s7-wm-dots"></div>
+      <div class="s7-wm-badge">WM#4F2A9C</div>
+    </div>
+    <div class="s7-wm-label">Watermarked frame — invisible to viewers</div>
+    <div class="s7-trace">
+      <div class="s7-trace-title">— Source Trace Report —</div>
+      <div class="s7-trace-row">
+        <span class="s7-trace-key">Theatre</span>
+        <span class="s7-trace-val">PVR Phoenix, Screen 4</span>
+      </div>
+      <div class="s7-trace-row">
+        <span class="s7-trace-key">Showtime</span>
+        <span class="s7-trace-val">Fri 21:30 Show</span>
+      </div>
+      <div class="s7-trace-row">
+        <span class="s7-trace-key">Status</span>
+        <span class="s7-trace-val" style="color:#00dd77">✓ Source Identified</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 8: Takedown System ══════════ -->
+<div class="slide" id="slide8">
+  <div class="s8-left">
+    <div class="s8-tag">Automated Enforcement</div>
+    <h2 class="s8-title">Takedown<br><span class="s8-accent">System</span></h2>
+    <p class="s8-lead">An automated scanner continuously monitors YouTube, Telegram, torrent sites, and social media — detecting and removing pirated content with zero manual effort.</p>
+    <div class="s8-steps">
+      <div class="s8-step">
+        <div class="s8-step-num">01</div>
+        <div class="s8-step-body">
+          <div class="s8-step-title">24/7 Platform Scanning</div>
+          <div class="s8-step-desc">Automated crawlers scan YouTube, Telegram, torrent trackers, and social media continuously for any pirated uploads.</div>
+        </div>
+      </div>
+      <div class="s8-step">
+        <div class="s8-step-num">02</div>
+        <div class="s8-step-body">
+          <div class="s8-step-title">Instant Detection</div>
+          <div class="s8-step-desc">AI-powered matching identifies pirated copies using watermark fingerprints and audio/video signatures within minutes of upload.</div>
+        </div>
+      </div>
+      <div class="s8-step">
+        <div class="s8-step-num">03</div>
+        <div class="s8-step-body">
+          <div class="s8-step-title">Auto DMCA Takedown</div>
+          <div class="s8-step-desc">DMCA notices are automatically filed and content is removed — no manual effort, no delays, no missed pirated copies.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s8-right">
+    <div class="s8-platforms">
+      <div class="s8-platform hit">
+        <div class="s8-plat-icon">▶️</div>
+        <div class="s8-plat-name">YouTube</div>
+        <div class="s8-plat-status done">✓ Monitored</div>
+      </div>
+      <div class="s8-platform hit">
+        <div class="s8-plat-icon">✈️</div>
+        <div class="s8-plat-name">Telegram</div>
+        <div class="s8-plat-status done">✓ Monitored</div>
+      </div>
+      <div class="s8-platform hit">
+        <div class="s8-plat-icon">📘</div>
+        <div class="s8-plat-name">Facebook</div>
+        <div class="s8-plat-status done">✓ Monitored</div>
+      </div>
+      <div class="s8-platform hit">
+        <div class="s8-plat-icon">📸</div>
+        <div class="s8-plat-name">Instagram</div>
+        <div class="s8-plat-status done">✓ Monitored</div>
+      </div>
+      <div class="s8-platform hit">
+        <div class="s8-plat-icon">🌐</div>
+        <div class="s8-plat-name">Torrent Sites</div>
+        <div class="s8-plat-status scanning">⟳ Scanning</div>
+      </div>
+    </div>
+    <div class="s8-counter">
+      <div class="s8-counter-val">100%</div>
+      <div class="s8-counter-label">Automated — No Manual Effort</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 9: API Access ══════════ -->
+<div class="slide" id="slide9">
+  <div class="s9-left">
+    <div class="s9-tag">Takedown System — Platform Authorization</div>
+    <h2 class="s9-title">Platform<br><span class="s9-accent">API Access</span></h2>
+    <p class="s9-lead">Platforms like YouTube, Telegram, and torrent networks only allow automated content removal through authorized API access. You must apply and get approved first.</p>
+    <div class="s9-note">
+      Without API access, every takedown must be filed manually — slow, limited, and easy to miss. API access makes removal instant and unlimited.
+    </div>
+  </div>
+  <div class="s9-right">
+    <div class="s9-grid-label">Submit these to get API access →</div>
+    <div class="s9-grid">
+
+      <!-- Copyright Certificate -->
+      <div class="s9-card">
+        <div class="s9-card-top">
+          <div class="s9-card-icon gold">📜</div>
+          <div>
+            <div class="s9-card-title">Copyright Certificate</div>
+            <div class="s9-card-sub">Legal ownership proof</div>
+          </div>
+        </div>
+        <div class="s9-card-points">
+          <div class="s9-point">Registered certificate from Copyright Office confirming ownership of the film</div>
+          <div class="s9-point">Mandatory for filing DMCA claims on all major platforms</div>
+          <div class="s9-point">Covers screenplay, soundtrack, and visual content</div>
+        </div>
+      </div>
+
+      <!-- Content ID -->
+      <div class="s9-card">
+        <div class="s9-card-top">
+          <div class="s9-card-icon blue">🆔</div>
+          <div>
+            <div class="s9-card-title">Content ID</div>
+            <div class="s9-card-sub">Digital fingerprint system</div>
+          </div>
+        </div>
+        <div class="s9-card-points">
+          <div class="s9-point">YouTube Content ID fingerprint registered for video and audio tracks</div>
+          <div class="s9-point">Auto-matches any re-upload across the entire YouTube network</div>
+          <div class="s9-point">Enables instant claim, block, or monetise on matched content</div>
+        </div>
+      </div>
+
+      <!-- Metadata -->
+      <div class="s9-card">
+        <div class="s9-card-top">
+          <div class="s9-card-icon green">📋</div>
+          <div>
+            <div class="s9-card-title">Metadata</div>
+            <div class="s9-card-sub">Film identification data</div>
+          </div>
+        </div>
+        <div class="s9-card-points">
+          <div class="s9-point">Movie title, release date, ISAN number, production house details</div>
+          <div class="s9-point">Cast, crew, distributor, and territory licensing info</div>
+          <div class="s9-point">Used to cross-reference and verify pirated copies across platforms</div>
+        </div>
+      </div>
+
+      <!-- Documentation -->
+      <div class="s9-card">
+        <div class="s9-card-top">
+          <div class="s9-card-icon purple">📁</div>
+          <div>
+            <div class="s9-card-title">Documentation</div>
+            <div class="s9-card-sub">Chain of title &amp; agreements</div>
+          </div>
+        </div>
+        <div class="s9-card-points">
+          <div class="s9-point">Chain of title documents proving unbroken rights ownership</div>
+          <div class="s9-point">Distribution agreements and NOC from producers</div>
+          <div class="s9-point">Platform-specific takedown affidavits and legal declarations</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Result row -->
+    <div class="s9-result">
+      <div class="s9-result-icon">✅</div>
+      <div>
+        <div class="s9-result-text">API Access Granted → Automated Takedowns Enabled</div>
+        <div class="s9-result-sub">Once approved, the system files DMCA notices instantly across all platforms — no manual work needed</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 10: Producer Dashboard ══════════ -->
+<div class="slide" id="slide10">
+  <div class="s10-header">
+    <div class="s10-tag">Your Control Room</div>
+    <div class="s10-title-row">
+      <div class="s10-title-icon">📊</div>
+      <h2 class="s10-h1">Producer <span>Dashboard</span></h2>
+    </div>
+  </div>
+
+  <div class="s10-stats">
+    <div class="s10-stat red">
+      <div class="s10-stat-icon">🛡️</div>
+      <div>
+        <div class="s10-stat-val">1,247</div>
+        <div class="s10-stat-label">Piracy links found</div>
+      </div>
+    </div>
+    <div class="s10-stat green">
+      <div class="s10-stat-icon">✅</div>
+      <div>
+        <div class="s10-stat-val">1,198</div>
+        <div class="s10-stat-label">Links removed</div>
+      </div>
+    </div>
+    <div class="s10-stat amber">
+      <div class="s10-stat-icon">⏳</div>
+      <div>
+        <div class="s10-stat-val">58</div>
+        <div class="s10-stat-label">Still pending</div>
+      </div>
+    </div>
+    <div class="s10-stat blue">
+      <div class="s10-stat-icon">🎯</div>
+      <div>
+        <div class="s10-stat-val">96%</div>
+        <div class="s10-stat-label">Success rate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="s10-panels">
+    <div class="s10-panel">
+      <div class="s10-panel-header">
+        <span class="s10-panel-icon">🥧</span>
+        <span class="s10-panel-title">Platform Breakdown</span>
+      </div>
+      <div class="s10-plat-rows">
+        <div class="s10-plat-row">
+          <div class="s10-plat-logo yt">▶</div>
+          <span class="s10-plat-name">YouTube</span>
+          <div class="s10-bar-wrap"><div class="s10-bar yt"></div></div>
+          <span class="s10-plat-pct">58%</span>
+        </div>
+        <div class="s10-plat-row">
+          <div class="s10-plat-logo tg">✈</div>
+          <span class="s10-plat-name">Telegram</span>
+          <div class="s10-bar-wrap"><div class="s10-bar tg"></div></div>
+          <span class="s10-plat-pct">15%</span>
+        </div>
+        <div class="s10-plat-row">
+          <div class="s10-plat-logo fb">f</div>
+          <span class="s10-plat-name">Facebook</span>
+          <div class="s10-bar-wrap"><div class="s10-bar fb"></div></div>
+          <span class="s10-plat-pct">13%</span>
+        </div>
+        <div class="s10-plat-row">
+          <div class="s10-plat-logo ig">📸</div>
+          <span class="s10-plat-name">Instagram</span>
+          <div class="s10-bar-wrap"><div class="s10-bar ig"></div></div>
+          <span class="s10-plat-pct">9%</span>
+        </div>
+        <div class="s10-plat-row">
+          <div class="s10-plat-logo web">🌐</div>
+          <span class="s10-plat-name">Websites</span>
+          <div class="s10-bar-wrap"><div class="s10-bar web"></div></div>
+          <span class="s10-plat-pct">5%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="s10-panel">
+      <div class="s10-panel-header">
+        <span class="s10-panel-icon">🔔</span>
+        <span class="s10-panel-title">Live Alerts</span>
+      </div>
+      <div class="s10-alerts">
+        <div class="s10-alert danger">
+          <div class="s10-alert-dot"></div>
+          <span class="s10-alert-text">New link on YouTube</span>
+          <span class="s10-alert-time">2 min ago</span>
+        </div>
+        <div class="s10-alert danger">
+          <div class="s10-alert-dot"></div>
+          <span class="s10-alert-text">New link on Telegram</span>
+          <span class="s10-alert-time">5 min ago</span>
+        </div>
+        <div class="s10-alert danger">
+          <div class="s10-alert-dot"></div>
+          <span class="s10-alert-text">New link on Facebook</span>
+          <span class="s10-alert-time">11 min ago</span>
+        </div>
+        <div class="s10-alert danger">
+          <div class="s10-alert-dot"></div>
+          <span class="s10-alert-text">New link on Instagram</span>
+          <span class="s10-alert-time">18 min ago</span>
+        </div>
+        <div class="s10-alert success">
+          <div class="s10-alert-dot"></div>
+          <span class="s10-alert-text">✓ Websites link removed</span>
+          <span class="s10-alert-time">1 hour ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 11: The Result ══════════ -->
+<div class="slide" id="slide11">
+  <div class="s11-tag">🛡 THE RESULT</div>
+  <h2 class="s11-title"><span class="s11-red">Piracy Controlled.</span> <span class="s11-blue">Producer Safe.</span></h2>
+
+  <div class="s11-main">
+    <!-- BEFORE -->
+    <div class="s11-panel before">
+      <div class="s11-badge">BEFORE</div>
+      <div class="s11-items">
+        <div class="s11-item"><div class="s11-item-icon">📉</div><span class="s11-item-text">Revenue gone — 80% loss week 1</span></div>
+        <div class="s11-item"><div class="s11-item-icon">⚠️</div><span class="s11-item-text">No control over piracy</span></div>
+        <div class="s11-item"><div class="s11-item-icon">⏰</div><span class="s11-item-text">Manual work — days wasted</span></div>
+        <div class="s11-item"><div class="s11-item-icon">⚖️</div><span class="s11-item-text">No court evidence</span></div>
+        <div class="s11-item"><div class="s11-item-icon">👥</div><span class="s11-item-text">Distributors lose trust</span></div>
+      </div>
+    </div>
+
+    <!-- Center Shield -->
+    <div class="s11-center">
+      <svg class="s11-shield-svg" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sg11" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#1a6fff"/>
+            <stop offset="100%" stop-color="#0033cc"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 5 L90 20 L90 55 C90 78 70 95 50 105 C30 95 10 78 10 55 L10 20 Z" fill="url(#sg11)" stroke="rgba(80,180,255,0.6)" stroke-width="2"/>
+        <path d="M50 18 L78 30 L78 55 C78 72 65 85 50 93 C35 85 22 72 22 55 L22 30 Z" fill="none" stroke="rgba(120,200,255,0.2)" stroke-width="1.5"/>
+        <polyline points="34,57 45,68 66,46" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- AFTER -->
+    <div class="s11-panel after">
+      <div class="s11-badge">AFTER</div>
+      <div class="s11-items">
+        <div class="s11-item"><div class="s11-item-icon">🛡️</div><span class="s11-item-text">Revenue protected from Day 1</span></div>
+        <div class="s11-item"><div class="s11-item-icon">⚙️</div><span class="s11-item-text">Full control — 24/7 automation</span></div>
+        <div class="s11-item"><div class="s11-item-icon">👤</div><span class="s11-item-text">Zero manual work needed</span></div>
+        <div class="s11-item"><div class="s11-item-icon">📄</div><span class="s11-item-text">Court-ready evidence always ready</span></div>
+        <div class="s11-item"><div class="s11-item-icon">📁</div><span class="s11-item-text">No movie upload — just documents</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="s11-banner">
+    <span class="s11-banner-icon">🛡️</span>
+    <span class="s11-banner-text">Your film is protected from Day 1.</span>
+  </div>
+</div>
+
+<!-- progress bar + invisible pause button -->
+<div class="s-progress" id="progressBar"></div>
+<button class="s-pause-btn" id="pauseBtn" onclick="togglePause()" title="Pause / Resume"></button>
+
+<script>
+  const slides   = document.querySelectorAll('.slide');
+  const bar      = document.getElementById('progressBar');
+
+  const durations = [6000,6000,6000,10000,7000,7000,7000,7000,7000,7000,8000];
+
+  let current   = 0;
+  let paused    = false;
+  let timer     = null;
+  let barAnim   = null;
+  let elapsed   = 0;      // ms already spent on current slide
+  let pausedAt  = 0;      // performance.now() when paused
+  let slideStart = 0;     // performance.now() when slide started
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    elapsed = 0;
+    startTimer();
+  }
+
+  function startTimer() {
+    clearTimeout(timer);
+    cancelAnimationFrame(barAnim);
+
+    const dur  = durations[current] || 7000;
+    const remaining = dur - elapsed;
+    slideStart = performance.now();
+
+    function animBar(now) {
+      const pct = Math.min((elapsed + (now - slideStart)) / dur * 100, 100);
+      bar.style.width = pct + '%';
+      if (pct < 100) barAnim = requestAnimationFrame(animBar);
+    }
+    barAnim = requestAnimationFrame(animBar);
+    timer = setTimeout(() => goTo(current + 1), remaining);
+  }
+
+  function pause() {
+    if (paused) return;
+    paused = true;
+    elapsed += performance.now() - slideStart;
+    clearTimeout(timer);
+    cancelAnimationFrame(barAnim);
+  }
+
+  function resume() {
+    if (!paused) return;
+    paused = false;
+    startTimer();
+  }
+
+  function togglePause() {
+    paused ? resume() : pause();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === ' ') { e.preventDefault(); togglePause(); }
+    if (!paused) {
+      if (e.key==='ArrowRight'||e.key==='ArrowDown') goTo(current + 1);
+      if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   goTo(current - 1);
+    }
+  });
+
+  startTimer();
+</script>
+</body>
+</html>
