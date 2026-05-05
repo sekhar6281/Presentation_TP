@@ -725,9 +725,9 @@
       #slide1 {
         flex-direction:column !important;
         align-items:center !important;
-        justify-content:flex-start !important;
+        justify-content:center !important;
         gap:0 !important;
-        padding:52px 16px 16px !important;
+        padding:48px 16px 16px !important;
       }
       .s1-title {
         font-size:1.2rem !important; text-align:center !important;
@@ -737,39 +737,36 @@
         width:55% !important; margin-top:0 !important;
         margin-bottom:16px !important; animation:none !important;
       }
-      /* ── 2×2 grid — fills remaining height ── */
+      /* ── 2×2 square grid ── */
       .s1-flow {
         display:grid !important;
         grid-template-columns:1fr 1fr !important;
-        grid-auto-rows:1fr !important;
         gap:12px !important;
         width:100% !important;
-        flex:1 !important;
-        align-content:stretch !important;
       }
       .s1-arrow { display:none !important; }
       .s1-card {
-        width:auto !important; height:auto !important;
-        min-height:0 !important; align-self:stretch !important;
+        width:auto !important; min-height:0 !important;
+        aspect-ratio:1/1 !important;
         flex-direction:column !important;
         align-items:center !important;
         justify-content:center !important;
         gap:10px !important;
-        padding:16px 10px !important;
-        border-radius:12px !important;
+        padding:14px !important;
+        border-radius:16px !important;
       }
       .s1-badge {
         position:static !important; transform:none !important;
         width:30px !important; height:30px !important;
         font-size:0.8rem !important;
       }
-      .s1-icon { font-size:2.2rem !important; }
+      .s1-icon { font-size:2.4rem !important; line-height:1 !important; }
       .s1-label {
         font-size:0.82rem !important; text-align:center !important;
         line-height:1.4 !important;
       }
       .danger-arrows { display:none !important; }
-      .rupee { font-size:1.6rem !important; }
+      .rupee { font-size:1.8rem !important; }
 
       /* ────── SLIDE 2 ────── */
       #slide2 {
