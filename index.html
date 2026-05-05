@@ -6,9 +6,9 @@
   <title>Movie Anti-Piracy Protection System</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Segoe UI',sans-serif; background:#000; color:#fff; overflow:hidden; width:100vw; height:100vh; }
+    body { font-family:'Segoe UI',sans-serif; background:#000; color:#fff; overflow:hidden; width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; }
 
-    .slide { display:none; width:100vw; height:100vh; position:absolute; top:0; left:0; overflow:hidden; }
+    .slide { display:none; width:1440px; height:810px; position:absolute; top:0; left:0; overflow:hidden; }
     .slide.active { display:flex; }
 
     /* progress bar */
@@ -670,6 +670,12 @@
     #slide11.active .s11-center       { animation:countUp   0.6s 1.0s ease both; }
     #slide11.active .s11-panel.after  { animation:slideLeft  0.6s 0.8s ease both; }
     #slide11.active .s11-banner       { animation:fadeUp    0.5s 1.4s ease both; }
+    /* ═══ PRESENTATION WRAPPER — responsive scale ═══ */
+    .presentation-wrapper {
+      width:1440px; height:810px;
+      position:absolute;
+      transform-origin:top left;
+    }
     /* ═══ LANGUAGE TOGGLE ═══ */
     .lang-toggle {
       position:fixed; top:14px; right:18px; z-index:9999;
@@ -687,6 +693,8 @@
   </style>
 </head>
 <body>
+
+<div class="presentation-wrapper" id="presentationWrapper">
 
 <!-- ══════════ SLIDE 1 ══════════ -->
 <div class="slide active" id="slide1">
@@ -1378,6 +1386,8 @@
 </div>
 </div>
 
+</div><!-- /presentation-wrapper -->
+
 <!-- language toggle -->
 <div class="lang-toggle">
   <button class="lang-btn active" id="btnEn" onclick="switchLang('en')">EN</button>
@@ -1834,6 +1844,21 @@
       if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   goTo(current - 1);
     }
   });
+
+  // ══ Responsive scaling ══
+  function scalePresentation() {
+    const wrapper = document.getElementById('presentationWrapper');
+    const scaleX  = window.innerWidth  / 1440;
+    const scaleY  = window.innerHeight / 810;
+    const scale   = Math.min(scaleX, scaleY);
+    const offsetX = (window.innerWidth  - 1440 * scale) / 2;
+    const offsetY = (window.innerHeight - 810  * scale) / 2;
+    wrapper.style.transform = `scale(${scale})`;
+    wrapper.style.left = offsetX + 'px';
+    wrapper.style.top  = offsetY + 'px';
+  }
+  window.addEventListener('resize', scalePresentation);
+  scalePresentation();
 
   // Init
   applyTranslations('en');
