@@ -440,6 +440,7 @@
     .s8-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
     .s8-title .s8-accent { color:#f97316; }
     .s8-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
+    .s8-lead2 { font-size:0.82rem; color:rgba(200,200,200,0.68); line-height:1.6; max-width:430px; opacity:0; }
     .s8-blocks { display:flex; flex-direction:column; gap:8px; }
     .s8-block  { padding:8px 14px; border-radius:10px; background:rgba(249,115,22,0.04); border:1px solid rgba(249,115,22,0.12); opacity:0; transition:background 0.3s,border-color 0.3s; }
     .s8-block:hover { background:rgba(249,115,22,0.09); border-color:rgba(249,115,22,0.28); }
@@ -462,7 +463,8 @@
     @keyframes tdPulse { 0%,100%{box-shadow:0 0 16px rgba(249,115,22,0.2)} 50%{box-shadow:0 0 32px rgba(249,115,22,0.5)} }
     #slide8.active .s8-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s8-lead  { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s8-lead2 { animation:fadeUp 1.0s 3.6s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
@@ -944,7 +946,7 @@
       .s8-left::after { display:none !important; }
       .s8-right { flex:none !important; width:100% !important; padding:0 !important; gap:14px !important; align-items:flex-start !important; }
       .s8-title { font-size:1.6rem !important; }
-      .s8-lead  { font-size:0.8rem !important; }
+      .s8-lead,.s8-lead2  { font-size:0.8rem !important; }
       .s8-block { padding:6px 10px !important; }
       .s8-block-heading { font-size:0.8rem !important; }
       .s8-block-desc    { font-size:0.72rem !important; }
@@ -1028,7 +1030,7 @@
       .s5-right,.s6-right,.s7-right,.s8-right { padding:0 10px 0 0 !important; gap:8px !important; }
       .s5-title,.s6-title,.s7-title,.s8-title { font-size:1.4rem !important; }
       .s5-block,.s6-block,.s7-block,.s8-block { padding:5px 8px !important; }
-      .s5-lead,.s6-lead,.s7-lead,.s8-lead { font-size:0.72rem !important; line-height:1.4 !important; }
+      .s5-lead,.s6-lead,.s7-lead,.s8-lead,.s8-lead2 { font-size:0.72rem !important; line-height:1.4 !important; }
       /* Slide 1 landscape */
       #slide1 { gap:8px !important; padding:8px 10px !important; }
       .s1-title { font-size:0.95rem !important; }
@@ -1398,6 +1400,7 @@
     <div class="s8-tag">Automated Enforcement</div>
     <h2 class="s8-title">Takedown<br><span class="s8-accent">System</span></h2>
     <p class="s8-lead">Your film releases. Piracy attempts start on day one. Our Takedown System is already running — scanning every platform, every minute, removing every copy before it spreads. You focus on your film. We handle the rest.</p>
+    <p class="s8-lead2">Every pirated copy online is direct box-office revenue walking out the door. The Takedown System stops it at the source — not after the damage spreads, but the moment it appears. Automated across 50+ platforms, your film's earnings are protected from the first hour of release to the last day of its run.</p>
     <div class="s8-blocks">
       <div class="s8-block">
         <div class="s8-block-heading">24/7 Automated Surveillance.</div>
@@ -1865,6 +1868,7 @@
         tag: 'Automated Enforcement',
         title: 'Takedown<br><span class="s8-accent">System</span>',
         lead: 'Your film releases. Piracy attempts start on day one. Our Takedown System is already running — scanning every platform, every minute, removing every copy before it spreads. You focus on your film. We handle the rest.',
+        lead2: 'Every pirated copy online is direct box-office revenue walking out the door. The Takedown System stops it at the source — not after the damage spreads, but the moment it appears. Automated across 50+ platforms, your film\'s earnings are protected from the first hour of release to the last day of its run.',
         blockHeadings: ['24/7 Automated Surveillance.','AI Fingerprint Matching.','Instant DMCA. Instant Removal.'],
         blockDescs: [
           'Our bots never sleep. YouTube, Telegram, Facebook, Instagram, and torrent sites — every platform is monitored every minute of every day. The moment any pirated copy of your film surfaces anywhere online, the system sees it before you do.',
@@ -1875,8 +1879,8 @@
         platActions: [
           'Your film\'s fingerprint is registered with YouTube Content ID. Any upload — even 10 seconds — is auto-detected and removed within 10 minutes.',
           'Meta Rights Manager blocks pirated uploads before they go live. Anything that slips through is removed within 1 hour.',
-          'Bots scan thousands of Telegram channels around the clock. The moment a pirated link is found, a DMCA notice is auto-filed and removed within 24–48 hours. Re-appearances are caught and filed again.',
-          'DMCA notices are filed automatically to hosting providers and indexing sites. Links removed within 48–72 hours. System keeps tracking and filing until every copy is gone.'
+          'Bots scan thousands of Telegram channels around the clock. The moment a pirated link is found, a DMCA notice is auto-filed and removed within 24–48 hours.',
+          'DMCA notices are filed automatically to hosting providers and indexing sites. Links removed within 48–72 hours.'
         ],
         counterLabel: 'Automated — No Manual Effort'
       },
@@ -2007,6 +2011,7 @@
         tag: 'ఆటోమేటెడ్ అమలు',
         title: 'తొలగింపు<br><span class="s8-accent">వ్యవస్థ</span>',
         lead: 'మీ చిత్రం విడుదలవుతుంది. మొదటి రోజే పైరసీ ప్రయత్నాలు మొదలవుతాయి. మా తొలగింపు వ్యవస్థ ఇప్పటికే నడుస్తోంది — ప్రతి ప్లాట్‌ఫారమ్‌ను, ప్రతి నిమిషమూ స్కాన్ చేస్తూ, వ్యాపించే ముందే ప్రతి కాపీని తొలగిస్తోంది. మీరు మీ చిత్రంపై దృష్టి పెట్టండి. మిగతాది మేము చూసుకుంటాం.',
+        lead2: 'ఆన్‌లైన్‌లో ఉన్న ప్రతి పైరేటెడ్ కాపీ అంటే నేరుగా బాక్స్-ఆఫీస్ ఆదాయం పోవడమే. తొలగింపు వ్యవస్థ దాన్ని మూలం వద్దే ఆపుతుంది — నష్టం వ్యాపించిన తర్వాత కాదు, కనిపించిన క్షణమే. 50+ ప్లాట్‌ఫారమ్‌లలో ఆటోమేటెడ్‌గా పని చేస్తూ, విడుదల మొదటి గంట నుండి చివరి రోజు వరకు మీ చిత్రం ఆదాయాన్ని కాపాడుతుంది.',
         blockHeadings: ['24/7 ఆటోమేటెడ్ నిఘా.','AI ఫింగర్‌ప్రింట్ మ్యాచింగ్.','తక్షణ DMCA. తక్షణ తొలగింపు.'],
         blockDescs: [
           'మా బాట్లు ఎప్పుడూ నిద్రపోవు. YouTube, Telegram, Facebook, Instagram మరియు టోరెంట్ సైట్లు — ప్రతి ప్లాట్‌ఫారమ్‌ను రోజులో ప్రతి నిమిషమూ పర్యవేక్షిస్తాయి. ఆన్‌లైన్‌లో ఎక్కడైనా మీ చిత్రం పైరేటెడ్ కాపీ కనిపించిన క్షణమే, సిస్టమ్ మీకంటే ముందే గుర్తిస్తుంది.',
@@ -2018,7 +2023,7 @@
           'మీ చిత్రం ఫింగర్‌ప్రింట్ YouTube Content ID లో నమోదు చేయబడింది. ఏ అప్‌లోడ్ అయినా — 10 సెకన్లు అయినా — ఆటోమేటిగ్గా గుర్తించి 10 నిమిషాల్లో తొలగించబడుతుంది.',
           'Meta Rights Manager అప్‌లోడ్ సమయంలోనే పైరేటెడ్ కాపీలను బ్లాక్ చేస్తుంది. తప్పించుకున్నది 1 గంటలోపు తొలగించబడుతుంది.',
           'బాట్లు వేలాది Telegram ఛానల్లను నిరంతరం స్కాన్ చేస్తాయి. పైరేటెడ్ లింక్ కనుగొన్న క్షణమే DMCA నోటీసు ఆటోమేటిగ్గా దాఖలు అవుతుంది, 24–48 గంటల్లో తొలగించబడుతుంది.',
-          'హోస్టింగ్ ప్రొవైడర్లు మరియు ఇండెక్సింగ్ సైట్లకు DMCA నోటీసులు ఆటోమేటిగ్గా దాఖలు చేయబడతాయి. 48–72 గంటల్లో తొలగించబడుతుంది. పూర్తిగా పోయే వరకు ట్రాక్ చేస్తారు.'
+          'హోస్టింగ్ ప్రొవైడర్లు మరియు ఇండెక్సింగ్ సైట్లకు DMCA నోటీసులు ఆటోమేటిగ్గా దాఖలు చేయబడతాయి. 48–72 గంటల్లో తొలగించబడుతుంది.'
         ],
         counterLabel: 'ఆటోమేటెడ్ — మాన్యువల్ పని లేదు'
       },
@@ -2128,9 +2133,10 @@
     qa('#slide7 .s7-trace-val').forEach((el,i) => el.innerHTML = t.slide7.traceVals[i]);
 
     // Slide 8
-    q('#slide8 .s8-tag').innerHTML   = t.slide8.tag;
-    q('#slide8 .s8-title').innerHTML = t.slide8.title;
-    q('#slide8 .s8-lead').innerHTML  = t.slide8.lead;
+    q('#slide8 .s8-tag').innerHTML    = t.slide8.tag;
+    q('#slide8 .s8-title').innerHTML  = t.slide8.title;
+    q('#slide8 .s8-lead').innerHTML   = t.slide8.lead;
+    q('#slide8 .s8-lead2').innerHTML  = t.slide8.lead2;
     qa('#slide8 .s8-block-heading').forEach((el,i) => el.innerHTML = t.slide8.blockHeadings[i]);
     qa('#slide8 .s8-block-desc').forEach((el,i)    => el.innerHTML = t.slide8.blockDescs[i]);
     qa('#slide8 .s8-plat-name').forEach((el,i)   => el.innerHTML = t.slide8.platNames[i]);
