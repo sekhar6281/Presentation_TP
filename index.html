@@ -432,7 +432,7 @@
     #slide8::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(240,100,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
     #slide8::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(240,80,0,0.06) 0%,transparent 65%); pointer-events:none; }
 
-    .s8-left  { flex:0 0 54%; padding:40px 36px 40px 60px; display:flex; flex-direction:column; justify-content:center; gap:16px; position:relative; z-index:1; }
+    .s8-left  { flex:0 0 54%; padding:28px 32px 28px 56px; display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative; z-index:1; }
     .s8-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(240,100,0,0.25),transparent); }
     .s8-right { flex:0 0 46%; padding:24px 40px 24px 32px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px; position:relative; z-index:1; overflow:hidden; }
 
@@ -440,12 +440,11 @@
     .s8-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
     .s8-title .s8-accent { color:#f97316; }
     .s8-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
-    .s8-steps { display:flex; flex-direction:column; gap:12px; }
-    .s8-step  { display:flex; gap:14px; align-items:flex-start; padding:12px 16px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); opacity:0; transition:background 0.3s,border-color 0.3s; }
-    .s8-step:hover { background:rgba(240,90,0,0.06); border-color:rgba(249,115,22,0.22); }
-    .s8-step-num   { font-size:1.35rem; font-weight:900; color:rgba(249,115,22,0.45); line-height:1; flex-shrink:0; width:28px; }
-    .s8-step-title { font-size:0.87rem; font-weight:700; color:#fed7aa; margin-bottom:4px; }
-    .s8-step-desc  { font-size:0.78rem; color:rgba(195,195,195,0.7); line-height:1.5; }
+    .s8-blocks { display:flex; flex-direction:column; gap:8px; }
+    .s8-block  { padding:8px 14px; border-radius:10px; background:rgba(249,115,22,0.04); border:1px solid rgba(249,115,22,0.12); opacity:0; transition:background 0.3s,border-color 0.3s; }
+    .s8-block:hover { background:rgba(249,115,22,0.09); border-color:rgba(249,115,22,0.28); }
+    .s8-block-heading { font-size:0.88rem; font-weight:800; color:#fed7aa; margin-bottom:4px; letter-spacing:0.01em; }
+    .s8-block-desc    { font-size:0.74rem; color:rgba(200,200,200,0.72); line-height:1.5; }
 
     .s8-platforms { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; opacity:0; }
     .s8-platform  { display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; min-width:100px; transition:border-color 0.3s; }
@@ -464,9 +463,9 @@
     #slide8.active .s8-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-step:nth-child(1) { animation:s2PointIn 1.0s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-step:nth-child(2) { animation:s2PointIn 1.0s 5.5s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-step:nth-child(3) { animation:s2PointIn 1.0s 6.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s8-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s8-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s8-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-platforms { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both; }
     #slide8.active .s8-counter { animation:fadeUp 1.0s 10.8s cubic-bezier(0.22,1,0.36,1) both,tdPulse 2s 12s ease-in-out infinite; }
 
@@ -946,9 +945,9 @@
       .s8-right { flex:none !important; width:100% !important; padding:0 !important; gap:14px !important; align-items:flex-start !important; }
       .s8-title { font-size:1.6rem !important; }
       .s8-lead  { font-size:0.8rem !important; }
-      .s8-step { padding:8px 10px !important; }
-      .s8-step-title { font-size:0.8rem !important; }
-      .s8-step-desc  { font-size:0.72rem !important; }
+      .s8-block { padding:6px 10px !important; }
+      .s8-block-heading { font-size:0.8rem !important; }
+      .s8-block-desc    { font-size:0.72rem !important; }
       .s8-plat-card  { padding:10px 12px !important; }
       .s8-time-chip  { font-size:0.7rem !important; padding:3px 10px !important; }
       .s8-plat-action{ font-size:0.68rem !important; padding-left:0 !important; }
@@ -1028,7 +1027,7 @@
       .s5-left,.s6-left,.s7-left,.s8-left { padding:0 20px 0 10px !important; gap:8px !important; }
       .s5-right,.s6-right,.s7-right,.s8-right { padding:0 10px 0 0 !important; gap:8px !important; }
       .s5-title,.s6-title,.s7-title,.s8-title { font-size:1.4rem !important; }
-      .s5-step,.s6-step,.s7-step,.s8-step { padding:5px 8px !important; }
+      .s5-block,.s6-block,.s7-block,.s8-block { padding:5px 8px !important; }
       .s5-lead,.s6-lead,.s7-lead,.s8-lead { font-size:0.72rem !important; line-height:1.4 !important; }
       /* Slide 1 landscape */
       #slide1 { gap:8px !important; padding:8px 10px !important; }
@@ -1398,28 +1397,19 @@
   <div class="s8-left">
     <div class="s8-tag">Automated Enforcement</div>
     <h2 class="s8-title">Takedown<br><span class="s8-accent">System</span></h2>
-    <p class="s8-lead">An automated scanner continuously monitors YouTube, Telegram, torrent sites, and social media — detecting and removing pirated content with zero manual effort.</p>
-    <div class="s8-steps">
-      <div class="s8-step">
-        <div class="s8-step-num">01</div>
-        <div class="s8-step-body">
-          <div class="s8-step-title">24/7 Platform Scanning</div>
-          <div class="s8-step-desc">Automated crawlers scan YouTube, Telegram, torrent trackers, and social media continuously for any pirated uploads.</div>
-        </div>
+    <p class="s8-lead">The moment your film appears anywhere online without permission, our system finds it, flags it, and removes it — automatically. No calls from you. No lawyers. No manual work. Just piracy, stopped.</p>
+    <div class="s8-blocks">
+      <div class="s8-block">
+        <div class="s8-block-heading">Every Platform. Every Minute.</div>
+        <div class="s8-block-desc">Our automated bots scan YouTube, Telegram, Facebook, Instagram, and torrent sites 24 hours a day, 7 days a week — without pause. Your film is always being watched for.</div>
       </div>
-      <div class="s8-step">
-        <div class="s8-step-num">02</div>
-        <div class="s8-step-body">
-          <div class="s8-step-title">Instant Detection</div>
-          <div class="s8-step-desc">AI-powered matching identifies pirated copies using watermark fingerprints and audio/video signatures within minutes of upload.</div>
-        </div>
+      <div class="s8-block">
+        <div class="s8-block-heading">AI Detects. Instantly.</div>
+        <div class="s8-block-desc">Your film's watermark fingerprint is the key. The moment any pirated copy appears — even a 3-second clip — AI matches it and triggers automatic action.</div>
       </div>
-      <div class="s8-step">
-        <div class="s8-step-num">03</div>
-        <div class="s8-step-body">
-          <div class="s8-step-title">Auto DMCA Takedown</div>
-          <div class="s8-step-desc">DMCA notices are automatically filed and content is removed — no manual effort, no delays, no missed pirated copies.</div>
-        </div>
+      <div class="s8-block">
+        <div class="s8-block-heading">DMCA Filed. Content Gone.</div>
+        <div class="s8-block-desc">Notices are filed instantly across platforms. No manual filing, no waiting. Content removed. Re-uploads blocked. Done.</div>
       </div>
     </div>
   </div>
@@ -1435,7 +1425,7 @@
           <div class="s8-plat-name">YouTube</div>
           <div class="s8-time-chip fast">⚡ 10 minutes</div>
         </div>
-        <div class="s8-plat-action">We register your film's unique digital fingerprint with YouTube's Content ID system. The moment anyone uploads even a 10-second clip of your film — on any channel, anywhere in the world — YouTube automatically detects it and removes it within 10 minutes. Every re-upload is caught instantly. You do nothing.</div>
+        <div class="s8-plat-action">Your film's fingerprint is registered with YouTube Content ID. Any upload — even 10 seconds — is auto-detected and removed within 10 minutes. Every re-upload caught instantly.</div>
       </div>
 
       <!-- Meta (Instagram & Facebook) -->
@@ -1451,7 +1441,7 @@
           <div class="s8-plat-name">Instagram &amp; Facebook</div>
           <div class="s8-time-chip medium">⚡ 1 hour</div>
         </div>
-        <div class="s8-plat-action">Meta's Rights Manager scans every video at the moment of upload. Before the pirated copy even goes live, our system flags it and blocks it automatically. If anything slips through, it is removed within 1 hour. Your film never stays up long enough to spread.</div>
+        <div class="s8-plat-action">Meta Rights Manager blocks pirated uploads before they go live. Anything that slips through is removed within 1 hour. Your film never stays up long enough to spread.</div>
       </div>
 
       <!-- Telegram -->
@@ -1463,7 +1453,7 @@
           <div class="s8-plat-name">Telegram</div>
           <div class="s8-time-chip slow">⏱ 24–48 hours</div>
         </div>
-        <div class="s8-plat-action">Our bots scan thousands of Telegram channels around the clock. The moment a pirated copy is found, a DMCA notice is automatically filed with Telegram's content team. The link is removed within 24 to 48 hours. If it reappears on a new channel, our system finds it again and files again — until it is gone.</div>
+        <div class="s8-plat-action">Bots scan thousands of Telegram channels around the clock. The moment a pirated link is found, a DMCA notice is auto-filed and removed within 24–48 hours. Re-appearances are caught and filed again.</div>
       </div>
 
       <!-- Torrent Sites -->
@@ -1475,7 +1465,7 @@
           <div class="s8-plat-name">Torrent Sites</div>
           <div class="s8-time-chip slow">⏱ 48–72 hours</div>
         </div>
-        <div class="s8-plat-action">Torrent sites are harder to control — but not impossible. We continuously file DMCA notices to hosting providers and indexing sites. Links are taken down within 48 to 72 hours. Our system keeps tracking and filing until every single copy is removed from every site.</div>
+        <div class="s8-plat-action">DMCA notices are filed automatically to hosting providers and indexing sites. Links removed within 48–72 hours. System keeps tracking and filing until every copy is gone.</div>
       </div>
 
     </div>
@@ -1874,19 +1864,19 @@
       slide8: {
         tag: 'Automated Enforcement',
         title: 'Takedown<br><span class="s8-accent">System</span>',
-        lead: 'No pirated copy of your film survives more than 48 hours online. Our system watches every platform 24/7 and removes piracy automatically — before it spreads.',
-        stepTitles: ['24/7 Platform Scanning','AI-Powered Detection','Instant Auto Removal'],
-        stepDescs: [
-          'Our bots continuously scan YouTube, Telegram, Facebook, Instagram and torrent sites — every minute of every day.',
-          'Using your film\'s watermark fingerprint, AI identifies pirated copies within minutes — even a 3-second clip is caught.',
-          'DMCA notices filed automatically. Content removed. No phone calls. No legal team. No manual work needed.'
+        lead: 'The moment your film appears anywhere online without permission, our system finds it, flags it, and removes it — automatically. No calls from you. No lawyers. No manual work. Just piracy, stopped.',
+        blockHeadings: ['Every Platform. Every Minute.','AI Detects. Instantly.','DMCA Filed. Content Gone.'],
+        blockDescs: [
+          'Our automated bots scan YouTube, Telegram, Facebook, Instagram, and torrent sites 24 hours a day, 7 days a week — without pause. Your film is always being watched for.',
+          'Your film\'s watermark fingerprint is the key. The moment any pirated copy appears — even a 3-second clip — AI matches it and triggers automatic action.',
+          'Notices are filed instantly across platforms. No manual filing, no waiting. Content removed. Re-uploads blocked. Done.'
         ],
         platNames: ['YouTube','Instagram &amp; Facebook','Telegram','Torrent Sites'],
         platActions: [
-          'We register your film\'s unique digital fingerprint with YouTube\'s Content ID system. The moment anyone uploads even a 10-second clip of your film — on any channel, anywhere in the world — YouTube automatically detects it and removes it within 10 minutes. Every re-upload is caught instantly. You do nothing.',
-          'Meta\'s Rights Manager scans every video at the moment of upload. Before the pirated copy even goes live, our system flags it and blocks it automatically. If anything slips through, it is removed within 1 hour. Your film never stays up long enough to spread.',
-          'Our bots scan thousands of Telegram channels around the clock. The moment a pirated copy is found, a DMCA notice is automatically filed with Telegram\'s content team. The link is removed within 24 to 48 hours. If it reappears on a new channel, our system finds it again and files again — until it is gone.',
-          'Torrent sites are harder to control — but not impossible. We continuously file DMCA notices to hosting providers and indexing sites. Links are taken down within 48 to 72 hours. Our system keeps tracking and filing until every single copy is removed from every site.'
+          'Your film\'s fingerprint is registered with YouTube Content ID. Any upload — even 10 seconds — is auto-detected and removed within 10 minutes. Every re-upload caught instantly.',
+          'Meta Rights Manager blocks pirated uploads before they go live. Anything that slips through is removed within 1 hour. Your film never stays up long enough to spread.',
+          'Bots scan thousands of Telegram channels around the clock. The moment a pirated link is found, a DMCA notice is auto-filed and removed within 24–48 hours. Re-appearances are caught and filed again.',
+          'DMCA notices are filed automatically to hosting providers and indexing sites. Links removed within 48–72 hours. System keeps tracking and filing until every copy is gone.'
         ],
         counterLabel: 'Automated — No Manual Effort'
       },
@@ -2016,19 +2006,19 @@
       slide8: {
         tag: 'ఆటోమేటెడ్ అమలు',
         title: 'తొలగింపు<br><span class="s8-accent">వ్యవస్థ</span>',
-        lead: 'మీ చిత్రం పైరేటెడ్ కాపీ 48 గంటలకు మించి ఆన్‌లైన్‌లో మనజాలదు. మా వ్యవస్థ ప్రతి ప్లాట్‌ఫారమ్‌ను 24/7 పర్యవేక్షిస్తుంది — వ్యాప్తి చెందే ముందే పైరసీని తొలగిస్తుంది.',
-        stepTitles: ['24/7 ప్లాట్‌ఫారం స్కానింగ్','AI-ఆధారిత గుర్తింపు','తక్షణ ఆటో తొలగింపు'],
-        stepDescs: [
-          'మా బాట్లు YouTube, Telegram, Facebook, Instagram మరియు టోరెంట్ సైట్లను నిరంతరం స్కాన్ చేస్తాయి — ప్రతి రోజూ ప్రతి నిమిషం.',
-          'మీ చిత్రం వాటర్‌మార్క్ ఫింగర్‌ప్రింట్ ఉపయోగించి AI నిమిషాల్లోనే పైరేటెడ్ కాపీలను గుర్తిస్తుంది — 3 సెకన్ల క్లిప్ కూడా పట్టుబడుతుంది.',
-          'DMCA నోటీసులు ఆటోమేటిగ్గా ఫైల్ అవుతాయి. కంటెంట్ తొలగించబడుతుంది. ఫోన్ కాల్స్ అవసరం లేదు. మాన్యువల్ పని లేదు.'
+        lead: 'మీ చిత్రం అనుమతి లేకుండా ఆన్‌లైన్‌లో ఎక్కడ కనిపించినా, మా వ్యవస్థ దాన్ని కనుగొంటుంది, గుర్తిస్తుంది, తొలగిస్తుంది — ఆటోమేటిగ్గా. మీ నుండి ఏ కాల్ అవసరం లేదు. లాయర్లు అవసరం లేదు. మాన్యువల్ పని లేదు. పైరసీ, ఆగిపోతుంది.',
+        blockHeadings: ['ప్రతి ప్లాట్‌ఫారమ్. ప్రతి నిమిషం.','AI గుర్తిస్తుంది. తక్షణమే.','DMCA దాఖలు. కంటెంట్ తొలగించబడింది.'],
+        blockDescs: [
+          'మా ఆటోమేటెడ్ బాట్లు YouTube, Telegram, Facebook, Instagram మరియు టోరెంట్ సైట్లను రోజుకు 24 గంటలు, వారానికి 7 రోజులు స్కాన్ చేస్తాయి. మీ చిత్రానికి ఎల్లప్పుడూ రక్షణ ఉంది.',
+          'మీ చిత్రం వాటర్‌మార్క్ ఫింగర్‌ప్రింట్ కీ. ఏ పైరేటెడ్ కాపీ అయినా కనిపించిన క్షణమే — 3 సెకన్ల క్లిప్ అయినా సరే — AI దాన్ని గుర్తించి ఆటోమేటిగ్గా చర్య తీసుకుంటుంది.',
+          'నోటీసులు ప్లాట్‌ఫారమ్‌లలో తక్షణమే దాఖలు చేయబడతాయి. మాన్యువల్ దాఖలు లేదు, వేచి ఉండటం అవసరం లేదు. కంటెంట్ తొలగించబడింది. రీ-అప్‌లోడ్లు బ్లాక్. పూర్తయింది.'
         ],
         platNames: ['YouTube','Instagram &amp; Facebook','Telegram','టోరెంట్ సైట్లు'],
         platActions: [
-          'మేము మీ చిత్రం యొక్క ప్రత్యేక డిజిటల్ ఫింగర్‌ప్రింట్‌ను YouTube\'s Content ID సిస్టమ్‌లో నమోదు చేస్తాము. ఎవరైనా మీ చిత్రం 10 సెకన్ల క్లిప్ అయినా అప్‌లోడ్ చేసిన క్షణమే — ప్రపంచంలో ఏ ఛానల్‌లో అయినా — YouTube ఆటోమేటిగ్గా గుర్తించి 10 నిమిషాల్లోపు తొలగిస్తుంది. ప్రతి రీ-అప్‌లోడ్ తక్షణమే పట్టుబడుతుంది. మీరు ఏమీ చేయనవసరం లేదు.',
-          'Meta\'s Rights Manager అప్‌లోడ్ జరిగే సమయంలోనే ప్రతి వీడియోను స్కాన్ చేస్తుంది. పైరేటెడ్ కాపీ లైవ్ అవ్వకముందే మా వ్యవస్థ దాన్ని గుర్తించి ఆటోమేటిగ్గా బ్లాక్ చేస్తుంది. ఏదైనా తప్పించుకుంటే 1 గంటలోపు తొలగించబడుతుంది. మీ చిత్రం వ్యాపించేంత సేపు అక్కడ ఉండదు.',
-          'మా బాట్లు వేలాది Telegram ఛానల్లను గంటల తరబడి స్కాన్ చేస్తాయి. పైరేటెడ్ కాపీ కనుగొన్న క్షణమే Telegram కంటెంట్ టీమ్‌కు DMCA నోటీసు ఆటోమేటిగ్గా దాఖలు చేయబడుతుంది. 24 నుండి 48 గంటల్లో లింక్ తొలగించబడుతుంది. కొత్త ఛానల్‌లో మళ్ళీ కనిపిస్తే మా వ్యవస్థ మళ్ళీ కనుగొంటుంది మళ్ళీ దాఖలు చేస్తుంది — పూర్తిగా పోయే వరకు.',
-          'టోరెంట్ సైట్లను నియంత్రించడం కష్టం — కానీ అసాధ్యం కాదు. మేము హోస్టింగ్ ప్రొవైడర్లు మరియు ఇండెక్సింగ్ సైట్లకు నిరంతరం DMCA నోటీసులు దాఖలు చేస్తాము. 48 నుండి 72 గంటల్లో లింక్‌లు తొలగించబడతాయి. మా వ్యవస్థ ప్రతి సైట్‌లో ప్రతి కాపీ తొలగించబడే వరకు ట్రాక్ చేస్తూ దాఖలు చేస్తూనే ఉంటుంది.'
+          'మీ చిత్రం ఫింగర్‌ప్రింట్ YouTube Content ID లో నమోదు చేయబడింది. ఏ అప్‌లోడ్ అయినా — 10 సెకన్లు అయినా — ఆటోమేటిగ్గా గుర్తించి 10 నిమిషాల్లో తొలగించబడుతుంది. ప్రతి రీ-అప్‌లోడ్ తక్షణమే పట్టుబడుతుంది.',
+          'Meta Rights Manager అప్‌లోడ్ సమయంలోనే పైరేటెడ్ కాపీలను బ్లాక్ చేస్తుంది. తప్పించుకున్నది 1 గంటలోపు తొలగించబడుతుంది. మీ చిత్రం వ్యాపించేంత సేపు ఉండదు.',
+          'బాట్లు వేలాది Telegram ఛానల్లను నిరంతరం స్కాన్ చేస్తాయి. పైరేటెడ్ లింక్ కనుగొన్న క్షణమే DMCA నోటీసు ఆటోమేటిగ్గా దాఖలు అవుతుంది, 24–48 గంటల్లో తొలగించబడుతుంది.',
+          'హోస్టింగ్ ప్రొవైడర్లు మరియు ఇండెక్సింగ్ సైట్లకు DMCA నోటీసులు ఆటోమేటిగ్గా దాఖలు చేయబడతాయి. 48–72 గంటల్లో తొలగించబడుతుంది. పూర్తిగా పోయే వరకు ట్రాక్ చేస్తారు.'
         ],
         counterLabel: 'ఆటోమేటెడ్ — మాన్యువల్ పని లేదు'
       },
@@ -2141,8 +2131,8 @@
     q('#slide8 .s8-tag').innerHTML   = t.slide8.tag;
     q('#slide8 .s8-title').innerHTML = t.slide8.title;
     q('#slide8 .s8-lead').innerHTML  = t.slide8.lead;
-    qa('#slide8 .s8-step-title').forEach((el,i) => el.innerHTML = t.slide8.stepTitles[i]);
-    qa('#slide8 .s8-step-desc').forEach((el,i)  => el.innerHTML = t.slide8.stepDescs[i]);
+    qa('#slide8 .s8-block-heading').forEach((el,i) => el.innerHTML = t.slide8.blockHeadings[i]);
+    qa('#slide8 .s8-block-desc').forEach((el,i)    => el.innerHTML = t.slide8.blockDescs[i]);
     qa('#slide8 .s8-plat-name').forEach((el,i)   => el.innerHTML = t.slide8.platNames[i]);
     qa('#slide8 .s8-plat-action').forEach((el,i) => el.innerHTML = t.slide8.platActions[i]);
     q('#slide8 .s8-counter-label').innerHTML = t.slide8.counterLabel;
