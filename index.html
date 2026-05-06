@@ -216,8 +216,8 @@
       pointer-events:none;
     }
     .s5-left {
-      flex:0 0 54%; padding:50px 36px 50px 60px;
-      display:flex; flex-direction:column; justify-content:center; gap:18px;
+      flex:0 0 54%; padding:28px 32px 28px 56px;
+      display:flex; flex-direction:column; justify-content:center; gap:10px;
       position:relative; z-index:1;
     }
     .s5-left::after {
@@ -241,17 +241,11 @@
       font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65;
       max-width:430px; opacity:0;
     }
-    .s5-steps { display:flex; flex-direction:column; gap:12px; }
-    .s5-step {
-      display:flex; gap:14px; align-items:flex-start; padding:12px 16px;
-      border-radius:10px; background:rgba(255,255,255,0.02);
-      border:1px solid rgba(255,255,255,0.06); opacity:0;
-      transition:background 0.3s,border-color 0.3s;
-    }
-    .s5-step:hover { background:rgba(255,60,0,0.06); border-color:rgba(255,80,0,0.22); }
-    .s5-step-num { font-size:1.35rem; font-weight:900; color:rgba(255,60,0,0.45); line-height:1; flex-shrink:0; width:28px; }
-    .s5-step-title { font-size:0.87rem; font-weight:700; color:#ffccbb; margin-bottom:4px; }
-    .s5-step-desc  { font-size:0.78rem; color:rgba(195,195,195,0.7); line-height:1.5; }
+    .s5-blocks { display:flex; flex-direction:column; gap:8px; }
+    .s5-block  { padding:8px 14px; border-radius:10px; background:rgba(255,60,0,0.04); border:1px solid rgba(255,60,0,0.12); opacity:0; transition:background 0.3s,border-color 0.3s; }
+    .s5-block:hover { background:rgba(255,60,0,0.09); border-color:rgba(255,80,0,0.28); }
+    .s5-block-heading { font-size:0.88rem; font-weight:800; color:#ffccbb; margin-bottom:4px; letter-spacing:0.01em; }
+    .s5-block-desc    { font-size:0.74rem; color:rgba(200,200,200,0.72); line-height:1.5; }
     .s5-vis-label {
       font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase;
       color:rgba(255,255,255,0.3); opacity:0;
@@ -313,9 +307,10 @@
     #slide5.active .s5-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
     #slide5.active .s5-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
     #slide5.active .s5-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-step:nth-child(1) { animation:s2PointIn 1.0s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-step:nth-child(2) { animation:s2PointIn 1.0s 5.5s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-step:nth-child(3) { animation:s2PointIn 1.0s 6.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s5-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s5-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s5-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s5-block:nth-child(4) { animation:s2PointIn 0.9s 7.8s cubic-bezier(0.22,1,0.36,1) both; }
     #slide5.active .s5-vis-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
     #slide5.active .s5-compare { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both; }
     #slide5.active .s5-wavelength { animation:fadeUp 1.0s 8.2s cubic-bezier(0.22,1,0.36,1) both; }
@@ -329,7 +324,7 @@
     #slide6::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(140,40,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
     #slide6::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(120,30,240,0.06) 0%,transparent 65%); pointer-events:none; }
 
-    .s6-left  { flex:0 0 56%; padding:36px 32px 36px 56px; display:flex; flex-direction:column; justify-content:center; gap:14px; position:relative; z-index:1; }
+    .s6-left  { flex:0 0 56%; padding:28px 32px 28px 56px; display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative; z-index:1; }
     .s6-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(140,60,255,0.25),transparent); }
     .s6-right { flex:0 0 44%; padding:28px 40px 28px 28px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:16px; position:relative; z-index:1; }
 
@@ -425,8 +420,9 @@
     #slide7.active .s7-wm-frame { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both,wmGlow 2s 3.4s ease-in-out infinite; }
     #slide7.active .s7-trace { animation:fadeUp 1.0s 9.2s cubic-bezier(0.22,1,0.36,1) both; }
     /* Laptop layout fix for slide 7 */
-    .s7-left  { flex:0 0 56%; padding:36px 32px 36px 56px; gap:14px; }
+    .s7-left  { flex:0 0 56%; padding:28px 32px 28px 56px; gap:10px; }
     .s7-right { flex:0 0 44%; padding:28px 40px 28px 28px; gap:16px; }
+    .s7-block { padding:8px 14px; }
 
     /* ════ SLIDE 8 — Takedown System ════ */
     #slide8 {
@@ -892,9 +888,9 @@
       .s5-right { flex:none !important; width:100% !important; padding:0 !important; gap:14px !important; align-items:flex-start !important; }
       .s5-title { font-size:1.6rem !important; }
       .s5-lead { font-size:0.8rem !important; }
-      .s5-step { padding:8px 10px !important; }
-      .s5-step-title { font-size:0.8rem !important; }
-      .s5-step-desc  { font-size:0.72rem !important; }
+      .s5-block { padding:6px 10px !important; }
+      .s5-block-heading { font-size:0.8rem !important; }
+      .s5-block-desc    { font-size:0.72rem !important; }
       .s5-compare { flex-direction:row !important; justify-content:flex-start !important; gap:10px !important; }
       .s5-eye-box { width:110px !important; padding:10px !important; }
       .s5-screen-preview { width:88px !important; height:56px !important; }
@@ -932,9 +928,9 @@
       .s7-right { flex:none !important; width:100% !important; padding:0 !important; gap:14px !important; align-items:flex-start !important; }
       .s7-title { font-size:1.6rem !important; }
       .s7-lead  { font-size:0.8rem !important; }
-      .s7-step { padding:8px 10px !important; }
-      .s7-step-title { font-size:0.8rem !important; }
-      .s7-step-desc  { font-size:0.72rem !important; }
+      .s7-block { padding:6px 10px !important; }
+      .s7-block-heading { font-size:0.8rem !important; }
+      .s7-block-desc    { font-size:0.72rem !important; }
       .s7-wm-frame { width:100% !important; height:100px !important; }
 
       /* ────── SLIDE 8 ────── */
@@ -1236,28 +1232,23 @@
   <div class="s5-left">
     <div class="s5-tag">Physical Deterrent</div>
     <h2 class="s5-title">IR <span class="s5-accent">Detection</span><br>System</h2>
-    <p class="s5-lead">940nm infrared LEDs flood the theatre screen — invisible to the human eye, but completely overexpose any recording camera.</p>
-    <div class="s5-steps">
-      <div class="s5-step">
-        <div class="s5-step-num">01</div>
-        <div class="s5-step-body">
-          <div class="s5-step-title">IR LEDs Activated</div>
-          <div class="s5-step-desc">Arrays of 940nm IR LEDs mounted around the screen emit a continuous invisible flood of infrared light across the entire display area.</div>
-        </div>
+    <p class="s5-lead">Your film is showing. The hall is packed. Somewhere in the dark, a phone is pointing at the screen. IR Detection sees it coming — and before a single frame is recorded, that phone is already blind.</p>
+    <div class="s5-blocks">
+      <div class="s5-block">
+        <div class="s5-block-heading">Invisible to the Eye. Lethal to Every Lens.</div>
+        <div class="s5-block-desc">940nm infrared LEDs surround the screen — a wavelength the human eye cannot detect. Your audience sees nothing different. But every camera sensor in the room is drowning in invisible light that makes any recording physically impossible.</div>
       </div>
-      <div class="s5-step">
-        <div class="s5-step-num">02</div>
-        <div class="s5-step-body">
-          <div class="s5-step-title">Human Eye Unaffected</div>
-          <div class="s5-step-desc">940nm is beyond the visible spectrum. The audience sees nothing — the movie plays perfectly as intended with no disturbance.</div>
-        </div>
+      <div class="s5-block">
+        <div class="s5-block-heading">The Screen Itself Becomes the Weapon.</div>
+        <div class="s5-block-desc">The infrared flood is built into the theatre — always active, always silent. The moment any lens points at the screen, the sensor overexposes instantly. The pirate sees nothing but white. Your film plays on.</div>
       </div>
-      <div class="s5-step">
-        <div class="s5-step-num">03</div>
-        <div class="s5-step-body">
-          <div class="s5-step-title">Camera Sensor Overloaded</div>
-          <div class="s5-step-desc">Phone cameras detect IR wavelengths. The sensor gets completely flooded — recording turns to pure white glare, totally unusable.</div>
-        </div>
+      <div class="s5-block">
+        <div class="s5-block-heading">No Filter. No App. No Camera Setting.</div>
+        <div class="s5-block-desc">Overexposure from 940nm infrared cannot be corrected. No colour grading removes it. No software recovers it. No camera brand, no lens quality, no recording mode avoids it. The physics of infrared makes every recording attempt permanently futile.</div>
+      </div>
+      <div class="s5-block">
+        <div class="s5-block-heading">Any Device. One Result.</div>
+        <div class="s5-block-desc">Budget smartphone. High-end DSLR. Professional camcorder. It makes no difference. Every imaging sensor responds the same way to infrared flood — complete whiteout. Your film cannot be captured. Not today. Not ever.</div>
       </div>
     </div>
   </div>
@@ -1833,12 +1824,13 @@
       slide5: {
         tag: 'Physical Deterrent',
         title: 'IR <span class="s5-accent">Detection</span><br>System',
-        lead: '940nm infrared LEDs flood the theatre screen — invisible to the human eye, but completely overexpose any recording camera.',
-        stepTitles: ['IR LEDs Activated','Human Eye Unaffected','Camera Sensor Overloaded'],
-        stepDescs: [
-          'Arrays of 940nm IR LEDs mounted around the screen emit a continuous invisible flood of infrared light across the entire display area.',
-          '940nm is beyond the visible spectrum. The audience sees nothing — the movie plays perfectly as intended with no disturbance.',
-          'Phone cameras detect IR wavelengths. The sensor gets completely flooded — recording turns to pure white glare, totally unusable.'
+        lead: 'Your film is showing. The hall is packed. Somewhere in the dark, a phone is pointing at the screen. IR Detection sees it coming — and before a single frame is recorded, that phone is already blind.',
+        blockHeadings: ['Invisible to the Eye. Lethal to Every Lens.','The Screen Itself Becomes the Weapon.','No Filter. No App. No Camera Setting.','Any Device. One Result.'],
+        blockDescs: [
+          '940nm infrared LEDs surround the screen — a wavelength the human eye cannot detect. Your audience sees nothing different. But every camera sensor in the room is drowning in invisible light that makes any recording physically impossible.',
+          'The infrared flood is built into the theatre — always active, always silent. The moment any lens points at the screen, the sensor overexposes instantly. The pirate sees nothing but white. Your film plays on.',
+          'Overexposure from 940nm infrared cannot be corrected. No colour grading removes it. No software recovers it. No camera brand, no lens quality, no recording mode avoids it. The physics of infrared makes every recording attempt permanently futile.',
+          'Budget smartphone. High-end DSLR. Professional camcorder. It makes no difference. Every imaging sensor responds the same way to infrared flood — complete whiteout. Your film cannot be captured. Not today. Not ever.'
         ],
         visLabel: 'What they see',
         eyeTitles: ['Human Eye','Camera'],
@@ -1974,12 +1966,13 @@
       slide5: {
         tag: 'భౌతిక నిరోధకం',
         title: 'IR <span class="s5-accent">డిటెక్షన్</span><br>సిస్టమ్',
-        lead: '940nm ఇన్‌ఫ్రారెడ్ LEDs థియేటర్ స్క్రీన్‌ను వెల్లివిరిసేటట్లు చేస్తాయి — మానవ కంటికి అదృశ్యం, కానీ ఏ రికార్డింగ్ కెమెరాను పూర్తిగా ఓవర్‌ఎక్స్‌పోజ్ చేస్తుంది.',
-        stepTitles: ['IR LEDs సక్రియం','మానవ కంటిపై ప్రభావం లేదు','కెమెరా సెన్సార్ ఓవర్‌లోడ్'],
-        stepDescs: [
-          'స్క్రీన్ చుట్టూ అమర్చిన 940nm IR LED శ్రేణులు మొత్తం డిస్‌ప్లే ప్రాంతంలో నిరంతరం అదృశ్య ఇన్‌ఫ్రారెడ్ కాంతిని వెదజల్లుతాయి.',
-          '940nm కనిపించే స్పెక్ట్రమ్‌కు మించినది. ప్రేక్షకులకు ఏమీ కనిపించదు — చిత్రం ఎటువంటి అంతరాయం లేకుండా పూర్తిగా ప్లే అవుతుంది.',
-          'ఫోన్ కెమెరాలు IR తరంగదైర్ఘ్యాలను గుర్తిస్తాయి. సెన్సార్ పూర్తిగా వెల్లివిరుస్తుంది — రికార్డింగ్ స్వచ్ఛమైన తెల్లటి మెరుపుగా మారుతుంది, వినియోగానికి పనికిరాదు.'
+        lead: 'మీ చిత్రం చూపిస్తున్నారు. హాల్ నిండిపోయింది. చీకటిలో ఎక్కడో ఒక ఫోన్ స్క్రీన్ వైపు పెట్టబడింది. IR Detection దాన్ని గుర్తిస్తుంది — ఒక్క ఫ్రేమ్ రికార్డ్ కాకముందే, ఆ ఫోన్ ఇప్పటికే అంధంగా అవుతుంది.',
+        blockHeadings: ['కంటికి అదృశ్యం. ప్రతి లెన్స్‌కు ప్రాణాంతకం.','స్క్రీనే ఆయుధంగా మారుతుంది.','ఫిల్టర్ లేదు. యాప్ లేదు. కెమెరా సెట్టింగ్ లేదు.','ఏ డివైస్ అయినా. ఒకే ఫలితం.'],
+        blockDescs: [
+          '940nm ఇన్‌ఫ్రారెడ్ LEDలు స్క్రీన్ చుట్టూ ఉన్నాయి — మానవ కంటికి గుర్తించలేని తరంగదైర్ఘ్యం. మీ ప్రేక్షకులకు ఏమీ మారదు. కానీ ఆ గదిలోని ప్రతి కెమెరా సెన్సార్ అదృశ్య కాంతిలో మునిగిపోతుంది, ఏ రికార్డింగ్‌నూ భౌతికంగా అసాధ్యం చేస్తుంది.',
+          'ఇన్‌ఫ్రారెడ్ ఫ్లడ్ థియేటర్‌లో నిర్మించబడింది — ఎల్లప్పుడూ యాక్టివ్, ఎల్లప్పుడూ నిశ్శబ్దంగా. ఏ లెన్స్ అయినా స్క్రీన్ వైపు చూసిన క్షణమే, సెన్సార్ తక్షణమే అతిగా ఎక్స్‌పోజ్ అవుతుంది. పైరేట్‌కు తెల్లగా మాత్రమే కనిపిస్తుంది. మీ చిత్రం నిరాఘాటంగా ఆడుతూనే ఉంటుంది.',
+          '940nm ఇన్‌ఫ్రారెడ్ నుండి అతిగా ఎక్స్‌పోజ్‌ను సరిచేయలేరు. ఏ కలర్ గ్రేడింగ్ అయినా దాన్ని తీసివేయలేదు. ఏ సాఫ్ట్‌వేర్ అయినా దాన్ని రికవర్ చేయలేదు. ఇన్‌ఫ్రారెడ్ కాంతి భౌతిక శాస్త్రం ప్రతి రికార్డింగ్ ప్రయత్నాన్ని శాశ్వతంగా వ్యర్థం చేస్తుంది.',
+          'బడ్జెట్ స్మార్ట్‌ఫోన్. హై-ఎండ్ DSLR. ప్రొఫెషనల్ కామ్‌కార్డర్. తేడా లేదు. ప్రతి ఇమేజింగ్ సెన్సార్ ఒకే విధంగా స్పందిస్తుంది — పూర్తి వైట్‌అవుట్. మీ చిత్రాన్ని రికార్డ్ చేయలేరు. ఈ రోజు కాదు. ఎన్నటికీ కాదు.'
         ],
         visLabel: 'వారు ఏమి చూస్తారు',
         eyeTitles: ['మానవ కంటి','కెమెరా'],
@@ -2111,8 +2104,8 @@
     q('#slide5 .s5-tag').innerHTML   = t.slide5.tag;
     q('#slide5 .s5-title').innerHTML = t.slide5.title;
     q('#slide5 .s5-lead').innerHTML  = t.slide5.lead;
-    qa('#slide5 .s5-step-title').forEach((el,i) => el.innerHTML = t.slide5.stepTitles[i]);
-    qa('#slide5 .s5-step-desc').forEach((el,i)  => el.innerHTML = t.slide5.stepDescs[i]);
+    qa('#slide5 .s5-block-heading').forEach((el,i) => el.innerHTML = t.slide5.blockHeadings[i]);
+    qa('#slide5 .s5-block-desc').forEach((el,i)    => el.innerHTML = t.slide5.blockDescs[i]);
     q('#slide5 .s5-vis-label').innerHTML = t.slide5.visLabel;
     qa('#slide5 .s5-eye-title').forEach((el,i)  => el.innerHTML = t.slide5.eyeTitles[i]);
     qa('#slide5 .s5-film-text').forEach((el,i)  => el.innerHTML = t.slide5.screenLabels[i]);
