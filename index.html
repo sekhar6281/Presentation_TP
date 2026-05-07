@@ -122,58 +122,59 @@
     #slide4 {
       background: radial-gradient(ellipse at center,#020d1f 0%,#000 80%);
       flex-direction:column; align-items:center; justify-content:center;
-      gap:0; position:relative;
+      gap:28px; position:relative;
     }
     #slide4::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.05) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
 
     .s4-head {
       font-size:0.95rem; font-weight:700; letter-spacing:0.16em;
       text-transform:uppercase; color:rgba(100,190,255,0.55);
-      margin-bottom:22px; opacity:0;
+      position:relative; z-index:2; opacity:0;
     }
-    .s4-layout { display:flex; flex-direction:column; align-items:center; }
-    .s4-middle { display:flex; flex-direction:row; align-items:center; }
+
+    .s4-grid {
+      display:flex; flex-direction:row; align-items:stretch;
+      width:100%; max-width:1100px; position:relative; z-index:2;
+    }
+    .s4-col {
+      display:flex; flex-direction:column; gap:22px;
+      flex:1; justify-content:center;
+    }
+    .s4-center-col {
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; padding:0 40px; position:relative;
+    }
+    .s4-center-col::before, .s4-center-col::after {
+      content:''; position:absolute; top:50%; height:2px; width:40px;
+      background:linear-gradient(to right,rgba(0,170,255,0.6),rgba(0,170,255,0.15));
+      opacity:0; transform:scaleX(0); transform-origin:right center;
+    }
+    .s4-center-col::before { right:100%; transform-origin:right center; }
+    .s4-center-col::after  { left:100%; background:linear-gradient(to left,rgba(0,170,255,0.6),rgba(0,170,255,0.15)); transform-origin:left center; }
 
     .s4-shield-wrap {
-      position:relative; width:120px; height:120px; z-index:5; opacity:0;
+      position:relative; width:190px; height:190px; z-index:5; opacity:0;
       display:flex; align-items:center; justify-content:center;
     }
     .s4-orbit-ring { position:absolute; border-radius:50%; border:1px solid rgba(0,150,255,0.18); top:50%; left:50%; transform:translate(-50%,-50%); }
-    .s4-shield { width:108px; height:124px; position:relative; z-index:2; }
+    .s4-shield { width:168px; height:194px; position:relative; z-index:2; }
     .s4-shield svg { width:100%; height:100%; }
-    .s4-lock { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.3rem; padding-bottom:10px; z-index:3; }
-
-    .s4-con-v {
-      width:2px; height:48px; align-self:center;
-      background:linear-gradient(to bottom,rgba(0,170,255,0.8),rgba(0,170,255,0.25));
-      transform-origin:top center; opacity:0;
-    }
-    .s4-con-v.bottom { background:linear-gradient(to top,rgba(0,170,255,0.8),rgba(0,170,255,0.25)); transform-origin:bottom center; }
-    .s4-con-h {
-      width:52px; height:2px;
-      background:linear-gradient(to right,rgba(0,170,255,0.25),rgba(0,170,255,0.8));
-      transform-origin:left center; opacity:0;
-    }
-    .s4-con-h.rev {
-      background:linear-gradient(to left,rgba(0,170,255,0.25),rgba(0,170,255,0.8));
-      transform-origin:right center;
-    }
+    .s4-lock { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:3rem; padding-bottom:14px; z-index:3; }
 
     .s4-card {
-      position:relative; width:205px;
+      position:relative;
       background:rgba(0,12,45,0.92); border:1.5px solid rgba(0,120,240,0.45);
-      border-radius:14px; padding:14px 14px 13px;
+      border-radius:14px; padding:18px 18px 16px;
       backdrop-filter:blur(8px); box-shadow:0 0 22px rgba(0,80,200,0.22);
       opacity:0; overflow:hidden;
       transition:box-shadow 0.3s,border-color 0.3s;
     }
     .s4-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#00aaff,transparent); }
     .s4-card:hover { box-shadow:0 0 34px rgba(0,160,255,0.5); border-color:rgba(0,180,255,0.75); }
-    .s4-card-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-    .s4-card-icon { width:34px; height:34px; border-radius:8px; background:rgba(0,70,180,0.35); border:1px solid rgba(0,120,255,0.3); display:flex; align-items:center; justify-content:center; font-size:1.05rem; flex-shrink:0; }
-    .s4-card-title { font-size:0.88rem; font-weight:800; color:#4dccff; }
-    .s4-card-desc  { font-size:0.79rem; color:rgba(170,205,255,0.85); line-height:1.55; }
-    .s4-card-layer { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(0,170,255,0.45); margin-bottom:5px; }
+    .s4-card-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .s4-card-icon { width:36px; height:36px; border-radius:8px; background:rgba(0,70,180,0.35); border:1px solid rgba(0,120,255,0.3); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+    .s4-card-title { font-size:0.92rem; font-weight:800; color:#4dccff; }
+    .s4-card-desc  { font-size:0.82rem; color:rgba(170,205,255,0.85); line-height:1.6; }
 
     @keyframes shieldBlueGlow {
       0%,100%{ filter:drop-shadow(0 0 16px rgba(0,180,255,0.9)) drop-shadow(0 0 36px rgba(0,120,255,0.5)); }
@@ -183,22 +184,19 @@
       from{ transform:translate(-50%,-50%) rotate(0deg); }
       to  { transform:translate(-50%,-50%) rotate(360deg); }
     }
-    @keyframes popCard { from{opacity:0;transform:scale(0.82)} to{opacity:1;transform:scale(1)} }
-    @keyframes lineIn  { from{opacity:0;transform:scaleY(0)} to{opacity:1;transform:scaleY(1)} }
-    @keyframes lineInH { from{opacity:0;transform:scaleX(0)} to{opacity:1;transform:scaleX(1)} }
+    @keyframes popCard   { from{opacity:0;transform:scale(0.82)} to{opacity:1;transform:scale(1)} }
+    @keyframes lineInH   { from{opacity:0;transform:scaleX(0)} to{opacity:1;transform:scaleX(1)} }
 
-    #slide4.active .s4-head              { animation:countUp  1.0s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-shield-wrap       { animation:countUp  1.0s 0.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-shield            { animation:shieldBlueGlow 3s 1s ease-in-out infinite; }
-    #slide4.active .s4-orbit-ring.spin   { animation:orbitSpin 12s linear infinite; }
-    #slide4.active .s4-con-v.top         { animation:lineIn  0.7s  1.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-card.top          { animation:popCard 0.9s  2.0s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-con-h.right       { animation:lineInH 0.7s  3.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-card.right        { animation:popCard 0.9s  3.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-con-v.bottom      { animation:lineIn  0.7s  5.0s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-card.bottom       { animation:popCard 0.9s  5.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-con-h.rev.left    { animation:lineInH 0.7s  6.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide4.active .s4-card.left         { animation:popCard 0.9s  7.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-head                              { animation:fadeUp    0.8s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-shield-wrap                       { animation:countUp   1.0s 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-shield                            { animation:shieldBlueGlow 3s 1s ease-in-out infinite; }
+    #slide4.active .s4-orbit-ring.spin                   { animation:orbitSpin 12s linear infinite; }
+    #slide4.active .s4-center-col::before,
+    #slide4.active .s4-center-col::after                 { animation:lineInH   0.6s 1.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-col.left-col  .s4-card:nth-child(1){ animation:slideRight 0.8s 1.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-col.right-col .s4-card:nth-child(1){ animation:slideLeft  0.8s 1.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-col.left-col  .s4-card:nth-child(2){ animation:slideRight 0.8s 1.9s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide4.active .s4-col.right-col .s4-card:nth-child(2){ animation:slideLeft  0.8s 1.9s cubic-bezier(0.22,1,0.36,1) both; }
     /* ════ SLIDE 5 — IR Detection ════ */
     #slide5 {
       background:radial-gradient(ellipse at 30% 50%,#1a0404 0%,#000 70%);
@@ -866,15 +864,16 @@
         padding:44px 14px 20px !important;
         gap:14px !important;
       }
-      .s4-head { font-size:0.72rem !important; margin-bottom:10px !important; }
-      .s4-layout { flex-direction:column !important; align-items:center !important; gap:12px !important; }
-      .s4-middle { flex-direction:column !important; align-items:center !important; gap:12px !important; }
-      .s4-con-h,.s4-con-v { display:none !important; }
-      .s4-card { width:90% !important; }
+      .s4-head { font-size:0.72rem !important; margin-bottom:6px !important; }
+      .s4-grid { flex-direction:column !important; align-items:center !important; gap:12px !important; width:100% !important; }
+      .s4-col { flex-direction:column !important; gap:12px !important; width:100% !important; }
+      .s4-center-col { padding:0 !important; }
+      .s4-center-col::before,.s4-center-col::after { display:none !important; }
+      .s4-card { width:100% !important; }
       .s4-card-title { font-size:0.8rem !important; }
       .s4-card-desc  { font-size:0.72rem !important; }
-      .s4-shield-wrap { width:80px !important; height:80px !important; }
-      .s4-shield { width:72px !important; height:84px !important; }
+      .s4-shield-wrap { width:90px !important; height:90px !important; }
+      .s4-shield { width:80px !important; height:92px !important; }
 
       /* ────── SLIDE 5 ────── */
       #slide5 {
@@ -1152,38 +1151,33 @@
 
 <!-- ══════════ SLIDE 4 ══════════ -->
 <div class="slide" id="slide4">
-  <div class="s4-layout">
+  <p class="s4-head">4 Layers of Protection</p>
+  <div class="s4-grid">
 
-    <!-- TOP: IR Detection -->
-    <div class="s4-card top">
-      <div class="s4-card-header">
-        <div class="s4-card-icon">📡</div>
-        <div class="s4-card-title">IR Detection</div>
+    <!-- LEFT COLUMN -->
+    <div class="s4-col left-col">
+      <div class="s4-card">
+        <div class="s4-card-header">
+          <div class="s4-card-icon">📡</div>
+          <div class="s4-card-title">IR Detection</div>
+        </div>
+        <div class="s4-card-desc">940nm IR LEDs surround the screen — invisible to your audience. Any camera that points at the screen overexposes instantly into solid white. No device, no filter, no setting avoids it.</div>
       </div>
-      <div class="s4-card-desc">940nm IR LEDs surround the screen — invisible to your audience. Any camera that points at the screen overexposes instantly into solid white. No device, no filter, no setting avoids it.</div>
-    </div>
-
-    <div class="s4-con-v top"></div>
-
-    <!-- MIDDLE ROW -->
-    <div class="s4-middle">
-
-      <!-- LEFT: Takedown -->
-      <div class="s4-card left">
+      <div class="s4-card">
         <div class="s4-card-header">
           <div class="s4-card-icon">🚫</div>
           <div class="s4-card-title">Takedown System</div>
         </div>
         <div class="s4-card-desc">50+ platforms monitored every minute of every day. The moment your film appears online, AI flags it and DMCA notices are filed automatically. Removed before it spreads.</div>
       </div>
+    </div>
 
-      <div class="s4-con-h rev left"></div>
-
-      <!-- SHIELD CENTER -->
+    <!-- CENTER: SHIELD -->
+    <div class="s4-center-col">
       <div class="s4-shield-wrap">
-        <div class="s4-orbit-ring" style="width:155px;height:155px;"></div>
-        <div class="s4-orbit-ring spin" style="width:195px;height:195px;border-style:dashed;"></div>
-        <div class="s4-orbit-ring" style="width:238px;height:238px;"></div>
+        <div class="s4-orbit-ring" style="width:220px;height:220px;"></div>
+        <div class="s4-orbit-ring spin" style="width:270px;height:270px;border-style:dashed;"></div>
+        <div class="s4-orbit-ring" style="width:320px;height:320px;"></div>
         <div class="s4-shield">
           <svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -1199,29 +1193,24 @@
           <div class="s4-lock">🔒</div>
         </div>
       </div>
+    </div>
 
-      <div class="s4-con-h right"></div>
-
-      <!-- RIGHT: TPVM -->
-      <div class="s4-card right">
+    <!-- RIGHT COLUMN -->
+    <div class="s4-col right-col">
+      <div class="s4-card">
         <div class="s4-card-header">
           <div class="s4-card-icon">🖥️</div>
           <div class="s4-card-title">TPVM</div>
         </div>
         <div class="s4-card-desc">7 invisible layers injected into every frame during projection. Your audience sees a perfect picture. Every camera in the hall records only distorted, unwatchable noise.</div>
       </div>
-
-    </div>
-
-    <div class="s4-con-v bottom"></div>
-
-    <!-- BOTTOM: Watermarking -->
-    <div class="s4-card bottom">
-      <div class="s4-card-header">
-        <div class="s4-card-icon">🔏</div>
-        <div class="s4-card-title">Watermarking</div>
+      <div class="s4-card">
+        <div class="s4-card-header">
+          <div class="s4-card-icon">🔏</div>
+          <div class="s4-card-title">Watermarking</div>
+        </div>
+        <div class="s4-card-desc">Every print carries a unique invisible mark — different for each screen and showtime. The moment a pirated copy surfaces, we trace it to the exact theatre and show in minutes.</div>
       </div>
-      <div class="s4-card-desc">Every print carries a unique invisible mark — different for each screen and showtime. The moment a pirated copy surfaces, we trace it to the exact theatre and show in minutes.</div>
     </div>
 
   </div>
