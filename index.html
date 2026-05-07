@@ -2355,9 +2355,10 @@
 
   function speakCurrentSlide() {
     const btn = document.getElementById('voiceBtn');
-    // If already playing — stop
+    // If already playing — stop and resume timer
     if (_audioObj && !_audioObj.paused) {
       stopAudio();
+      resume();
       return;
     }
     const lang = document.getElementById('btnEn').classList.contains('active') ? 'en' : 'te';
@@ -2366,13 +2367,26 @@
 
     _audioObj = new Audio(src);
     btn.classList.add('speaking');
-    _audioObj.onended = _audioObj.onerror = () => {
+
+    // Pause slide timer while audio plays
+    pause();
+
+    _audioObj.onended = () => {
       _audioObj = null;
       btn.classList.remove('speaking');
+      // Advance to next slide after audio finishes
+      goTo(current + 1);
+    };
+    _audioObj.onerror = () => {
+      _audioObj = null;
+      btn.classList.remove('speaking');
+      // Resume timer if audio fails
+      resume();
     };
     _audioObj.play().catch(() => {
       _audioObj = null;
       btn.classList.remove('speaking');
+      resume();
     });
   }
 
