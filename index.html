@@ -732,6 +732,15 @@
       transition:all 0.2s;
     }
     .voice-btn:hover { background:rgba(0,120,255,0.35); color:#fff; border-color:rgba(0,180,255,0.4); }
+    /* ═══ SUBTITLE BAR ═══ */
+    #subtitleBar {
+      position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+      max-width:860px; width:max-content; padding:5px 20px 7px;
+      background:rgba(8,8,8,0.78); color:#fff;
+      font-family:'Segoe UI',Arial,sans-serif; font-size:15px; line-height:1.6;
+      text-align:center; border-radius:3px; z-index:9998;
+      pointer-events:none; display:none; white-space:pre-line;
+    }
     .voice-btn.speaking {
       background:rgba(0,180,80,0.3); color:#4ade80;
       border-color:rgba(0,200,100,0.5);
@@ -1756,6 +1765,9 @@
 <!-- voice button -->
 <button class="voice-btn" id="voiceBtn" onclick="speakCurrentSlide()" title="Audio summary">🔊</button>
 
+<!-- subtitle bar -->
+<div id="subtitleBar"></div>
+
 <!-- progress bar + invisible pause button -->
 <div class="s-progress" id="progressBar"></div>
 <button class="s-pause-btn" id="pauseBtn" onclick="togglePause()" title="Pause / Resume"></button>
@@ -2341,6 +2353,48 @@
   /* ══════════════════════════════════════════
      VOICE / AUDIO SUMMARIES  (pre-generated MP3)
   ══════════════════════════════════════════ */
+
+  const subtitleScripts = {
+    en: [
+      "You spent crores making your film. On release day, someone records it in the theatre — and within 24 hours, your investment is leaking across the internet. You worked for months. It takes one phone to undo all of it.",
+      "Indian producers lose 60 to 80 percent of their revenue to piracy — and there is nothing they can do about it. No evidence. No control. Just loss.",
+      "We built a system that detects piracy, proves it, and removes it — automatically, without you doing anything. Your film is protected before you even know there is a problem.",
+      "Four layers of protection — IR Detection blocks recording in the theatre, TPVM destroys any footage captured, Watermarking identifies exactly who leaked it, and the Takedown System removes it from the internet automatically. Nothing gets through.",
+      "Invisible infrared LEDs around the screen make every phone camera useless — the audience sees nothing different, but any recording turns into a completely white, unusable blur. No phone on earth can beat it.",
+      "Seven invisible layers are injected into every frame during projection — the audience sees a perfect film, but any phone camera captures a flickering, scrambled, completely unwatchable mess. No recording device on the planet can beat this.",
+      "Every frame carries a unique invisible watermark — the moment a pirated copy is found online, it reveals the exact theatre, screen, and show time. Court-admissible evidence. The person responsible cannot escape.",
+      "The moment a pirated copy appears — YouTube removes it in 10 minutes, Instagram blocks it before it goes live, Telegram in 48 hours, torrents in 72. Fully automatic. Your film never stays pirated for long.",
+      "One-time setup — four documents, submitted once. After that, every takedown across YouTube, Telegram, Instagram, and Facebook happens automatically, instantly, forever. You do this once. We protect you always.",
+      "A real-time dashboard shows every piracy link detected, removed, and pending — by platform. Instant alert the moment something is found. You do nothing — but you always know your film is safe.",
+      "Before — 80 percent of revenue lost, no control, no evidence, no hope. After — revenue protected from day one, automatic 24/7 piracy removal, court-ready evidence always available. Your film releases and stays yours. That is our promise."
+    ],
+    te: [
+      "మీరు కోట్లు పెట్టి చిత్రం తీశారు. రిలీజ్ రోజు ఒకడు థియేటర్లో రికార్డ్ చేస్తాడు — 24 గంటల్లో మీ పెట్టుబడి internet అంతటా పాకిపోతాది. నెలల కష్టాన్ని ఒక్క ఫోన్ నాశనం చేస్తాది.",
+      "భారతీయ నిర్మాతలు వారి ఆదాయంలో 60 నుండి 80 శాతం పైరసీకి పోగొట్టుకుంటున్నారు — చేయగలిగేది ఏమీ లేదు. ఆధారాలు లేవు. నియంత్రణ లేదు. నష్టం మాత్రమే మిగులుతాది.",
+      "మేం ఒక వ్యవస్థ నిర్మించాం — పైరసీని detect చేసి, నిరూపించి, తొలగిస్తాది — automatic గా, మీరు ఏమీ చేయకుండా. మీకు సమస్య అర్థమయ్యే లోపే మీ చిత్రం సురక్షితంగా ఉంటాది.",
+      "నాలుగు స్థాయిల రక్షణ — IR Detection థియేటర్లో రికార్డింగ్ ని block చేస్తాది, TPVM footage ని ధ్వంసం చేస్తాది, Watermarking ఎవరు లీక్ చేశారో నిరూపిస్తాది, Takedown System internet నుండి automatic గా తొలగిస్తాది. ఏదీ బయటకు వెళ్ళదు.",
+      "స్క్రీన్ చుట్టూ అదృశ్య infrared LED లు ప్రతి ఫోన్ కెమెరాను పనికిరాకుండా చేస్తాయి — ప్రేక్షకులకు ఏ తేడా కనిపించదు, కానీ రికార్డింగ్ పూర్తిగా తెల్లటి blur గా మారిపోతాది. ఏ ఫోన్ కూడా దీన్ని దాటలేదు.",
+      "ప్రొజెక్షన్ సమయంలో ప్రతి frame లో ఏడు అదృశ్య లేయర్లు inject అవుతాయి — ప్రేక్షకులకు సినిమా అద్భుతంగా కనిపిస్తాది, కానీ ఫోన్ కెమెరాకు flickering గా, పూర్తిగా చూడలేని విధంగా వస్తాది. భూమి మీద ఏ device కూడా దీన్ని దాటలేదు.",
+      "ప్రతి frame లో ఒక ప్రత్యేక అదృశ్య వాటర్‌మార్క్ ఉంటాది — పైరేటెడ్ కాపీ online లో దొరికిన క్షణమే అది ఏ థియేటర్లో, ఏ స్క్రీన్‌లో, ఏ షో లో రికార్డ్ అయిందో చెప్తాది. కోర్టులో చెల్లే సాక్ష్యం. లీక్ చేసిన వ్యక్తి తప్పించుకోలేడు.",
+      "పైరేటెడ్ కాపీ కనిపించిన క్షణమే — YouTube 10 నిమిషాల్లో తీసేస్తాది, Instagram live కి రాకముందే block చేస్తాది, Telegram 48 గంటల్లో, torrents 72 గంటల్లో. పూర్తిగా automatic. మీ చిత్రం ఎక్కువ సేపు pirated గా ఉండే అవకాశమే లేదు.",
+      "ఒకే ఒక్కసారి setup — నాలుగు documents, ఒక్కసారి submit. ఆ తర్వాత YouTube, Telegram, Instagram, Facebook అన్నింటిలో ప్రతి takedown automatic గా, instant గా, శాశ్వతంగా జరిగిపోతాది. మీరు ఒకసారి చేస్తారు. మేం ఎప్పటికీ protect చేస్తాం.",
+      "Real-time dashboard మీకు ప్రతి piracy link — detect అయినవి, remove అయినవి, pending లో ఉన్నవి — platform వారీగా చూపిస్తాది. ఏదైనా దొరికిన వెంటనే instant alert. మీరు ఏమీ చేయరు — కానీ మీ చిత్రం సురక్షితంగా ఉందని మీకు ఎప్పుడూ తెలుసు.",
+      "ముందు — 80 శాతం ఆదాయం నష్టం, నియంత్రణ లేదు, ఆధారాలు లేవు, ఆశ లేదు. తర్వాత — మొదటి రోజు నుండి ఆదాయం సురక్షితం, 24/7 automatic పైరసీ తొలగింపు, కోర్టు ready evidence ఎప్పుడూ అందుబాటులో. మీ చిత్రం రిలీజ్ అవుతాది — మరియు మీకే చెందుతూ ఉంటాది. ఇదే మా హామీ."
+    ]
+  };
+
+  function showSubtitle(lang, slideIdx) {
+    const bar = document.getElementById('subtitleBar');
+    if (!bar) return;
+    bar.textContent = subtitleScripts[lang][slideIdx] || '';
+    bar.style.display = 'block';
+  }
+
+  function hideSubtitle() {
+    const bar = document.getElementById('subtitleBar');
+    if (bar) bar.style.display = 'none';
+  }
+
   let _audioObj = null;
 
   function stopAudio() {
@@ -2351,6 +2405,7 @@
     }
     const btn = document.getElementById('voiceBtn');
     if (btn) btn.classList.remove('speaking');
+    hideSubtitle();
   }
 
   function speakCurrentSlide() {
@@ -2370,22 +2425,24 @@
 
     // Pause slide timer while audio plays
     pause();
+    showSubtitle(lang, current);
 
     _audioObj.onended = () => {
       _audioObj = null;
       btn.classList.remove('speaking');
-      // Resume progress bar; it will advance slide when complete
+      hideSubtitle();
       resume();
     };
     _audioObj.onerror = () => {
       _audioObj = null;
       btn.classList.remove('speaking');
-      // Resume timer if audio fails
+      hideSubtitle();
       resume();
     };
     _audioObj.play().catch(() => {
       _audioObj = null;
       btn.classList.remove('speaking');
+      hideSubtitle();
       resume();
     });
   }
