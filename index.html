@@ -1580,28 +1580,28 @@
     <div class="s10-stat red">
       <div class="s10-stat-icon">🛡️</div>
       <div>
-        <div class="s10-stat-val">1,247</div>
+        <div class="s10-stat-val" data-target="1247">0</div>
         <div class="s10-stat-label">Piracy links found</div>
       </div>
     </div>
     <div class="s10-stat green">
       <div class="s10-stat-icon">✅</div>
       <div>
-        <div class="s10-stat-val">1,198</div>
+        <div class="s10-stat-val" data-target="1198">0</div>
         <div class="s10-stat-label">Links removed</div>
       </div>
     </div>
     <div class="s10-stat amber">
       <div class="s10-stat-icon">⏳</div>
       <div>
-        <div class="s10-stat-val">58</div>
+        <div class="s10-stat-val" data-target="58">0</div>
         <div class="s10-stat-label">Still pending</div>
       </div>
     </div>
     <div class="s10-stat blue">
       <div class="s10-stat-icon">🎯</div>
       <div>
-        <div class="s10-stat-val">96%</div>
+        <div class="s10-stat-val" data-target="96" data-suffix="%">0%</div>
         <div class="s10-stat-label">Success rate</div>
       </div>
     </div>
@@ -2180,14 +2180,36 @@
   /* ══════════════════════════════════════════
      SLIDE NAVIGATION
   ══════════════════════════════════════════ */
+  function animateCountUp() {
+    qa('#slide10 .s10-stat-val').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const startTime = performance.now();
+      function tick(now) {
+        const t = Math.min((now - startTime) / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 3);
+        const val = Math.round(ease * target);
+        el.textContent = val.toLocaleString() + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
   function goTo(idx) {
-    // stop any voice when navigating
     stopAudio();
     slides[current].classList.remove('active');
     current = (idx + slides.length) % slides.length;
     slides[current].classList.add('active');
     elapsed = 0;
     startTimer();
+    if (current === 9) {
+      qa('#slide10 .s10-stat-val').forEach(el => {
+        el.textContent = '0' + (el.dataset.suffix || '');
+      });
+      setTimeout(animateCountUp, 600);
+    }
   }
 
   function startTimer() {
