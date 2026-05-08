@@ -267,13 +267,104 @@
     .s8-counter-val   { font-size:2rem; }
     .s8-counter-label { font-size:0.62rem; }
 
-    /* ════ SLIDE 9 — Takedown Requirements ════ */
+    /* ════ SLIDE 6 — Takedown Process Flow ════ */
     #slide6 {
+      background:radial-gradient(ellipse at 50% 30%,#0a0f1a 0%,#000 75%);
+      flex-direction:column; align-items:center; justify-content:flex-start;
+      padding:28px 56px 24px; position:relative; overflow:hidden;
+    }
+    #slide6::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(249,115,22,0.03) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; }
+
+    .s6-header { display:flex; flex-direction:column; align-items:center; gap:6px; margin-bottom:20px; }
+    .s6-tag    { font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:#f97316; border:1px solid rgba(249,115,22,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(249,115,22,0.07); width:fit-content; opacity:0; }
+    .s6-title  { font-size:2.2rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; }
+    .s6-title .s6-accent { color:#f97316; }
+    .s6-lead   { font-size:0.82rem; color:rgba(200,200,200,0.7); text-align:center; max-width:680px; opacity:0; }
+
+    .s6-flow { display:flex; align-items:flex-start; gap:0; width:100%; position:relative; z-index:1; }
+    .s6-step {
+      flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;
+      padding:14px 8px 12px; position:relative; opacity:0;
+    }
+    .s6-step-num {
+      width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:0.85rem; font-weight:900; flex-shrink:0; position:relative; z-index:1;
+    }
+    .s6-step:nth-child(1) .s6-step-num  { background:rgba(249,115,22,0.15); border:2px solid rgba(249,115,22,0.5); color:#f97316; }
+    .s6-step:nth-child(3) .s6-step-num  { background:rgba(249,115,22,0.15); border:2px solid rgba(249,115,22,0.5); color:#f97316; }
+    .s6-step:nth-child(5) .s6-step-num  { background:rgba(249,115,22,0.15); border:2px solid rgba(249,115,22,0.5); color:#f97316; }
+    .s6-step:nth-child(7) .s6-step-num  { background:rgba(249,115,22,0.15); border:2px solid rgba(249,115,22,0.5); color:#f97316; }
+    .s6-step:nth-child(9) .s6-step-num  { background:rgba(249,115,22,0.15); border:2px solid rgba(249,115,22,0.5); color:#f97316; }
+    .s6-step:nth-child(11) .s6-step-num { background:rgba(0,200,120,0.15);  border:2px solid rgba(0,200,120,0.5);  color:#00dd77; }
+    .s6-arrow {
+      flex-shrink:0; width:20px; display:flex; align-items:flex-start; padding-top:22px;
+      color:rgba(249,115,22,0.4); font-size:1rem; justify-content:center;
+    }
+    .s6-step-icon  { font-size:1.3rem; }
+    .s6-step-title { font-size:0.7rem; font-weight:800; text-align:center; color:#fff; line-height:1.3; }
+    .s6-step-desc  { font-size:0.6rem; color:rgba(180,180,180,0.65); text-align:center; line-height:1.45; }
+
+    #slide6.active .s6-tag   { animation:fadeUp 0.8s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-title { animation:fadeUp 0.8s 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-lead  { animation:fadeUp 0.8s 1.1s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-step:nth-child(1)  { animation:s2NumIn 0.7s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-step:nth-child(3)  { animation:s2NumIn 0.7s 2.3s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-step:nth-child(5)  { animation:s2NumIn 0.7s 3.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-step:nth-child(7)  { animation:s2NumIn 0.7s 3.7s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-step:nth-child(9)  { animation:s2NumIn 0.7s 4.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s6-step:nth-child(11) { animation:s2NumIn 0.7s 5.1s cubic-bezier(0.22,1,0.36,1) both; }
+
+    /* ════ SLIDE 7 — Platform Coverage ════ */
+    #slide7 {
+      background:radial-gradient(ellipse at 60% 40%,#050a15 0%,#000 75%);
+      flex-direction:column; align-items:center; justify-content:flex-start;
+      padding:28px 48px 24px; position:relative; overflow:hidden;
+    }
+    #slide7::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(50,120,255,0.03) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; }
+
+    .s7-header { display:flex; flex-direction:column; align-items:center; gap:6px; margin-bottom:20px; }
+    .s7-tag    { font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:#3b82f6; border:1px solid rgba(59,130,246,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(59,130,246,0.07); width:fit-content; opacity:0; }
+    .s7-title  { font-size:2.2rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; }
+    .s7-title .s7-accent { color:#3b82f6; }
+    .s7-lead   { font-size:0.82rem; color:rgba(200,200,200,0.7); text-align:center; max-width:700px; opacity:0; }
+
+    .s7-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; width:100%; }
+    .s7-plat-card {
+      background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);
+      border-radius:12px; padding:16px 12px; display:flex; flex-direction:column; gap:10px;
+      opacity:0; transition:background 0.3s,border-color 0.3s;
+    }
+    .s7-plat-card:hover { background:rgba(59,130,246,0.06); border-color:rgba(59,130,246,0.2); }
+    .s7-plat-card:nth-child(1) { border-top:2px solid #ff0000; }
+    .s7-plat-card:nth-child(2) { border-top:2px solid #e1306c; }
+    .s7-plat-card:nth-child(3) { border-top:2px solid #0088cc; }
+    .s7-plat-card:nth-child(4) { border-top:2px solid #888; }
+    .s7-plat-card:nth-child(5) { border-top:2px solid #3b82f6; }
+
+    .s7-plat-icon  { font-size:1.6rem; }
+    .s7-plat-name  { font-size:0.82rem; font-weight:900; color:#fff; }
+    .s7-plat-row   { display:flex; flex-direction:column; gap:3px; }
+    .s7-plat-label { font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.3); }
+    .s7-plat-method { font-size:0.68rem; font-weight:600; color:rgba(200,200,200,0.8); line-height:1.4; }
+    .s7-plat-speed  { font-size:0.72rem; font-weight:800; color:#4ade80; }
+    .s7-plat-reup   { font-size:0.65rem; color:rgba(180,180,180,0.65); line-height:1.4; }
+
+    #slide7.active .s7-tag   { animation:fadeUp 0.8s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-title { animation:fadeUp 0.8s 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-lead  { animation:fadeUp 0.8s 1.1s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-plat-card:nth-child(1) { animation:s2NumIn 0.8s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-plat-card:nth-child(2) { animation:s2NumIn 0.8s 2.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-plat-card:nth-child(3) { animation:s2NumIn 0.8s 3.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-plat-card:nth-child(4) { animation:s2NumIn 0.8s 4.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s7-plat-card:nth-child(5) { animation:s2NumIn 0.8s 4.8s cubic-bezier(0.22,1,0.36,1) both; }
+
+    /* ════ SLIDE 9 — Takedown Requirements ════ */
+    #slide8 {
       background:radial-gradient(ellipse at 40% 50%,#0a0d1a 0%,#000 75%);
       align-items:stretch; justify-content:center; position:relative; overflow:hidden;
     }
-    #slide6::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(180,140,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
-    #slide6::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle,rgba(200,160,0,0.05) 0%,transparent 65%); pointer-events:none; }
+    #slide8::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(180,140,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide8::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle,rgba(200,160,0,0.05) 0%,transparent 65%); pointer-events:none; }
 
     .s9-left  { flex:0 0 38%; padding:36px 30px 36px 56px; display:flex; flex-direction:column; justify-content:center; gap:14px; position:relative; z-index:1; }
     .s9-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(200,160,0,0.25),transparent); }
@@ -314,14 +405,14 @@
     .s9-card:nth-child(3) .s9-point::before { color:#10b981; }
     .s9-card:nth-child(4) .s9-point::before { color:#a855f7; }
 
-    #slide6.active .s9-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-note { animation:fadeUp 1.0s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-card:nth-child(1) { animation:s2NumIn 1.0s 1.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-card:nth-child(2) { animation:s2NumIn 1.0s 2.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-card:nth-child(3) { animation:s2NumIn 1.0s 3.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-card:nth-child(4) { animation:s2NumIn 1.0s 5.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-note { animation:fadeUp 1.0s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-card:nth-child(1) { animation:s2NumIn 1.0s 1.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-card:nth-child(2) { animation:s2NumIn 1.0s 2.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-card:nth-child(3) { animation:s2NumIn 1.0s 3.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-card:nth-child(4) { animation:s2NumIn 1.0s 5.0s cubic-bezier(0.22,1,0.36,1) both; }
 
     /* s9 extras for API result row */
     .s9-result {
@@ -333,16 +424,16 @@
     .s9-result-text  { font-size:0.78rem; font-weight:700; color:#4ade80; }
     .s9-result-sub   { font-size:0.68rem; color:rgba(150,220,170,0.65); margin-top:2px; }
     .s9-grid-label   { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25); opacity:0; }
-    #slide6.active .s9-grid-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s9-result { animation:fadeUp 1.0s 6.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-grid-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide8.active .s9-result { animation:fadeUp 1.0s 6.8s cubic-bezier(0.22,1,0.36,1) both; }
 
     /* ════ SLIDE 10 — Producer Dashboard ════ */
-    #slide7 {
+    #slide9 {
       background:radial-gradient(ellipse at 50% 30%,#010d1f 0%,#000 75%);
       flex-direction:column; align-items:center; justify-content:flex-start;
       padding:24px 48px 20px; position:relative; overflow:hidden;
     }
-    #slide7::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide9::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
 
     .s10-header { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:6px; margin-bottom:14px; opacity:0; }
     .s10-tag    { font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,180,255,0.7); background:rgba(0,120,255,0.08); border:1px solid rgba(0,140,255,0.18); padding:3px 14px; border-radius:20px; }
@@ -418,14 +509,14 @@
     @keyframes barGrow13 { to{width:13%} }
     @keyframes barGrow9  { to{width:9%} }
     @keyframes barGrow5  { to{width:5%} }
-    #slide7.active .s10-header { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s10-stats { animation:fadeUp 1.0s 1.7s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s10-panels { animation:fadeUp 1.0s 3.1s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s10-bar.yt { animation:barGrow58 1.3s 4.5s ease both; }
-    #slide7.active .s10-bar.tg { animation:barGrow15 1.3s 5.8s ease both; }
-    #slide7.active .s10-bar.fb { animation:barGrow13 1.3s 7.1s ease both; }
-    #slide7.active .s10-bar.ig { animation:barGrow9 1.3s 8.4s ease both; }
-    #slide7.active .s10-bar.web { animation:barGrow5 1.3s 9.7s ease both; }
+    #slide9.active .s10-header { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide9.active .s10-stats { animation:fadeUp 1.0s 1.7s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide9.active .s10-panels { animation:fadeUp 1.0s 3.1s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide9.active .s10-bar.yt { animation:barGrow58 1.3s 4.5s ease both; }
+    #slide9.active .s10-bar.tg { animation:barGrow15 1.3s 5.8s ease both; }
+    #slide9.active .s10-bar.fb { animation:barGrow13 1.3s 7.1s ease both; }
+    #slide9.active .s10-bar.ig { animation:barGrow9 1.3s 8.4s ease both; }
+    #slide9.active .s10-bar.web { animation:barGrow5 1.3s 9.7s ease both; }
 
     /* ════ SLIDE 11 — The Result ════ */
     #slide5 {
@@ -671,7 +762,7 @@
       .s5-screen-preview { width:88px !important; height:56px !important; }
 
       /* ────── SLIDE 6 ────── */
-      #slide6 {
+      #slide8 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -691,7 +782,7 @@
       .s6-preview { width:88px !important; height:56px !important; }
 
       /* ────── SLIDE 7 ────── */
-      #slide7 {
+      #slide9 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -729,7 +820,7 @@
       .s8-plat-action{ font-size:0.68rem !important; padding-left:0 !important; }
 
       /* ────── SLIDE 9 ────── */
-      #slide6 {
+      #slide8 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -747,7 +838,7 @@
       .s9-point { font-size:0.7rem !important; }
 
       /* ────── SLIDE 10 ────── */
-      #slide7 {
+      #slide9 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -1082,8 +1173,164 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 6: API Access ══════════ -->
+<!-- ══════════ SLIDE 6: Takedown Process ══════════ -->
 <div class="slide" id="slide6">
+  <div class="s6-header">
+    <div class="s6-tag">How It Works</div>
+    <h2 class="s6-title">The Takedown <span class="s6-accent">Process</span></h2>
+    <p class="s6-lead">From the moment a pirated copy appears online to the moment it is removed — here is exactly what happens, step by step, without a single human involved.</p>
+  </div>
+  <div class="s6-flow">
+
+    <div class="s6-step">
+      <div class="s6-step-num">1</div>
+      <div class="s6-step-icon">🔍</div>
+      <div class="s6-step-title">Piracy<br>Detected</div>
+      <div class="s6-step-desc">Bots scan 50+ platforms every minute. Pirated copy flagged instantly.</div>
+    </div>
+    <div class="s6-arrow">›</div>
+
+    <div class="s6-step">
+      <div class="s6-step-num">2</div>
+      <div class="s6-step-icon">🧬</div>
+      <div class="s6-step-title">Fingerprint<br>Matched</div>
+      <div class="s6-step-desc">AI compares against your registered watermark. Verified in under 2 minutes.</div>
+    </div>
+    <div class="s6-arrow">›</div>
+
+    <div class="s6-step">
+      <div class="s6-step-num">3</div>
+      <div class="s6-step-icon">⚖️</div>
+      <div class="s6-step-title">DMCA<br>Auto-Filed</div>
+      <div class="s6-step-desc">Legal notice prepared and submitted in seconds. No lawyer. No delay.</div>
+    </div>
+    <div class="s6-arrow">›</div>
+
+    <div class="s6-step">
+      <div class="s6-step-num">4</div>
+      <div class="s6-step-icon">🗑️</div>
+      <div class="s6-step-title">Platform<br>Removes</div>
+      <div class="s6-step-desc">YouTube in 10 min. Instagram before live. Telegram 24–48 hrs. Torrents 48–72 hrs.</div>
+    </div>
+    <div class="s6-arrow">›</div>
+
+    <div class="s6-step">
+      <div class="s6-step-num">5</div>
+      <div class="s6-step-icon">🚫</div>
+      <div class="s6-step-title">Re-Upload<br>Blocked</div>
+      <div class="s6-step-desc">Every re-upload of the same content is permanently blocked. Pirate cannot win.</div>
+    </div>
+    <div class="s6-arrow">›</div>
+
+    <div class="s6-step">
+      <div class="s6-step-num">✓</div>
+      <div class="s6-step-icon">📊</div>
+      <div class="s6-step-title">Producer<br>Notified</div>
+      <div class="s6-step-desc">Real-time alert and full report on your dashboard. You see everything.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 7: Platform Coverage ══════════ -->
+<div class="slide" id="slide7">
+  <div class="s7-header">
+    <div class="s7-tag">Platform Coverage</div>
+    <h2 class="s7-title">Where We <span class="s7-accent">Watch</span></h2>
+    <p class="s7-lead">Every major platform where piracy happens is monitored — in real time, around the clock. Here is exactly how we handle each one.</p>
+  </div>
+  <div class="s7-grid">
+
+    <div class="s7-plat-card">
+      <div class="s7-plat-icon">▶️</div>
+      <div class="s7-plat-name">YouTube</div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Method</div>
+        <div class="s7-plat-method">Content ID Fingerprint — matches any copy, any length</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Removal Speed</div>
+        <div class="s7-plat-speed">&lt; 10 minutes</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Re-Upload</div>
+        <div class="s7-plat-reup">Auto-blocked permanently by Content ID</div>
+      </div>
+    </div>
+
+    <div class="s7-plat-card">
+      <div class="s7-plat-icon">📸</div>
+      <div class="s7-plat-name">Instagram &amp; Facebook</div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Method</div>
+        <div class="s7-plat-method">Meta Rights Manager — blocks before going live</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Removal Speed</div>
+        <div class="s7-plat-speed">Blocked before live / 1 hr fallback</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Re-Upload</div>
+        <div class="s7-plat-reup">Auto-blocked by Rights Manager across both platforms</div>
+      </div>
+    </div>
+
+    <div class="s7-plat-card">
+      <div class="s7-plat-icon">✈️</div>
+      <div class="s7-plat-name">Telegram</div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Method</div>
+        <div class="s7-plat-method">Dedicated bot network scans thousands of channels 24/7</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Removal Speed</div>
+        <div class="s7-plat-speed">24–48 hours</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Re-Upload</div>
+        <div class="s7-plat-reup">Each re-share detected and re-filed automatically</div>
+      </div>
+    </div>
+
+    <div class="s7-plat-card">
+      <div class="s7-plat-icon">🏴‍☠️</div>
+      <div class="s7-plat-name">Torrent Sites</div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Method</div>
+        <div class="s7-plat-method">DMCA to hosting providers and indexing sites</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Removal Speed</div>
+        <div class="s7-plat-speed">48–72 hours</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Re-Upload</div>
+        <div class="s7-plat-reup">Re-indexed links continuously re-targeted with DMCA</div>
+      </div>
+    </div>
+
+    <div class="s7-plat-card">
+      <div class="s7-plat-icon">🌐</div>
+      <div class="s7-plat-name">Direct Websites</div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Method</div>
+        <div class="s7-plat-method">Direct DMCA to hosting provider and domain registrar</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Removal Speed</div>
+        <div class="s7-plat-speed">72 hours</div>
+      </div>
+      <div class="s7-plat-row">
+        <div class="s7-plat-label">Re-Upload</div>
+        <div class="s7-plat-reup">New hosting provider targeted instantly on detection</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ SLIDE 8: API Access ══════════ -->
+<div class="slide" id="slide8">
   <div class="s9-left">
     <div class="s9-tag">Takedown System — Platform Authorization</div>
     <h2 class="s9-title">Platform<br><span class="s9-accent">API Access</span></h2>
@@ -1175,8 +1422,8 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 7: Producer Dashboard ══════════ -->
-<div class="slide" id="slide7">
+<!-- ══════════ SLIDE 9: Producer Dashboard ══════════ -->
+<div class="slide" id="slide9">
   <div class="s10-header">
     <div class="s10-tag">Your Control Room</div>
     <div class="s10-title-row">
@@ -1301,8 +1548,8 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 8: The Result ══════════ -->
-<div class="slide" id="slide8">
+<!-- ══════════ SLIDE 10: The Result ══════════ -->
+<div class="slide" id="slide10">
   <div class="s11-tag">🛡 THE RESULT</div>
   <h2 class="s11-title"><span class="s11-red">Piracy Controlled.</span> <span class="s11-blue">Producer Safe.</span></h2>
 
@@ -1372,7 +1619,7 @@
 <script>
   const slides   = document.querySelectorAll('.slide');
   const bar      = document.getElementById('progressBar');
-  const durations = [6000,12000,9000,14000,13000,13000,15000,11000];
+  const durations = [6000,12000,9000,14000,13000,14000,14000,13000,15000,11000];
   let current=0, paused=false, timer=null, barAnim=null, elapsed=0, slideStart=0;
 
   /* ══════════════════════════════════════════
@@ -1437,6 +1684,29 @@
         counterLabel: 'Automated — No Manual Effort'
       },
       slide6: {
+        tag: 'How It Works',
+        title: 'The Takedown<br><span class="s6-accent">Process</span>',
+        lead: 'From the moment a pirated copy appears online to the moment it is removed — here is exactly what happens, step by step, without a single human involved.',
+        stepTitles: ['Piracy Detected','Fingerprint Matched','DMCA Auto-Filed','Platform Removes','Re-Upload Blocked','Producer Notified'],
+        stepDescs: [
+          'Our bots scan YouTube, Telegram, Facebook, Instagram, torrent sites and 50+ other platforms continuously — every minute, every day. The moment any pirated copy of your film appears, it is flagged instantly.',
+          'Every frame of your film carries a unique watermark fingerprint registered before release. Our AI compares the flagged content against this fingerprint. Verification takes under 2 minutes — even for shaky, re-encoded, or partial recordings.',
+          'The moment a match is confirmed, a legally valid DMCA takedown notice is filed automatically. No lawyer. No delay. No manual step. The notice is prepared, signed, and submitted in seconds.',
+          'The platform receives the DMCA notice and is legally required to act. YouTube removes content in under 10 minutes. Instagram blocks before it goes live. Telegram in 24–48 hours. Torrent hosts in 48–72 hours.',
+          'Every re-upload of the same content is permanently blocked. YouTube Content ID flags any copy — even 10 seconds of the film. Meta Rights Manager blocks across Facebook and Instagram. The pirate cannot win.',
+          'You receive a real-time alert on your dashboard the moment piracy is detected and again when it is removed. Full report with platform, link, detection time, and removal confirmation. You see everything.'
+        ]
+      },
+      slide7: {
+        tag: 'Platform Coverage',
+        title: 'Where We<br><span class="s7-accent">Watch</span>',
+        lead: 'Every major platform where piracy happens is monitored — in real time, around the clock. Here is exactly how we handle each one.',
+        platNames: ['YouTube','Instagram &amp; Facebook','Telegram','Torrent Sites','Direct Websites'],
+        platMethods: ['Content ID Fingerprint','Meta Rights Manager','Dedicated Bot Network','DMCA to Hosters &amp; Indexers','Direct Hosting Provider DMCA'],
+        platSpeeds: ['Removed in &lt; 10 min','Blocked before going live','Removed in 24–48 hrs','Links removed in 48–72 hrs','Taken down in 72 hrs'],
+        platReups: ['Auto-blocked permanently','Auto-blocked by Rights Manager','Each re-share re-filed automatically','Re-indexed links re-DMCA\'d continuously','New hosting re-targeted instantly']
+      },
+      slide8: {
         tag: 'Takedown System — Platform Authorization',
         title: 'Platform<br><span class="s9-accent">API Access</span>',
         lead: 'Platforms like YouTube, Telegram, and torrent networks will not accept automated removal requests from anyone without authorization. API access is not optional — it is the only legal pathway for removing pirated copies at scale. One-time approval. Permanent enforcement power.',
@@ -1453,7 +1723,7 @@
         resultText: 'API Access Granted → Automated Takedowns Enabled',
         resultSub: 'Once approved, pirated copies are removed across all platforms within minutes — no calls, no lawyers, no waiting. Ever.'
       },
-      slide7: {
+      slide9: {
         tag: 'Your Control Room',
         title: 'Producer <span>Dashboard</span>',
         statLabels: ['Piracy links found','Links removed','Still pending','Success rate'],
@@ -1462,7 +1732,7 @@
         alertTexts: ['New link on YouTube','New link on Telegram','New link on Facebook','New link on Instagram','✓ Websites link removed'],
         alertTimes: ['2 min ago','5 min ago','11 min ago','18 min ago','1 hour ago']
       },
-      slide8: {
+      slide10: {
         tag: '🛡 THE RESULT',
         title: '<span class="s11-red">Piracy Controlled.</span> <span class="s11-blue">Producer Safe.</span>',
         badges: ['BEFORE','AFTER'],
@@ -1530,6 +1800,29 @@
         counterLabel: 'ఆటోమేటెడ్ — మాన్యువల్ పని లేదు'
       },
       slide6: {
+        tag: 'ఎలా పని చేస్తుంది',
+        title: 'తొలగింపు<br><span class="s6-accent">ప్రక్రియ</span>',
+        lead: 'పైరేటెడ్ కాపీ ఆన్‌లైన్‌లో కనిపించిన క్షణం నుండి తొలగించబడే వరకు — ఒక్క మనిషి జోక్యం లేకుండా, ఇక్కడ ప్రతి అడుగూ ఏమి జరుగుతుందో ఉంది.',
+        stepTitles: ['పైరసీ గుర్తించబడింది','ఫింగర్‌ప్రింట్ మ్యాచ్','DMCA ఆటోమేటిగ్గా దాఖలు','ప్లాట్‌ఫారం తొలగిస్తుంది','రీ-అప్‌లోడ్ బ్లాక్','ప్రొడ్యూసర్‌కు తెలియజేయబడింది'],
+        stepDescs: [
+          'మా బాట్లు YouTube, Telegram, Facebook, Instagram, టోరెంట్ సైట్లు మరియు 50+ ఇతర ప్లాట్‌ఫారమ్‌లను నిరంతరం స్కాన్ చేస్తాయి — ప్రతి నిమిషం, ప్రతి రోజూ. మీ చిత్రం పైరేటెడ్ కాపీ కనిపించిన వెంటనే ఫ్లాగ్ చేయబడుతుంది.',
+          'మీ చిత్రం ప్రతి ఫ్రేమ్‌లో విడుదలకు ముందు నమోదు చేయబడిన ప్రత్యేక వాటర్‌మార్క్ ఫింగర్‌ప్రింట్ ఉంటుంది. మా AI ఫ్లాగ్ చేయబడిన కంటెంట్‌ను ఈ ఫింగర్‌ప్రింట్‌తో పోల్చుతుంది. ధృవీకరణ 2 నిమిషాల్లోపు పూర్తవుతుంది.',
+          'మ్యాచ్ నిర్ధారణ అయిన క్షణమే, చట్టబద్ధమైన DMCA నోటీసు ఆటోమేటిగ్గా దాఖలవుతుంది. లాయర్ అవసరం లేదు. ఆలస్యం లేదు. మాన్యువల్ స్టెప్ లేదు. నోటీసు సెకన్లలో తయారు చేయబడి, సమర్పించబడుతుంది.',
+          'ప్లాట్‌ఫారమ్ DMCA నోటీసు అందుకుని చట్టబద్ధంగా చర్య తీసుకోవాలి. YouTube 10 నిమిషాల్లోపు తొలగిస్తుంది. Instagram లైవ్‌కు ముందే బ్లాక్ చేస్తుంది. Telegram 24–48 గంటల్లో. టోరెంట్ హోస్ట్‌లు 48–72 గంటల్లో.',
+          'అదే కంటెంట్ ప్రతి రీ-అప్‌లోడ్ శాశ్వతంగా బ్లాక్ అవుతుంది. YouTube Content ID ఏ కాపీనైనా — 10 సెకన్లు అయినా — ఫ్లాగ్ చేస్తుంది. Meta Rights Manager Facebook మరియు Instagram అంతటా బ్లాక్ చేస్తుంది.',
+          'పైరసీ గుర్తించిన వెంటనే మరియు తొలగించిన తర్వాత మీరు డాష్‌బోర్డ్‌లో రియల్-టైమ్ అలర్ట్ పొందుతారు. ప్లాట్‌ఫారమ్, లింక్, గుర్తింపు సమయం మరియు తొలగింపు నిర్ధారణతో పూర్తి నివేదిక.'
+        ]
+      },
+      slide7: {
+        tag: 'ప్లాట్‌ఫారం కవరేజ్',
+        title: 'మేము ఎక్కడ<br><span class="s7-accent">నిఘా పెడతాం</span>',
+        lead: 'పైరసీ జరిగే ప్రతి ప్రధాన ప్లాట్‌ఫారమ్‌ని పర్యవేక్షిస్తాం — రియల్ టైమ్‌లో, 24/7. ప్రతి ప్లాట్‌ఫారమ్‌ను మేము ఎలా హ్యాండిల్ చేస్తామో ఇక్కడ ఉంది.',
+        platNames: ['YouTube','Instagram &amp; Facebook','Telegram','టోరెంట్ సైట్లు','నేరుగా వెబ్‌సైట్లు'],
+        platMethods: ['Content ID ఫింగర్‌ప్రింట్','Meta Rights Manager','డెడికేటెడ్ బాట్ నెట్‌వర్క్','హోస్టర్లు &amp; ఇండెక్సర్లకు DMCA','నేరుగా హోస్టింగ్ DMCA'],
+        platSpeeds: ['&lt; 10 నిమి లో తొలగింపు','లైవ్‌కు ముందే బ్లాక్','24–48 గంటల్లో తొలగింపు','48–72 గంటల్లో లింక్‌లు తొలగింపు','72 గంటల్లో తొలగించబడుతుంది'],
+        platReups: ['ఆటోమేటిగ్గా శాశ్వతంగా బ్లాక్','Rights Manager ద్వారా ఆటో-బ్లాక్','ప్రతి రీ-షేర్ తిరిగి DMCA','రీ-ఇండెక్స్ లింక్‌లు నిరంతరం DMCA','కొత్త హోస్టింగ్ తక్షణం టార్గెట్']
+      },
+      slide8: {
         tag: 'తొలగింపు వ్యవస్థ — ప్లాట్‌ఫారం అనుమతి',
         title: 'ప్లాట్‌ఫారం<br><span class="s9-accent">API యాక్సెస్</span>',
         lead: 'YouTube, Telegram మరియు టోరెంట్ నెట్‌వర్క్‌లు అనుమతి లేకుండా ఎవరి నుండి అయినా ఆటోమేటెడ్ తొలగింపు అభ్యర్థనలను అంగీకరించవు. API యాక్సెస్ ఐచ్ఛికం కాదు — పెద్ద ఎత్తున పైరేటెడ్ కాపీలను తొలగించడానికి ఇది ఏకైక చట్టపరమైన మార్గం. ఒకసారి ఆమోదించబడింది. శాశ్వత అమలు శక్తి.',
@@ -1546,7 +1839,7 @@
         resultText: 'API యాక్సెస్ మంజూరు → ఆటోమేటెడ్ తొలగింపులు సక్రియం',
         resultSub: 'ఆమోదించిన తర్వాత, పైరేటెడ్ కాపీలు నిమిషాల్లో అన్ని ప్లాట్‌ఫారమ్‌లలో తొలగించబడతాయి — ఫోన్ కాల్స్ లేవు, లాయర్లు లేరు, వేచి ఉండటం లేదు. ఎన్నటికీ.'
       },
-      slide7: {
+      slide9: {
         tag: 'మీ కంట్రోల్ రూమ్',
         title: 'ప్రొడ్యూసర్ <span>డాష్‌బోర్డ్</span>',
         statLabels: ['పైరసీ లింక్‌లు కనుగొన్నారు','లింక్‌లు తొలగించబడ్డాయి','ఇంకా పెండింగ్‌లో','విజయ రేటు'],
@@ -1555,7 +1848,7 @@
         alertTexts: ['YouTube లో నూతన లింక్','Telegram లో నూతన లింక్','Facebook లో నూతన లింక్','Instagram లో నూతన లింక్','✓ వెబ్‌సైట్ లింక్ తొలగించబడింది'],
         alertTimes: ['2 నిమి క్రితం','5 నిమి క్రితం','11 నిమి క్రితం','18 నిమి క్రితం','1 గంట క్రితం']
       },
-      slide8: {
+      slide10: {
         tag: '🛡 ఫలితం',
         title: '<span class="s11-red">పైరసీ నియంత్రణలో ఉంది.</span> <span class="s11-blue">ప్రొడ్యూసర్ సురక్షితంగా.</span>',
         badges: ['ముందు','తర్వాత'],
@@ -1608,36 +1901,52 @@
     qa('#slide5 .s8-plat-action').forEach((el,i) => el.innerHTML = t.slide5.platActions[i]);
     q('#slide5 .s8-counter-label').innerHTML = t.slide5.counterLabel;
 
-    // Slide 6 (API Access)
-    q('#slide6 .s9-tag').innerHTML       = t.slide6.tag;
-    q('#slide6 .s9-title').innerHTML     = t.slide6.title;
-    q('#slide6 .s9-lead').innerHTML      = t.slide6.lead;
-    q('#slide6 .s9-note').innerHTML      = t.slide6.note;
-    q('#slide6 .s9-grid-label').innerHTML= t.slide6.gridLabel;
-    qa('#slide6 .s9-card').forEach((card,ci) => {
-      q('.s9-card-title', card).innerHTML = t.slide6.cardTitles[ci];
-      q('.s9-card-sub',   card).innerHTML = t.slide6.cardSubs[ci];
-      qa('.s9-point', card).forEach((pt,pi) => pt.innerHTML = t.slide6.points[ci][pi]);
+    // Slide 6 (Takedown Flow — new)
+    q('#slide6 .s6-tag').innerHTML = t.slide6.tag;
+    q('#slide6 .s6-title').innerHTML = t.slide6.title;
+    q('#slide6 .s6-lead').innerHTML = t.slide6.lead;
+    qa('#slide6 .s6-step-title').forEach((el,i) => el.innerHTML = t.slide6.stepTitles[i]);
+    qa('#slide6 .s6-step-desc').forEach((el,i)  => el.innerHTML = t.slide6.stepDescs[i]);
+
+    // Slide 7 (Platform Coverage — new)
+    q('#slide7 .s7-tag').innerHTML = t.slide7.tag;
+    q('#slide7 .s7-title').innerHTML = t.slide7.title;
+    q('#slide7 .s7-lead').innerHTML = t.slide7.lead;
+    qa('#slide7 .s7-plat-name').forEach((el,i)   => el.innerHTML = t.slide7.platNames[i]);
+    qa('#slide7 .s7-plat-method').forEach((el,i) => el.innerHTML = t.slide7.platMethods[i]);
+    qa('#slide7 .s7-plat-speed').forEach((el,i)  => el.innerHTML = t.slide7.platSpeeds[i]);
+    qa('#slide7 .s7-plat-reup').forEach((el,i)   => el.innerHTML = t.slide7.platReups[i]);
+
+    // Slide 8 (API Access)
+    q('#slide8 .s9-tag').innerHTML       = t.slide8.tag;
+    q('#slide8 .s9-title').innerHTML     = t.slide8.title;
+    q('#slide8 .s9-lead').innerHTML      = t.slide8.lead;
+    q('#slide8 .s9-note').innerHTML      = t.slide8.note;
+    q('#slide8 .s9-grid-label').innerHTML= t.slide8.gridLabel;
+    qa('#slide8 .s9-card').forEach((card,ci) => {
+      q('.s9-card-title', card).innerHTML = t.slide8.cardTitles[ci];
+      q('.s9-card-sub',   card).innerHTML = t.slide8.cardSubs[ci];
+      qa('.s9-point', card).forEach((pt,pi) => pt.innerHTML = t.slide8.points[ci][pi]);
     });
-    q('#slide6 .s9-result-text').innerHTML = t.slide6.resultText;
-    q('#slide6 .s9-result-sub').innerHTML  = t.slide6.resultSub;
+    q('#slide8 .s9-result-text').innerHTML = t.slide8.resultText;
+    q('#slide8 .s9-result-sub').innerHTML  = t.slide8.resultSub;
 
-    // Slide 7 (Producer Dashboard)
-    q('#slide7 .s10-tag').innerHTML = t.slide7.tag;
-    q('#slide7 .s10-h1').innerHTML  = t.slide7.title;
-    qa('#slide7 .s10-stat-label').forEach((el,i)  => el.innerHTML = t.slide7.statLabels[i]);
-    qa('#slide7 .s10-panel-title').forEach((el,i) => el.innerHTML = t.slide7.panelTitles[i]);
-    qa('#slide7 .s10-plat-name').forEach((el,i)   => el.innerHTML = t.slide7.platNames[i]);
-    qa('#slide7 .s10-alert-text').forEach((el,i)  => el.innerHTML = t.slide7.alertTexts[i]);
-    qa('#slide7 .s10-alert-time').forEach((el,i)  => el.innerHTML = t.slide7.alertTimes[i]);
+    // Slide 9 (Producer Dashboard)
+    q('#slide9 .s10-tag').innerHTML = t.slide9.tag;
+    q('#slide9 .s10-h1').innerHTML  = t.slide9.title;
+    qa('#slide9 .s10-stat-label').forEach((el,i)  => el.innerHTML = t.slide9.statLabels[i]);
+    qa('#slide9 .s10-panel-title').forEach((el,i) => el.innerHTML = t.slide9.panelTitles[i]);
+    qa('#slide9 .s10-plat-name').forEach((el,i)   => el.innerHTML = t.slide9.platNames[i]);
+    qa('#slide9 .s10-alert-text').forEach((el,i)  => el.innerHTML = t.slide9.alertTexts[i]);
+    qa('#slide9 .s10-alert-time').forEach((el,i)  => el.innerHTML = t.slide9.alertTimes[i]);
 
-    // Slide 8 (The Result)
-    q('#slide8 .s11-tag').innerHTML   = t.slide8.tag;
-    q('#slide8 .s11-title').innerHTML = t.slide8.title;
-    qa('#slide8 .s11-badge').forEach((el,i) => el.innerHTML = t.slide8.badges[i]);
-    qa('#slide8 .s11-panel.before .s11-item-text').forEach((el,i) => el.innerHTML = t.slide8.beforeItems[i]);
-    qa('#slide8 .s11-panel.after  .s11-item-text').forEach((el,i) => el.innerHTML = t.slide8.afterItems[i]);
-    q('#slide8 .s11-banner-text').innerHTML = t.slide8.bannerText;
+    // Slide 10 (The Result)
+    q('#slide10 .s11-tag').innerHTML   = t.slide10.tag;
+    q('#slide10 .s11-title').innerHTML = t.slide10.title;
+    qa('#slide10 .s11-badge').forEach((el,i) => el.innerHTML = t.slide10.badges[i]);
+    qa('#slide10 .s11-panel.before .s11-item-text').forEach((el,i) => el.innerHTML = t.slide10.beforeItems[i]);
+    qa('#slide10 .s11-panel.after  .s11-item-text').forEach((el,i) => el.innerHTML = t.slide10.afterItems[i]);
+    q('#slide10 .s11-banner-text').innerHTML = t.slide10.bannerText;
 
     document.documentElement.lang = lang;
   }
@@ -1657,7 +1966,7 @@
   }
 
   function animateCountUp() {
-    qa('#slide7 .s10-stat-val').forEach((el, i) => {
+    qa('#slide9 .s10-stat-val').forEach((el, i) => {
       const target = parseInt(el.dataset.target);
       const suffix = el.dataset.suffix || '';
       const duration = 2500;
@@ -1683,8 +1992,8 @@
     slides[current].classList.add('active');
     elapsed = 0;
     startTimer();
-    if (current === 6) {
-      qa('#slide7 .s10-stat-val').forEach(el => {
+    if (current === 8) {
+      qa('#slide9 .s10-stat-val').forEach(el => {
         el.textContent = '0' + (el.dataset.suffix || '');
       });
       setTimeout(animateCountUp, 2800);
@@ -1833,8 +2142,9 @@
       return;
     }
     const lang = document.getElementById('btnEn').classList.contains('active') ? 'en' : 'te';
-    const audioNums = ['01','02','03','04','08','09','10','11'];
-    const idx  = audioNums[current] || String(current + 1).padStart(2, '0');
+    const audioNums = ['01','02','03','04','08',null,null,'09','10','11'];
+    const idx  = audioNums[current];
+    if (!idx) return;
     const src  = `audio/${lang}_${idx}.mp3`;
 
     const ao = new Audio(src);
