@@ -197,238 +197,13 @@
     #slide4.active .s4-col.right-col .s4-card:nth-child(1){ animation:slideLeft  0.8s 3.0s cubic-bezier(0.22,1,0.36,1) both; }
     #slide4.active .s4-col.left-col  .s4-card:nth-child(2){ animation:slideRight 0.8s 3.8s cubic-bezier(0.22,1,0.36,1) both; }
     #slide4.active .s4-col.right-col .s4-card:nth-child(2){ animation:slideLeft  0.8s 4.6s cubic-bezier(0.22,1,0.36,1) both; }
-    /* ════ SLIDE 5 — IR Detection ════ */
+    /* ════ SLIDE 5 — Takedown System ════ */
     #slide5 {
-      background:radial-gradient(ellipse at 30% 50%,#1a0404 0%,#000 70%);
-      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
-    }
-    #slide5::before {
-      content:''; position:absolute; inset:0;
-      background-image:radial-gradient(circle,rgba(255,40,0,0.04) 1px,transparent 1px);
-      background-size:36px 36px; pointer-events:none;
-    }
-    #slide5::after {
-      content:''; position:absolute; top:-120px; left:-120px;
-      width:600px; height:600px;
-      background:radial-gradient(circle,rgba(255,30,0,0.07) 0%,transparent 65%);
-      pointer-events:none;
-    }
-    .s5-left {
-      flex:0 0 54%; padding:28px 32px 28px 56px;
-      display:flex; flex-direction:column; justify-content:center; gap:10px;
-      position:relative; z-index:1;
-    }
-    .s5-left::after {
-      content:''; position:absolute; right:0; top:8%; bottom:8%;
-      width:1px; background:linear-gradient(to bottom,transparent,rgba(255,60,0,0.25),transparent);
-    }
-    .s5-right {
-      flex:0 0 46%; padding:40px 50px 40px 36px;
-      display:flex; flex-direction:column; justify-content:center; align-items:center; gap:22px;
-      position:relative; z-index:1;
-    }
-    .s5-tag {
-      font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase;
-      color:#ff4400; border:1px solid rgba(255,60,0,0.3);
-      display:inline-block; padding:4px 12px; border-radius:4px;
-      background:rgba(255,40,0,0.08); width:fit-content; opacity:0;
-    }
-    .s5-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
-    .s5-title .s5-accent { color:#ff3300; }
-    .s5-lead {
-      font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65;
-      max-width:430px; opacity:0;
-    }
-    .s5-blocks { display:flex; flex-direction:column; gap:8px; }
-    .s5-block  { padding:8px 14px; border-radius:10px; background:rgba(255,60,0,0.04); border:1px solid rgba(255,60,0,0.12); opacity:0; transition:background 0.3s,border-color 0.3s; }
-    .s5-block:hover { background:rgba(255,60,0,0.09); border-color:rgba(255,80,0,0.28); }
-    .s5-block-heading { font-size:0.88rem; font-weight:800; color:#ffccbb; margin-bottom:4px; letter-spacing:0.01em; }
-    .s5-block-desc    { font-size:0.74rem; color:rgba(200,200,200,0.72); line-height:1.5; }
-    .s5-vis-label {
-      font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase;
-      color:rgba(255,255,255,0.3); opacity:0;
-    }
-    .s5-compare { display:flex; gap:14px; align-items:center; opacity:0; }
-    .s5-eye-box {
-      display:flex; flex-direction:column; align-items:center; gap:10px;
-      background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1);
-      border-radius:14px; padding:16px 14px; width:138px;
-    }
-    .s5-eye-box.danger { border-color:rgba(255,50,0,0.3); background:rgba(80,0,0,0.12); }
-    .s5-eye-icon  { font-size:1.7rem; }
-    .s5-eye-title { font-size:0.76rem; font-weight:700; color:rgba(255,255,255,0.8); }
-    .s5-screen-preview {
-      width:108px; height:68px; border-radius:6px; overflow:hidden;
-      border:1px solid rgba(255,255,255,0.12); position:relative;
-    }
-    .s5-screen-preview.clear {
-      background:linear-gradient(135deg,#1a3060 0%,#0d4a8a 40%,#1a2560 100%);
-    }
-    .s5-screen-preview.glare {
-      background:#ffffff;
-    }
-    .s5-film-bars {
-      position:absolute; inset:0;
-      background:linear-gradient(90deg,
-        rgba(30,80,160,0.6) 0%,rgba(20,120,80,0.6) 25%,
-        rgba(120,60,20,0.6) 55%,rgba(80,20,80,0.6) 80%,
-        rgba(30,80,160,0.6) 100%);
-    }
-    .s5-film-text {
-      position:absolute; bottom:4px; left:50%; transform:translateX(-50%);
-      font-size:0.52rem; font-weight:700; color:rgba(255,255,255,0.9);
-      white-space:nowrap; text-shadow:0 1px 3px rgba(0,0,0,0.9);
-    }
-    .s5-film-text.white { color:rgba(160,120,0,0.85); }
-    .s5-glare-effect {
-      position:absolute; inset:0;
-      background:radial-gradient(circle at 50% 45%,#ffffff 0%,#fffde8 60%,#fff5b0 100%);
-    }
-    .s5-eye-status {
-      font-size:0.66rem; font-weight:600; padding:3px 8px; border-radius:4px; white-space:nowrap;
-    }
-    .s5-eye-status.ok  { color:#00dd77; background:rgba(0,200,100,0.1); border:1px solid rgba(0,200,100,0.22); }
-    .s5-eye-status.bad { color:#ff4422; background:rgba(255,50,0,0.1);  border:1px solid rgba(255,60,0,0.28); }
-    .s5-vs { font-size:0.82rem; font-weight:900; color:rgba(255,255,255,0.22); flex-shrink:0; }
-    .s5-wavelength {
-      display:flex; align-items:center; gap:12px; padding:10px 20px;
-      background:rgba(255,40,0,0.07); border:1px solid rgba(255,60,0,0.2); border-radius:8px; opacity:0;
-    }
-    .s5-wave-label { font-size:0.7rem; color:rgba(255,200,180,0.55); }
-    .s5-wave-val   { font-size:1.6rem; font-weight:900; color:#ff4422; }
-    .s5-wave-tag   { font-size:0.66rem; color:rgba(255,180,150,0.7); background:rgba(255,60,0,0.12); padding:2px 8px; border-radius:4px; }
-
-    @keyframes irGlowPulse {
-      0%,100% { box-shadow:0 0 18px rgba(255,40,0,0.25),inset 0 0 16px rgba(255,30,0,0.04); }
-      50%     { box-shadow:0 0 38px rgba(255,40,0,0.55),inset 0 0 24px rgba(255,30,0,0.1); }
-    }
-    #slide5.active .s5-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-block:nth-child(4) { animation:s2PointIn 0.9s 7.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-vis-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-compare { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-wavelength { animation:fadeUp 1.0s 8.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide5.active .s5-eye-box.danger { animation:irGlowPulse 2s 2.2s ease-in-out infinite; }
-
-    /* ════ SLIDE 6 — TPVM ════ */
-    #slide6 {
-      background:radial-gradient(ellipse at 30% 50%,#0d0520 0%,#000 70%);
-      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
-    }
-    #slide6::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(140,40,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
-    #slide6::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(120,30,240,0.06) 0%,transparent 65%); pointer-events:none; }
-
-    .s6-left  { flex:0 0 56%; padding:28px 32px 28px 56px; display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative; z-index:1; }
-    .s6-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(140,60,255,0.25),transparent); }
-    .s6-right { flex:0 0 44%; padding:28px 40px 28px 28px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:16px; position:relative; z-index:1; }
-
-    .s6-tag   { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#a855f7; border:1px solid rgba(168,85,247,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(140,50,255,0.08); width:fit-content; opacity:0; }
-    .s6-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
-    .s6-title .s6-accent { color:#a855f7; }
-    .s6-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
-    .s6-blocks { display:flex; flex-direction:column; gap:8px; }
-    .s6-block  { padding:10px 14px; border-radius:10px; background:rgba(168,85,247,0.04); border:1px solid rgba(168,85,247,0.12); opacity:0; transition:background 0.3s,border-color 0.3s; }
-    .s6-block:hover { background:rgba(168,85,247,0.09); border-color:rgba(168,85,247,0.28); }
-    .s6-block-heading { font-size:0.88rem; font-weight:800; color:#d8b4fe; margin-bottom:4px; letter-spacing:0.01em; }
-    .s6-block-desc    { font-size:0.74rem; color:rgba(200,200,200,0.72); line-height:1.5; }
-
-    .s6-vis-label { font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.3); opacity:0; }
-    .s6-compare   { display:flex; gap:14px; align-items:center; opacity:0; }
-    .s6-view-box  { display:flex; flex-direction:column; align-items:center; gap:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:16px 14px; width:138px; }
-    .s6-view-box.distorted { border-color:rgba(168,85,247,0.35); background:rgba(60,0,100,0.12); }
-    .s6-view-icon  { font-size:1.7rem; }
-    .s6-view-title { font-size:0.76rem; font-weight:700; color:rgba(255,255,255,0.8); }
-    .s6-preview    { width:108px; height:68px; border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.12); position:relative; }
-    .s6-preview.clear { background:linear-gradient(135deg,#1a3060 0%,#0d4a8a 40%,#1a2560 100%); }
-    .s6-preview.bad   { background:#0a0a1a; }
-    .s6-film-bars2    { position:absolute; inset:0; background:linear-gradient(90deg,rgba(30,80,160,0.6) 0%,rgba(20,120,80,0.6) 25%,rgba(120,60,20,0.6) 55%,rgba(80,20,80,0.6) 80%,rgba(30,80,160,0.6) 100%); }
-    .s6-distort-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(80,0,160,0.7) 0%,rgba(40,0,80,0.8) 50%,rgba(60,0,120,0.6) 100%); }
-    .s6-distort-lines   { position:absolute; inset:0; background:repeating-linear-gradient(0deg,rgba(140,50,255,0.35) 0px,rgba(140,50,255,0.35) 2px,transparent 2px,transparent 8px); }
-    .s6-preview-label   { position:absolute; bottom:4px; left:50%; transform:translateX(-50%); font-size:0.52rem; font-weight:700; white-space:nowrap; }
-    .s6-preview-label.ok  { color:rgba(255,255,255,0.9); text-shadow:0 1px 3px rgba(0,0,0,0.9); }
-    .s6-preview-label.bad { color:rgba(200,150,255,0.9); }
-    .s6-view-status { font-size:0.66rem; font-weight:600; padding:3px 8px; border-radius:4px; white-space:nowrap; }
-    .s6-view-status.ok  { color:#00dd77; background:rgba(0,200,100,0.1); border:1px solid rgba(0,200,100,0.22); }
-    .s6-view-status.bad { color:#b060ff; background:rgba(140,50,255,0.1); border:1px solid rgba(160,80,255,0.28); }
-    .s6-vs   { font-size:0.82rem; font-weight:900; color:rgba(255,255,255,0.22); flex-shrink:0; }
-    .s6-stat { display:flex; align-items:center; gap:12px; padding:10px 20px; background:rgba(140,50,255,0.07); border:1px solid rgba(168,85,247,0.2); border-radius:8px; opacity:0; }
-    .s6-stat-label { font-size:0.7rem; color:rgba(220,180,255,0.55); }
-    .s6-stat-val   { font-size:1.6rem; font-weight:900; color:#a855f7; }
-    .s6-stat-tag   { font-size:0.66rem; color:rgba(200,170,255,0.7); background:rgba(140,50,255,0.12); padding:2px 8px; border-radius:4px; }
-
-    @keyframes tpvmPulse { 0%,100%{box-shadow:0 0 18px rgba(168,85,247,0.2)} 50%{box-shadow:0 0 38px rgba(168,85,247,0.5)} }
-    #slide6.active .s6-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-block:nth-child(4) { animation:s2PointIn 0.9s 7.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-vis-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-compare { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-stat { animation:fadeUp 1.0s 8.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide6.active .s6-view-box.distorted { animation:tpvmPulse 2s 2.2s ease-in-out infinite; }
-
-    /* ════ SLIDE 7 — Watermarking ════ */
-    #slide7 {
-      background:radial-gradient(ellipse at 70% 50%,#021a14 0%,#000 70%);
-      align-items:stretch; justify-content:center; position:relative; overflow:hidden;
-    }
-    #slide7::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,180,120,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
-    #slide7::after  { content:''; position:absolute; top:-120px; right:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(0,160,100,0.06) 0%,transparent 65%); pointer-events:none; }
-
-    .s7-left  { flex:0 0 54%; padding:50px 36px 50px 60px; display:flex; flex-direction:column; justify-content:center; gap:18px; position:relative; z-index:1; }
-    .s7-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(0,180,120,0.25),transparent); }
-    .s7-right { flex:0 0 46%; padding:40px 50px 40px 36px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px; position:relative; z-index:1; }
-
-    .s7-tag   { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#10b981; border:1px solid rgba(16,185,129,0.3); display:inline-block; padding:4px 12px; border-radius:4px; background:rgba(0,180,100,0.08); width:fit-content; opacity:0; }
-    .s7-title { font-size:3rem; font-weight:900; line-height:1.1; opacity:0; }
-    .s7-title .s7-accent { color:#10b981; }
-    .s7-lead  { font-size:0.93rem; color:rgba(215,215,215,0.8); line-height:1.65; max-width:430px; opacity:0; }
-    .s7-blocks { display:flex; flex-direction:column; gap:8px; }
-    .s7-block  { padding:10px 14px; border-radius:10px; background:rgba(16,185,129,0.04); border:1px solid rgba(16,185,129,0.12); opacity:0; transition:background 0.3s,border-color 0.3s; }
-    .s7-block:hover { background:rgba(16,185,129,0.09); border-color:rgba(16,185,129,0.28); }
-    .s7-block-heading { font-size:0.88rem; font-weight:800; color:#6ee7b7; margin-bottom:4px; letter-spacing:0.01em; }
-    .s7-block-desc    { font-size:0.74rem; color:rgba(200,200,200,0.72); line-height:1.5; }
-
-    .s7-wm-frame { width:200px; height:130px; border-radius:10px; position:relative; overflow:hidden; background:linear-gradient(135deg,#0d3020 0%,#0a4030 50%,#0d3020 100%); border:1px solid rgba(16,185,129,0.25); opacity:0; }
-    .s7-wm-film  { position:absolute; inset:0; background:linear-gradient(90deg,rgba(10,80,50,0.7) 0%,rgba(20,100,60,0.7) 30%,rgba(40,80,40,0.7) 60%,rgba(10,90,50,0.7) 100%); }
-    .s7-wm-dots  { position:absolute; inset:0; background-image:radial-gradient(circle,rgba(16,185,129,0.55) 1px,transparent 1px); background-size:12px 12px; background-position:6px 6px; }
-    .s7-wm-badge { position:absolute; bottom:8px; right:8px; font-size:0.55rem; font-weight:800; letter-spacing:0.1em; color:#10b981; background:rgba(0,0,0,0.7); padding:2px 6px; border-radius:3px; border:1px solid rgba(16,185,129,0.4); }
-    .s7-wm-label { font-size:0.6rem; color:rgba(255,255,255,0.3); text-align:center; margin-top:-8px; }
-
-    .s7-trace       { display:flex; flex-direction:column; gap:8px; width:220px; opacity:0; }
-    .s7-trace-title { font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.25); text-align:center; }
-    .s7-trace-row   { display:flex; justify-content:space-between; align-items:center; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.15); border-radius:6px; padding:6px 12px; }
-    .s7-trace-key   { font-size:0.7rem; color:rgba(200,200,200,0.55); }
-    .s7-trace-val   { font-size:0.72rem; font-weight:700; color:#6ee7b7; }
-
-    @keyframes wmGlow { 0%,100%{box-shadow:0 0 16px rgba(16,185,129,0.2)} 50%{box-shadow:0 0 32px rgba(16,185,129,0.5)} }
-    #slide7.active .s7-tag   { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-lead  { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-block:nth-child(4) { animation:s2PointIn 0.9s 7.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide7.active .s7-wm-frame { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both,wmGlow 2s 3.4s ease-in-out infinite; }
-    #slide7.active .s7-trace { animation:fadeUp 1.0s 9.2s cubic-bezier(0.22,1,0.36,1) both; }
-    /* Laptop layout fix for slide 7 */
-    .s7-left  { flex:0 0 56%; padding:28px 32px 28px 56px; gap:10px; }
-    .s7-right { flex:0 0 44%; padding:28px 40px 28px 28px; gap:16px; }
-    .s7-block { padding:8px 14px; }
-
-    /* ════ SLIDE 8 — Takedown System ════ */
-    #slide8 {
       background:radial-gradient(ellipse at 30% 50%,#140a00 0%,#000 70%);
       align-items:stretch; justify-content:center; position:relative; overflow:hidden;
     }
-    #slide8::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(240,100,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
-    #slide8::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(240,80,0,0.06) 0%,transparent 65%); pointer-events:none; }
+    #slide5::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(240,100,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide5::after  { content:''; position:absolute; top:-120px; left:-120px; width:600px; height:600px; background:radial-gradient(circle,rgba(240,80,0,0.06) 0%,transparent 65%); pointer-events:none; }
 
     .s8-left  { flex:0 0 54%; padding:28px 32px 28px 56px; display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative; z-index:1; }
     .s8-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(240,100,0,0.25),transparent); }
@@ -459,15 +234,15 @@
     .s8-counter-label { font-size:0.66rem; color:rgba(255,200,150,0.55); letter-spacing:0.08em; text-transform:uppercase; }
 
     @keyframes tdPulse { 0%,100%{box-shadow:0 0 16px rgba(249,115,22,0.2)} 50%{box-shadow:0 0 32px rgba(249,115,22,0.5)} }
-    #slide8.active .s8-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-lead  { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-lead2 { animation:fadeUp 1.0s 3.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-platforms { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-counter { animation:fadeUp 1.0s 10.8s cubic-bezier(0.22,1,0.36,1) both,tdPulse 2s 12s ease-in-out infinite; }
+    #slide5.active .s8-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-lead  { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-lead2 { animation:fadeUp 1.0s 3.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-block:nth-child(1) { animation:s2PointIn 0.9s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-block:nth-child(2) { animation:s2PointIn 0.9s 5.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-block:nth-child(3) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-platforms { animation:fadeUp 1.0s 2.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-counter { animation:fadeUp 1.0s 10.8s cubic-bezier(0.22,1,0.36,1) both,tdPulse 2s 12s ease-in-out infinite; }
 
     /* ── Slide 8 new platform timing cards ── */
     .s8-plat-new-grid { display:flex; flex-direction:column; gap:8px; width:100%; }
@@ -482,10 +257,10 @@
     .s8-time-chip.slow   { color:#f97316; background:rgba(249,115,22,0.12); border:1px solid rgba(249,115,22,0.25); }
     .s8-plat-action { font-size:0.72rem; color:rgba(200,200,200,0.65); line-height:1.5; padding-left:46px; }
     /* Platform card one-by-one animations */
-    #slide8.active .s8-plat-card:nth-child(1) { animation:s2PointIn 0.9s 1.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-plat-card:nth-child(2) { animation:s2PointIn 0.9s 3.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-plat-card:nth-child(3) { animation:s2PointIn 0.9s 5.0s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide8.active .s8-plat-card:nth-child(4) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-plat-card:nth-child(1) { animation:s2PointIn 0.9s 1.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-plat-card:nth-child(2) { animation:s2PointIn 0.9s 3.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-plat-card:nth-child(3) { animation:s2PointIn 0.9s 5.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s8-plat-card:nth-child(4) { animation:s2PointIn 0.9s 6.6s cubic-bezier(0.22,1,0.36,1) both; }
     /* Laptop layout fix */
     .s8-right { overflow:visible; }
     .s8-counter { flex-shrink:0; padding:10px 22px; }
@@ -493,12 +268,12 @@
     .s8-counter-label { font-size:0.62rem; }
 
     /* ════ SLIDE 9 — Takedown Requirements ════ */
-    #slide9 {
+    #slide6 {
       background:radial-gradient(ellipse at 40% 50%,#0a0d1a 0%,#000 75%);
       align-items:stretch; justify-content:center; position:relative; overflow:hidden;
     }
-    #slide9::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(180,140,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
-    #slide9::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle,rgba(200,160,0,0.05) 0%,transparent 65%); pointer-events:none; }
+    #slide6::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(180,140,0,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide6::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle,rgba(200,160,0,0.05) 0%,transparent 65%); pointer-events:none; }
 
     .s9-left  { flex:0 0 38%; padding:36px 30px 36px 56px; display:flex; flex-direction:column; justify-content:center; gap:14px; position:relative; z-index:1; }
     .s9-left::after { content:''; position:absolute; right:0; top:8%; bottom:8%; width:1px; background:linear-gradient(to bottom,transparent,rgba(200,160,0,0.25),transparent); }
@@ -539,14 +314,14 @@
     .s9-card:nth-child(3) .s9-point::before { color:#10b981; }
     .s9-card:nth-child(4) .s9-point::before { color:#a855f7; }
 
-    #slide9.active .s9-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-note { animation:fadeUp 1.0s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-card:nth-child(1) { animation:s2NumIn 1.0s 1.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-card:nth-child(2) { animation:s2NumIn 1.0s 2.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-card:nth-child(3) { animation:s2NumIn 1.0s 3.8s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-card:nth-child(4) { animation:s2NumIn 1.0s 5.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-lead { animation:fadeUp 1.0s 2.9s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-note { animation:fadeUp 1.0s 4.2s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-card:nth-child(1) { animation:s2NumIn 1.0s 1.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-card:nth-child(2) { animation:s2NumIn 1.0s 2.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-card:nth-child(3) { animation:s2NumIn 1.0s 3.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-card:nth-child(4) { animation:s2NumIn 1.0s 5.0s cubic-bezier(0.22,1,0.36,1) both; }
 
     /* s9 extras for API result row */
     .s9-result {
@@ -558,16 +333,16 @@
     .s9-result-text  { font-size:0.78rem; font-weight:700; color:#4ade80; }
     .s9-result-sub   { font-size:0.68rem; color:rgba(150,220,170,0.65); margin-top:2px; }
     .s9-grid-label   { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25); opacity:0; }
-    #slide9.active .s9-grid-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide9.active .s9-result { animation:fadeUp 1.0s 6.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-grid-label { animation:fadeIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide6.active .s9-result { animation:fadeUp 1.0s 6.8s cubic-bezier(0.22,1,0.36,1) both; }
 
     /* ════ SLIDE 10 — Producer Dashboard ════ */
-    #slide10 {
+    #slide7 {
       background:radial-gradient(ellipse at 50% 30%,#010d1f 0%,#000 75%);
       flex-direction:column; align-items:center; justify-content:flex-start;
       padding:24px 48px 20px; position:relative; overflow:hidden;
     }
-    #slide10::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide7::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
 
     .s10-header { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:6px; margin-bottom:14px; opacity:0; }
     .s10-tag    { font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(0,180,255,0.7); background:rgba(0,120,255,0.08); border:1px solid rgba(0,140,255,0.18); padding:3px 14px; border-radius:20px; }
@@ -643,22 +418,22 @@
     @keyframes barGrow13 { to{width:13%} }
     @keyframes barGrow9  { to{width:9%} }
     @keyframes barGrow5  { to{width:5%} }
-    #slide10.active .s10-header { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide10.active .s10-stats { animation:fadeUp 1.0s 1.7s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide10.active .s10-panels { animation:fadeUp 1.0s 3.1s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide10.active .s10-bar.yt { animation:barGrow58 1.3s 4.5s ease both; }
-    #slide10.active .s10-bar.tg { animation:barGrow15 1.3s 5.8s ease both; }
-    #slide10.active .s10-bar.fb { animation:barGrow13 1.3s 7.1s ease both; }
-    #slide10.active .s10-bar.ig { animation:barGrow9 1.3s 8.4s ease both; }
-    #slide10.active .s10-bar.web { animation:barGrow5 1.3s 9.7s ease both; }
+    #slide7.active .s10-header { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s10-stats { animation:fadeUp 1.0s 1.7s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s10-panels { animation:fadeUp 1.0s 3.1s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide7.active .s10-bar.yt { animation:barGrow58 1.3s 4.5s ease both; }
+    #slide7.active .s10-bar.tg { animation:barGrow15 1.3s 5.8s ease both; }
+    #slide7.active .s10-bar.fb { animation:barGrow13 1.3s 7.1s ease both; }
+    #slide7.active .s10-bar.ig { animation:barGrow9 1.3s 8.4s ease both; }
+    #slide7.active .s10-bar.web { animation:barGrow5 1.3s 9.7s ease both; }
 
     /* ════ SLIDE 11 — The Result ════ */
-    #slide11 {
+    #slide5 {
       background:radial-gradient(ellipse at 50% 50%,#020d1f 0%,#000 75%);
       flex-direction:column; align-items:center; justify-content:flex-start;
       padding:24px 44px 18px; position:relative; overflow:hidden;
     }
-    #slide11::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
+    #slide5::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,100,255,0.04) 1px,transparent 1px); background-size:36px 36px; pointer-events:none; }
 
     .s11-tag   { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(100,200,255,0.8); background:rgba(0,120,255,0.08); border:1px solid rgba(0,150,255,0.22); padding:4px 18px; border-radius:20px; display:flex; align-items:center; gap:7px; opacity:0; margin-bottom:8px; }
     .s11-title { font-size:2.6rem; font-weight:900; text-align:center; margin-bottom:14px; opacity:0; line-height:1.1; }
@@ -687,18 +462,18 @@
       0%,100% { filter:drop-shadow(0 0 18px rgba(0,180,255,0.8)) drop-shadow(0 0 36px rgba(0,100,255,0.5)); }
       50%     { filter:drop-shadow(0 0 32px rgba(0,210,255,1))   drop-shadow(0 0 56px rgba(0,140,255,0.8)); }
     }
-    #slide11.active .s11-shield-svg { animation:shieldResultGlow 3s 1.5s ease-in-out infinite; }
+    #slide5.active .s11-shield-svg { animation:shieldResultGlow 3s 1.5s ease-in-out infinite; }
 
     .s11-banner { display:flex; align-items:center; justify-content:center; gap:12px; padding:12px 36px; background:rgba(0,100,255,0.07); border:1px solid rgba(0,150,255,0.2); border-radius:40px; opacity:0; }
     .s11-banner-icon { font-size:1.1rem; }
     .s11-banner-text { font-size:0.98rem; font-weight:600; color:rgba(210,230,255,0.9); }
 
-    #slide11.active .s11-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide11.active .s11-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide11.active .s11-panel.before { animation:slideRight 1.0s 3.0s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide11.active .s11-center { animation:s2NumIn 1.0s 3.6s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide11.active .s11-panel.after { animation:slideLeft 1.0s 3.0s cubic-bezier(0.22,1,0.36,1) both; }
-    #slide11.active .s11-banner { animation:fadeUp 1.0s 4.8s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s11-tag { animation:fadeUp 1.0s 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s11-title { animation:fadeUp 1.0s 1.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s11-panel.before { animation:slideRight 1.0s 3.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s11-center { animation:s2NumIn 1.0s 3.6s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s11-panel.after { animation:slideLeft 1.0s 3.0s cubic-bezier(0.22,1,0.36,1) both; }
+    #slide5.active .s11-banner { animation:fadeUp 1.0s 4.8s cubic-bezier(0.22,1,0.36,1) both; }
     /* ═══ PRESENTATION WRAPPER — responsive scale ═══ */
     .presentation-wrapper {
       width:1440px; height:810px;
@@ -934,7 +709,7 @@
       .s7-wm-frame { width:100% !important; height:100px !important; }
 
       /* ────── SLIDE 8 ────── */
-      #slide8 {
+      #slide5 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -954,7 +729,7 @@
       .s8-plat-action{ font-size:0.68rem !important; padding-left:0 !important; }
 
       /* ────── SLIDE 9 ────── */
-      #slide9 {
+      #slide6 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -972,7 +747,7 @@
       .s9-point { font-size:0.7rem !important; }
 
       /* ────── SLIDE 10 ────── */
-      #slide10 {
+      #slide7 {
         flex-direction:column !important;
         align-items:flex-start !important;
         justify-content:flex-start !important;
@@ -988,7 +763,7 @@
       .s10-panels { grid-template-columns:1fr !important; gap:10px !important; }
 
       /* ────── SLIDE 11 ────── */
-      #slide11 {
+      #slide5 {
         flex-direction:column !important;
         align-items:center !important;
         justify-content:flex-start !important;
@@ -1217,174 +992,8 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 5: IR Detection ══════════ -->
+<!-- ══════════ SLIDE 5: Takedown System ══════════ -->
 <div class="slide" id="slide5">
-  <div class="s5-left">
-    <div class="s5-tag">Physical Deterrent</div>
-    <h2 class="s5-title">IR <span class="s5-accent">Detection</span><br>System</h2>
-    <p class="s5-lead">Your film is showing. The hall is packed. Somewhere in the dark, a phone is pointing at the screen. IR Detection sees it coming — and before a single frame is recorded, that phone is already blind.</p>
-    <div class="s5-blocks">
-      <div class="s5-block">
-        <div class="s5-block-heading">Invisible to the Eye. Lethal to Every Lens.</div>
-        <div class="s5-block-desc">940nm infrared LEDs surround the screen — a wavelength the human eye cannot detect. Your audience sees nothing different. But every camera sensor in the room is drowning in invisible light that makes any recording physically impossible.</div>
-      </div>
-      <div class="s5-block">
-        <div class="s5-block-heading">The Screen Itself Becomes the Weapon.</div>
-        <div class="s5-block-desc">The infrared flood is built into the theatre — always active, always silent. The moment any lens points at the screen, the sensor overexposes instantly. The pirate sees nothing but white. Your film plays on.</div>
-      </div>
-      <div class="s5-block">
-        <div class="s5-block-heading">No Filter. No App. No Camera Setting.</div>
-        <div class="s5-block-desc">Overexposure from 940nm infrared cannot be corrected. No colour grading removes it. No software recovers it. No camera brand, no lens quality, no recording mode avoids it. The physics of infrared makes every recording attempt permanently futile.</div>
-      </div>
-      <div class="s5-block">
-        <div class="s5-block-heading">Any Device. One Result.</div>
-        <div class="s5-block-desc">Budget smartphone. High-end DSLR. Professional camcorder. It makes no difference. Every imaging sensor responds the same way to infrared flood — complete whiteout. Your film cannot be captured. Not today. Not ever.</div>
-      </div>
-    </div>
-  </div>
-  <div class="s5-right">
-    <div class="s5-vis-label">What they see</div>
-    <div class="s5-compare">
-      <div class="s5-eye-box">
-        <div class="s5-eye-icon">👁️</div>
-        <div class="s5-eye-title">Human Eye</div>
-        <div class="s5-screen-preview clear">
-          <div class="s5-film-bars"></div>
-          <div class="s5-film-text">Crystal Clear</div>
-        </div>
-        <div class="s5-eye-status ok">✓ Normal viewing</div>
-      </div>
-      <div class="s5-vs">VS</div>
-      <div class="s5-eye-box danger">
-        <div class="s5-eye-icon">📱</div>
-        <div class="s5-eye-title">Camera</div>
-        <div class="s5-screen-preview glare">
-          <div class="s5-glare-effect"></div>
-          <div class="s5-film-text white">White Glare</div>
-        </div>
-        <div class="s5-eye-status bad">✗ Unusable footage</div>
-      </div>
-    </div>
-    <div class="s5-wavelength">
-      <span class="s5-wave-label">Wavelength</span>
-      <span class="s5-wave-val">940 nm</span>
-      <span class="s5-wave-tag">Near-Infrared</span>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ══════════ SLIDE 6: TPVM ══════════ -->
-<div class="slide" id="slide6">
-  <div class="s6-left">
-    <div class="s6-tag">Visual Disruption</div>
-    <h2 class="s6-title">TPVM<br><span class="s6-accent">Technology</span></h2>
-    <p class="s6-lead">Your film plays perfectly in the theatre. Every person in the hall sees a flawless picture. But every phone pointed at that screen records nothing but flickering, distorted, unwatchable noise. That is TPVM — and no camera in the world can defeat it.</p>
-    <div class="s6-blocks">
-      <div class="s6-block">
-        <div class="s6-block-heading">7 Invisible Layers. Every Frame.</div>
-        <div class="s6-block-desc">TPVM injects 7 imperceptible masking layers into every frame, in real time, during projection. Seven layers operating simultaneously — invisible to the naked eye, lethal to any recording sensor.</div>
-      </div>
-      <div class="s6-block">
-        <div class="s6-block-heading">Your Audience Sees Everything. Clearly.</div>
-        <div class="s6-block-desc">Human persistence of vision fuses all 7 layers into a single, perfect image. The audience experiences your film exactly as intended. The theatre experience is completely unaffected.</div>
-      </div>
-      <div class="s6-block">
-        <div class="s6-block-heading">Any Camera Gets Destroyed.</div>
-        <div class="s6-block-desc">A camera sensor cannot do what the human eye does. It captures each layer separately — and the result is a flickering, distorted, unwatchable mess. There is no camera on earth that defeats this.</div>
-      </div>
-      <div class="s6-block">
-        <div class="s6-block-heading">No App. No Filter. No Fix.</div>
-        <div class="s6-block-desc">The distortion is not software-based. It is physical — built into the optics of the projection itself. No app, no filter, no post-processing can clean it up. What a pirate records is permanently broken.</div>
-      </div>
-    </div>
-  </div>
-  <div class="s6-right">
-    <div class="s6-vis-label">What they see</div>
-    <div class="s6-compare">
-      <div class="s6-view-box">
-        <div class="s6-view-icon">👁️</div>
-        <div class="s6-view-title">Human Eye</div>
-        <div class="s6-preview clear">
-          <div class="s6-film-bars2"></div>
-          <div class="s6-preview-label ok">Crystal Clear</div>
-        </div>
-        <div class="s6-view-status ok">✓ Normal viewing</div>
-      </div>
-      <div class="s6-vs">VS</div>
-      <div class="s6-view-box distorted">
-        <div class="s6-view-icon">📱</div>
-        <div class="s6-view-title">Camera</div>
-        <div class="s6-preview bad">
-          <div class="s6-distort-overlay"></div>
-          <div class="s6-distort-lines"></div>
-          <div class="s6-preview-label bad">Distorted</div>
-        </div>
-        <div class="s6-view-status bad">✗ Flickering &amp; unusable</div>
-      </div>
-    </div>
-    <div class="s6-stat">
-      <span class="s6-stat-label">Masking Layers</span>
-      <span class="s6-stat-val">7</span>
-      <span class="s6-stat-tag">Per Frame</span>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ══════════ SLIDE 7: Watermarking ══════════ -->
-<div class="slide" id="slide7">
-  <div class="s7-left">
-    <div class="s7-tag">Digital Forensics</div>
-    <h2 class="s7-title">Digital<br><span class="s7-accent">Watermarking</span></h2>
-    <p class="s7-lead">Before your film enters a single theatre, every print is already marked — frame by frame, invisibly. The moment a pirated copy surfaces anywhere in the world, that mark tells us exactly who leaked it.</p>
-    <div class="s7-blocks">
-      <div class="s7-block">
-        <div class="s7-block-heading">Every Print. Different Mark.</div>
-        <div class="s7-block-desc">Every digital print sent to every theatre carries a unique, invisible watermark — different for each screen and each showtime. No two copies are the same. The audience sees nothing. The pirate sees nothing. But the mark is there, in every frame, waiting.</div>
-      </div>
-      <div class="s7-block">
-        <div class="s7-block-heading">It Cannot Be Removed.</div>
-        <div class="s7-block-desc">Compression, cropping, colour filters, re-encoding — none of it removes the watermark. Even a shaky phone recording from inside a dark theatre still carries the original fingerprint, intact. There is no way to capture your film without capturing the mark.</div>
-      </div>
-      <div class="s7-block">
-        <div class="s7-block-heading">Source Found. In Minutes.</div>
-        <div class="s7-block-desc">The moment a pirated copy appears online, we extract the watermark from the footage. Within minutes, we know the exact theatre, the exact screen, and the exact showtime the leak came from. One pirated copy. One source. Every time.</div>
-      </div>
-      <div class="s7-block">
-        <div class="s7-block-heading">Proof. Not Suspicion.</div>
-        <div class="s7-block-desc">The trace report is timestamped and court-admissible. You walk into a legal case not with suspicion — but with proof. The theatre, the distributor, the individual responsible — identified, documented, on record.</div>
-      </div>
-    </div>
-  </div>
-  <div class="s7-right">
-    <div class="s7-wm-frame">
-      <div class="s7-wm-film"></div>
-      <div class="s7-wm-dots"></div>
-      <div class="s7-wm-badge">WM#4F2A9C</div>
-    </div>
-    <div class="s7-wm-label">Watermarked frame — invisible to viewers</div>
-    <div class="s7-trace">
-      <div class="s7-trace-title">— Source Trace Report —</div>
-      <div class="s7-trace-row">
-        <span class="s7-trace-key">Theatre</span>
-        <span class="s7-trace-val">PVR Phoenix, Screen 4</span>
-      </div>
-      <div class="s7-trace-row">
-        <span class="s7-trace-key">Showtime</span>
-        <span class="s7-trace-val">Fri 21:30 Show</span>
-      </div>
-      <div class="s7-trace-row">
-        <span class="s7-trace-key">Status</span>
-        <span class="s7-trace-val" style="color:#00dd77">✓ Source Identified</span>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ══════════ SLIDE 8: Takedown System ══════════ -->
-<div class="slide" id="slide8">
   <div class="s8-left">
     <div class="s8-tag">Automated Enforcement</div>
     <h2 class="s8-title">Takedown<br><span class="s8-accent">System</span></h2>
@@ -1473,8 +1082,8 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 9: API Access ══════════ -->
-<div class="slide" id="slide9">
+<!-- ══════════ SLIDE 6: API Access ══════════ -->
+<div class="slide" id="slide6">
   <div class="s9-left">
     <div class="s9-tag">Takedown System — Platform Authorization</div>
     <h2 class="s9-title">Platform<br><span class="s9-accent">API Access</span></h2>
@@ -1566,8 +1175,8 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 10: Producer Dashboard ══════════ -->
-<div class="slide" id="slide10">
+<!-- ══════════ SLIDE 7: Producer Dashboard ══════════ -->
+<div class="slide" id="slide7">
   <div class="s10-header">
     <div class="s10-tag">Your Control Room</div>
     <div class="s10-title-row">
@@ -1692,8 +1301,8 @@
 </div>
 </div>
 
-<!-- ══════════ SLIDE 11: The Result ══════════ -->
-<div class="slide" id="slide11">
+<!-- ══════════ SLIDE 8: The Result ══════════ -->
+<div class="slide" id="slide8">
   <div class="s11-tag">🛡 THE RESULT</div>
   <h2 class="s11-title"><span class="s11-red">Piracy Controlled.</span> <span class="s11-blue">Producer Safe.</span></h2>
 
@@ -1763,7 +1372,7 @@
 <script>
   const slides   = document.querySelectorAll('.slide');
   const bar      = document.getElementById('progressBar');
-  const durations = [6000,12000,9000,14000,13000,13000,13000,13000,13000,15000,11000];
+  const durations = [6000,12000,9000,14000,13000,13000,15000,11000];
   let current=0, paused=false, timer=null, barAnim=null, elapsed=0, slideStart=0;
 
   /* ══════════════════════════════════════════
@@ -1808,56 +1417,6 @@
         ]
       },
       slide5: {
-        tag: 'Physical Deterrent',
-        title: 'IR <span class="s5-accent">Detection</span><br>System',
-        lead: 'Your film is showing. The hall is packed. Somewhere in the dark, a phone is pointing at the screen. IR Detection sees it coming — and before a single frame is recorded, that phone is already blind.',
-        blockHeadings: ['Invisible to the Eye. Lethal to Every Lens.','The Screen Itself Becomes the Weapon.','No Filter. No App. No Camera Setting.','Any Device. One Result.'],
-        blockDescs: [
-          '940nm infrared LEDs surround the screen — a wavelength the human eye cannot detect. Your audience sees nothing different. But every camera sensor in the room is drowning in invisible light that makes any recording physically impossible.',
-          'The infrared flood is built into the theatre — always active, always silent. The moment any lens points at the screen, the sensor overexposes instantly. The pirate sees nothing but white. Your film plays on.',
-          'Overexposure from 940nm infrared cannot be corrected. No colour grading removes it. No software recovers it. No camera brand, no lens quality, no recording mode avoids it. The physics of infrared makes every recording attempt permanently futile.',
-          'Budget smartphone. High-end DSLR. Professional camcorder. It makes no difference. Every imaging sensor responds the same way to infrared flood — complete whiteout. Your film cannot be captured. Not today. Not ever.'
-        ],
-        visLabel: 'What they see',
-        eyeTitles: ['Human Eye','Camera'],
-        screenLabels: ['Crystal Clear','White Glare'],
-        eyeStatuses: ['✓ Normal viewing','✗ Unusable footage'],
-        waveLabel: 'Wavelength', waveTag: 'Near-Infrared'
-      },
-      slide6: {
-        tag: 'Visual Disruption',
-        title: 'TPVM<br><span class="s6-accent">Technology</span>',
-        lead: 'Your film plays perfectly in the theatre. Every person in the hall sees a flawless picture. But every phone pointed at that screen records nothing but flickering, distorted, unwatchable noise. That is TPVM — and no camera in the world can defeat it.',
-        blockHeadings: ['7 Invisible Layers. Every Frame.','Your Audience Sees Everything. Clearly.','Any Camera Gets Destroyed.','No App. No Filter. No Fix.'],
-        blockDescs: [
-          'TPVM injects 7 imperceptible masking layers into every frame, in real time, during projection. Seven layers operating simultaneously — invisible to the naked eye, lethal to any recording sensor.',
-          'Human persistence of vision fuses all 7 layers into a single, perfect image. The audience experiences your film exactly as intended. The theatre experience is completely unaffected.',
-          'A camera sensor cannot do what the human eye does. It captures each layer separately — and the result is a flickering, distorted, unwatchable mess. There is no camera on earth that defeats this.',
-          'The distortion is not software-based. It is physical — built into the optics of the projection itself. No app, no filter, no post-processing can clean it up. What a pirate records is permanently broken.'
-        ],
-        visLabel: 'What they see',
-        viewTitles: ['Human Eye','Camera'],
-        previewLabels: ['Crystal Clear','Distorted'],
-        viewStatuses: ['✓ Normal viewing','✗ Flickering &amp; unusable'],
-        statLabel: 'Masking Layers', statTag: 'Per Frame'
-      },
-      slide7: {
-        tag: 'Digital Forensics',
-        title: 'Digital<br><span class="s7-accent">Watermarking</span>',
-        lead: 'Before your film enters a single theatre, every print is already marked — frame by frame, invisibly. The moment a pirated copy surfaces anywhere in the world, that mark tells us exactly who leaked it.',
-        blockHeadings: ['Every Print. Different Mark.','It Cannot Be Removed.','Source Found. In Minutes.','Proof. Not Suspicion.'],
-        blockDescs: [
-          'Every digital print sent to every theatre carries a unique, invisible watermark — different for each screen and each showtime. No two copies are the same. The audience sees nothing. The pirate sees nothing. But the mark is there, in every frame, waiting.',
-          'Compression, cropping, colour filters, re-encoding — none of it removes the watermark. Even a shaky phone recording from inside a dark theatre still carries the original fingerprint, intact. There is no way to capture your film without capturing the mark.',
-          'The moment a pirated copy appears online, we extract the watermark from the footage. Within minutes, we know the exact theatre, the exact screen, and the exact showtime the leak came from. One pirated copy. One source. Every time.',
-          'The trace report is timestamped and court-admissible. You walk into a legal case not with suspicion — but with proof. The theatre, the distributor, the individual responsible — identified, documented, on record.'
-        ],
-        wmLabel: 'Watermarked frame — invisible to viewers',
-        traceTitle: '— Source Trace Report —',
-        traceKeys: ['Theatre','Showtime','Status'],
-        traceVals: ['PVR Phoenix, Screen 4','Fri 21:30 Show','✓ Source Identified']
-      },
-      slide8: {
         tag: 'Automated Enforcement',
         title: 'Takedown<br><span class="s8-accent">System</span>',
         lead: 'Your film releases. Piracy attempts start on day one. Our Takedown System is already running — scanning every platform, every minute, removing every copy before it spreads. You focus on your film. We handle the rest.',
@@ -1877,7 +1436,7 @@
         ],
         counterLabel: 'Automated — No Manual Effort'
       },
-      slide9: {
+      slide6: {
         tag: 'Takedown System — Platform Authorization',
         title: 'Platform<br><span class="s9-accent">API Access</span>',
         lead: 'Platforms like YouTube, Telegram, and torrent networks will not accept automated removal requests from anyone without authorization. API access is not optional — it is the only legal pathway for removing pirated copies at scale. One-time approval. Permanent enforcement power.',
@@ -1894,7 +1453,7 @@
         resultText: 'API Access Granted → Automated Takedowns Enabled',
         resultSub: 'Once approved, pirated copies are removed across all platforms within minutes — no calls, no lawyers, no waiting. Ever.'
       },
-      slide10: {
+      slide7: {
         tag: 'Your Control Room',
         title: 'Producer <span>Dashboard</span>',
         statLabels: ['Piracy links found','Links removed','Still pending','Success rate'],
@@ -1903,7 +1462,7 @@
         alertTexts: ['New link on YouTube','New link on Telegram','New link on Facebook','New link on Instagram','✓ Websites link removed'],
         alertTimes: ['2 min ago','5 min ago','11 min ago','18 min ago','1 hour ago']
       },
-      slide11: {
+      slide8: {
         tag: '🛡 THE RESULT',
         title: '<span class="s11-red">Piracy Controlled.</span> <span class="s11-blue">Producer Safe.</span>',
         badges: ['BEFORE','AFTER'],
@@ -1951,56 +1510,6 @@
         ]
       },
       slide5: {
-        tag: 'భౌతిక నిరోధకం',
-        title: 'IR <span class="s5-accent">డిటెక్షన్</span><br>సిస్టమ్',
-        lead: 'మీ చిత్రం చూపిస్తున్నారు. హాల్ నిండిపోయింది. చీకటిలో ఎక్కడో ఒక ఫోన్ స్క్రీన్ వైపు పెట్టబడింది. IR Detection దాన్ని గుర్తిస్తుంది — ఒక్క ఫ్రేమ్ రికార్డ్ కాకముందే, ఆ ఫోన్ ఇప్పటికే అంధంగా అవుతుంది.',
-        blockHeadings: ['కంటికి అదృశ్యం. ప్రతి లెన్స్‌కు ప్రాణాంతకం.','స్క్రీనే ఆయుధంగా మారుతుంది.','ఫిల్టర్ లేదు. యాప్ లేదు. కెమెరా సెట్టింగ్ లేదు.','ఏ డివైస్ అయినా. ఒకే ఫలితం.'],
-        blockDescs: [
-          '940nm ఇన్‌ఫ్రారెడ్ LEDలు స్క్రీన్ చుట్టూ ఉన్నాయి — మానవ కంటికి గుర్తించలేని తరంగదైర్ఘ్యం. మీ ప్రేక్షకులకు ఏమీ మారదు. కానీ ఆ గదిలోని ప్రతి కెమెరా సెన్సార్ అదృశ్య కాంతిలో మునిగిపోతుంది, ఏ రికార్డింగ్‌నూ భౌతికంగా అసాధ్యం చేస్తుంది.',
-          'ఇన్‌ఫ్రారెడ్ ఫ్లడ్ థియేటర్‌లో నిర్మించబడింది — ఎల్లప్పుడూ యాక్టివ్, ఎల్లప్పుడూ నిశ్శబ్దంగా. ఏ లెన్స్ అయినా స్క్రీన్ వైపు చూసిన క్షణమే, సెన్సార్ తక్షణమే అతిగా ఎక్స్‌పోజ్ అవుతుంది. పైరేట్‌కు తెల్లగా మాత్రమే కనిపిస్తుంది. మీ చిత్రం నిరాఘాటంగా ఆడుతూనే ఉంటుంది.',
-          '940nm ఇన్‌ఫ్రారెడ్ నుండి అతిగా ఎక్స్‌పోజ్‌ను సరిచేయలేరు. ఏ కలర్ గ్రేడింగ్ అయినా దాన్ని తీసివేయలేదు. ఏ సాఫ్ట్‌వేర్ అయినా దాన్ని రికవర్ చేయలేదు. ఇన్‌ఫ్రారెడ్ కాంతి భౌతిక శాస్త్రం ప్రతి రికార్డింగ్ ప్రయత్నాన్ని శాశ్వతంగా వ్యర్థం చేస్తుంది.',
-          'బడ్జెట్ స్మార్ట్‌ఫోన్. హై-ఎండ్ DSLR. ప్రొఫెషనల్ కామ్‌కార్డర్. తేడా లేదు. ప్రతి ఇమేజింగ్ సెన్సార్ ఒకే విధంగా స్పందిస్తుంది — పూర్తి వైట్‌అవుట్. మీ చిత్రాన్ని రికార్డ్ చేయలేరు. ఈ రోజు కాదు. ఎన్నటికీ కాదు.'
-        ],
-        visLabel: 'వారు ఏమి చూస్తారు',
-        eyeTitles: ['మానవ కంటి','కెమెరా'],
-        screenLabels: ['స్పష్టంగా','వైట్ గ్లేర్'],
-        eyeStatuses: ['✓ సాధారణ వీక్షణ','✗ వినియోగానికి పనికిరాదు'],
-        waveLabel: 'తరంగదైర్ఘ్యం', waveTag: 'నియర్-ఇన్‌ఫ్రారెడ్'
-      },
-      slide6: {
-        tag: 'దృశ్య అంతరాయం',
-        title: 'TPVM<br><span class="s6-accent">టెక్నాలజీ</span>',
-        lead: 'మీ చిత్రం థియేటర్‌లో పర్‌ఫెక్ట్‌గా ప్లే అవుతుంది. హాల్‌లో ఉన్న ప్రతి వ్యక్తి స్పష్టమైన చిత్రాన్ని చూస్తాడు. కానీ ఆ స్క్రీన్ వైపు పెట్టిన ప్రతి ఫోన్ వణుకుతున్న, వికృతమైన, చూడలేని శబ్దాన్ని మాత్రమే రికార్డ్ చేస్తుంది. అదే TPVM — ప్రపంచంలో ఏ కెమెరా అయినా దీన్ని ఓడించలేదు.',
-        blockHeadings: ['7 అదృశ్య లేయర్లు. ప్రతి ఫ్రేమ్.','మీ ప్రేక్షకులు ప్రతీదీ చూస్తారు. స్పష్టంగా.','ఏ కెమెరా అయినా నాశనమవుతుంది.','యాప్ లేదు. ఫిల్టర్ లేదు. పరిష్కారం లేదు.'],
-        blockDescs: [
-          'TPVM ప్రొజెక్షన్ సమయంలో రియల్ టైమ్‌లో ప్రతి ఫ్రేమ్‌లో 7 మాస్కింగ్ లేయర్లను ఇంజెక్ట్ చేస్తుంది. ఏడు లేయర్లు ఒకేసారి పని చేస్తాయి — నగ్న కంటికి అదృశ్యం, ఏ రికార్డింగ్ సెన్సార్‌కైనా ప్రాణాంతకం.',
-          'మానవ దృష్టి నిలకడ 7 లేయర్లన్నింటినీ ఒకే, పర్‌ఫెక్ట్ చిత్రంలో కలుపుతుంది. ప్రేక్షకులు మీ చిత్రాన్ని ఉద్దేశించిన విధంగా అనుభవిస్తారు. థియేటర్ అనుభవం పూర్తిగా ప్రభావితం కాదు.',
-          'కెమెరా సెన్సార్ మానవ కంటి చేసేది చేయలేదు. అది ప్రతి లేయర్‌ను వేర్వేరుగా క్యాప్చర్ చేస్తుంది — ఫలితం మెరుపు, వికృతం, చూడలేని రికార్డింగ్. దీన్ని ఓడించే కెమెరా భూమిపై ఏదీ లేదు.',
-          'వికృతత సాఫ్ట్‌వేర్-ఆధారితం కాదు. అది భౌతికం — ప్రొజెక్షన్ యొక్క ఆప్టిక్స్‌లోనే నిర్మించబడింది. ఏ యాప్ అయినా, ఫిల్టర్ అయినా, పోస్ట్-ప్రాసెసింగ్ అయినా దాన్ని శుభ్రపరచలేదు. పైరేట్ రికార్డ్ చేసేది శాశ్వతంగా పాడైపోతుంది.'
-        ],
-        visLabel: 'వారు ఏమి చూస్తారు',
-        viewTitles: ['మానవ కంటి','కెమెరా'],
-        previewLabels: ['స్పష్టంగా','వికృతం'],
-        viewStatuses: ['✓ సాధారణ వీక్షణ','✗ మెరుపు &amp; పనికిరాదు'],
-        statLabel: 'మాస్కింగ్ లేయర్లు', statTag: 'ప్రతి ఫ్రేమ్'
-      },
-      slide7: {
-        tag: 'డిజిటల్ ఫోరెన్సిక్స్',
-        title: 'డిజిటల్<br><span class="s7-accent">వాటర్‌మార్కింగ్</span>',
-        lead: 'మీ చిత్రం ఒక్క థియేటర్‌లో కూడా ప్రవేశించే ముందే, ప్రతి ప్రింట్ ఇప్పటికే గుర్తించబడింది — ఫ్రేమ్ ద్వారా ఫ్రేమ్, అదృశ్యంగా. ప్రపంచంలో ఎక్కడైనా పైరేటెడ్ కాపీ కనిపించిన క్షణమే, ఆ గుర్తు మనకు ఎవరు లీక్ చేశారో చెప్తుంది.',
-        blockHeadings: ['ప్రతి ప్రింట్. వేర్వేరు గుర్తు.','దాన్ని తొలగించడం సాధ్యం కాదు.','మూలం కనుగొనబడింది. నిమిషాల్లో.','రుజువు. అనుమానం కాదు.'],
-        blockDescs: [
-          'ప్రతి థియేటర్‌కు పంపిన ప్రతి డిజిటల్ ప్రింట్ ప్రత్యేకమైన, అదృశ్య వాటర్‌మార్క్‌ను కలిగి ఉంటుంది — ప్రతి స్క్రీన్‌కు మరియు ప్రతి షోటైమ్‌కు వేర్వేరుగా. రెండు కాపీలు ఒకేలా ఉండవు. ప్రేక్షకులకు ఏమీ కనిపించదు. పైరేట్‌కు ఏమీ కనిపించదు. కానీ గుర్తు అక్కడ ఉంటుంది, ప్రతి ఫ్రేమ్‌లో, వేచి ఉంటుంది.',
-          'కంప్రెషన్, క్రాపింగ్, కలర్ ఫిల్టర్లు, రీ-ఎన్‌కోడింగ్ — ఏదీ వాటర్‌మార్క్‌ను తొలగించలేదు. చీకటి థియేటర్ లోపలి నుండి అస్థిరమైన ఫోన్ రికార్డింగ్ కూడా అసలు ఫింగర్‌ప్రింట్‌ను చెక్కుచెదరకుండా కలిగి ఉంటుంది. మీ చిత్రాన్ని గుర్తు లేకుండా రికార్డ్ చేయడం అసాధ్యం.',
-          'పైరేటెడ్ కాపీ ఆన్‌లైన్‌లో కనిపించిన క్షణమే, మేము ఫుటేజ్ నుండి వాటర్‌మార్క్‌ను సేకరిస్తాము. నిమిషాల్లో, ఖచ్చితమైన థియేటర్, ఖచ్చితమైన స్క్రీన్ మరియు లీక్ వచ్చిన ఖచ్చితమైన షోటైమ్ మనకు తెలుస్తుంది. ఒక పైరేటెడ్ కాపీ. ఒక మూలం. ప్రతిసారీ.',
-          'ట్రేస్ రిపోర్ట్ టైమ్‌స్టాంప్ చేయబడింది మరియు న్యాయస్థానంలో సమర్పించదగినది. మీరు అనుమానంతో కాదు — రుజువుతో చట్టపరమైన కేసులోకి వెళ్తారు. బాధ్యులైన థియేటర్, డిస్ట్రిబ్యూటర్, వ్యక్తి — గుర్తించబడ్డారు, నమోదు చేయబడ్డారు, రికార్డులో ఉన్నారు.'
-        ],
-        wmLabel: 'వాటర్‌మార్క్ చేయబడిన ఫ్రేమ్ — వీక్షకులకు అదృశ్యం',
-        traceTitle: '— మూల ట్రేస్ నివేదిక —',
-        traceKeys: ['థియేటర్','షోటైమ్','స్థితి'],
-        traceVals: ['PVR Phoenix, స్క్రీన్ 4','శుక్ర 21:30 షో','✓ మూలం గుర్తించబడింది']
-      },
-      slide8: {
         tag: 'ఆటోమేటెడ్ అమలు',
         title: 'తొలగింపు<br><span class="s8-accent">వ్యవస్థ</span>',
         lead: 'మీ చిత్రం విడుదలవుతుంది. మొదటి రోజే పైరసీ ప్రయత్నాలు మొదలవుతాయి. మా తొలగింపు వ్యవస్థ ఇప్పటికే నడుస్తోంది — ప్రతి ప్లాట్‌ఫారమ్‌ను, ప్రతి నిమిషమూ స్కాన్ చేస్తూ, వ్యాపించే ముందే ప్రతి కాపీని తొలగిస్తోంది. మీరు మీ చిత్రంపై దృష్టి పెట్టండి. మిగతాది మేము చూసుకుంటాం.',
@@ -2020,7 +1529,7 @@
         ],
         counterLabel: 'ఆటోమేటెడ్ — మాన్యువల్ పని లేదు'
       },
-      slide9: {
+      slide6: {
         tag: 'తొలగింపు వ్యవస్థ — ప్లాట్‌ఫారం అనుమతి',
         title: 'ప్లాట్‌ఫారం<br><span class="s9-accent">API యాక్సెస్</span>',
         lead: 'YouTube, Telegram మరియు టోరెంట్ నెట్‌వర్క్‌లు అనుమతి లేకుండా ఎవరి నుండి అయినా ఆటోమేటెడ్ తొలగింపు అభ్యర్థనలను అంగీకరించవు. API యాక్సెస్ ఐచ్ఛికం కాదు — పెద్ద ఎత్తున పైరేటెడ్ కాపీలను తొలగించడానికి ఇది ఏకైక చట్టపరమైన మార్గం. ఒకసారి ఆమోదించబడింది. శాశ్వత అమలు శక్తి.',
@@ -2037,7 +1546,7 @@
         resultText: 'API యాక్సెస్ మంజూరు → ఆటోమేటెడ్ తొలగింపులు సక్రియం',
         resultSub: 'ఆమోదించిన తర్వాత, పైరేటెడ్ కాపీలు నిమిషాల్లో అన్ని ప్లాట్‌ఫారమ్‌లలో తొలగించబడతాయి — ఫోన్ కాల్స్ లేవు, లాయర్లు లేరు, వేచి ఉండటం లేదు. ఎన్నటికీ.'
       },
-      slide10: {
+      slide7: {
         tag: 'మీ కంట్రోల్ రూమ్',
         title: 'ప్రొడ్యూసర్ <span>డాష్‌బోర్డ్</span>',
         statLabels: ['పైరసీ లింక్‌లు కనుగొన్నారు','లింక్‌లు తొలగించబడ్డాయి','ఇంకా పెండింగ్‌లో','విజయ రేటు'],
@@ -2046,7 +1555,7 @@
         alertTexts: ['YouTube లో నూతన లింక్','Telegram లో నూతన లింక్','Facebook లో నూతన లింక్','Instagram లో నూతన లింక్','✓ వెబ్‌సైట్ లింక్ తొలగించబడింది'],
         alertTimes: ['2 నిమి క్రితం','5 నిమి క్రితం','11 నిమి క్రితం','18 నిమి క్రితం','1 గంట క్రితం']
       },
-      slide11: {
+      slide8: {
         tag: '🛡 ఫలితం',
         title: '<span class="s11-red">పైరసీ నియంత్రణలో ఉంది.</span> <span class="s11-blue">ప్రొడ్యూసర్ సురక్షితంగా.</span>',
         badges: ['ముందు','తర్వాత'],
@@ -2088,84 +1597,47 @@
       q('.s4-card-desc',  card).innerHTML = t.slide4.descs[i];
     });
 
-    // Slide 5
-    q('#slide5 .s5-tag').innerHTML   = t.slide5.tag;
-    q('#slide5 .s5-title').innerHTML = t.slide5.title;
-    q('#slide5 .s5-lead').innerHTML  = t.slide5.lead;
-    qa('#slide5 .s5-block-heading').forEach((el,i) => el.innerHTML = t.slide5.blockHeadings[i]);
-    qa('#slide5 .s5-block-desc').forEach((el,i)    => el.innerHTML = t.slide5.blockDescs[i]);
-    q('#slide5 .s5-vis-label').innerHTML = t.slide5.visLabel;
-    qa('#slide5 .s5-eye-title').forEach((el,i)  => el.innerHTML = t.slide5.eyeTitles[i]);
-    qa('#slide5 .s5-film-text').forEach((el,i)  => el.innerHTML = t.slide5.screenLabels[i]);
-    qa('#slide5 .s5-eye-status').forEach((el,i) => el.innerHTML = t.slide5.eyeStatuses[i]);
-    q('#slide5 .s5-wave-label').innerHTML = t.slide5.waveLabel;
-    q('#slide5 .s5-wave-tag').innerHTML   = t.slide5.waveTag;
+    // Slide 5 (Takedown System)
+    q('#slide5 .s8-tag').innerHTML    = t.slide5.tag;
+    q('#slide5 .s8-title').innerHTML  = t.slide5.title;
+    q('#slide5 .s8-lead').innerHTML   = t.slide5.lead;
+    q('#slide5 .s8-lead2').innerHTML  = t.slide5.lead2;
+    qa('#slide5 .s8-block-heading').forEach((el,i) => el.innerHTML = t.slide5.blockHeadings[i]);
+    qa('#slide5 .s8-block-desc').forEach((el,i)    => el.innerHTML = t.slide5.blockDescs[i]);
+    qa('#slide5 .s8-plat-name').forEach((el,i)   => el.innerHTML = t.slide5.platNames[i]);
+    qa('#slide5 .s8-plat-action').forEach((el,i) => el.innerHTML = t.slide5.platActions[i]);
+    q('#slide5 .s8-counter-label').innerHTML = t.slide5.counterLabel;
 
-    // Slide 6
-    q('#slide6 .s6-tag').innerHTML   = t.slide6.tag;
-    q('#slide6 .s6-title').innerHTML = t.slide6.title;
-    q('#slide6 .s6-lead').innerHTML  = t.slide6.lead;
-    qa('#slide6 .s6-block-heading').forEach((el,i) => el.innerHTML = t.slide6.blockHeadings[i]);
-    qa('#slide6 .s6-block-desc').forEach((el,i)    => el.innerHTML = t.slide6.blockDescs[i]);
-    q('#slide6 .s6-vis-label').innerHTML = t.slide6.visLabel;
-    qa('#slide6 .s6-view-title').forEach((el,i)   => el.innerHTML = t.slide6.viewTitles[i]);
-    qa('#slide6 .s6-preview-label').forEach((el,i)=> el.innerHTML = t.slide6.previewLabels[i]);
-    qa('#slide6 .s6-view-status').forEach((el,i)  => el.innerHTML = t.slide6.viewStatuses[i]);
-    q('#slide6 .s6-stat-label').innerHTML = t.slide6.statLabel;
-    q('#slide6 .s6-stat-tag').innerHTML   = t.slide6.statTag;
-
-    // Slide 7
-    q('#slide7 .s7-tag').innerHTML   = t.slide7.tag;
-    q('#slide7 .s7-title').innerHTML = t.slide7.title;
-    q('#slide7 .s7-lead').innerHTML  = t.slide7.lead;
-    qa('#slide7 .s7-block-heading').forEach((el,i) => el.innerHTML = t.slide7.blockHeadings[i]);
-    qa('#slide7 .s7-block-desc').forEach((el,i)    => el.innerHTML = t.slide7.blockDescs[i]);
-    q('#slide7 .s7-wm-label').innerHTML   = t.slide7.wmLabel;
-    q('#slide7 .s7-trace-title').innerHTML= t.slide7.traceTitle;
-    qa('#slide7 .s7-trace-key').forEach((el,i) => el.innerHTML = t.slide7.traceKeys[i]);
-    qa('#slide7 .s7-trace-val').forEach((el,i) => el.innerHTML = t.slide7.traceVals[i]);
-
-    // Slide 8
-    q('#slide8 .s8-tag').innerHTML    = t.slide8.tag;
-    q('#slide8 .s8-title').innerHTML  = t.slide8.title;
-    q('#slide8 .s8-lead').innerHTML   = t.slide8.lead;
-    q('#slide8 .s8-lead2').innerHTML  = t.slide8.lead2;
-    qa('#slide8 .s8-block-heading').forEach((el,i) => el.innerHTML = t.slide8.blockHeadings[i]);
-    qa('#slide8 .s8-block-desc').forEach((el,i)    => el.innerHTML = t.slide8.blockDescs[i]);
-    qa('#slide8 .s8-plat-name').forEach((el,i)   => el.innerHTML = t.slide8.platNames[i]);
-    qa('#slide8 .s8-plat-action').forEach((el,i) => el.innerHTML = t.slide8.platActions[i]);
-    q('#slide8 .s8-counter-label').innerHTML = t.slide8.counterLabel;
-
-    // Slide 9
-    q('#slide9 .s9-tag').innerHTML       = t.slide9.tag;
-    q('#slide9 .s9-title').innerHTML     = t.slide9.title;
-    q('#slide9 .s9-lead').innerHTML      = t.slide9.lead;
-    q('#slide9 .s9-note').innerHTML      = t.slide9.note;
-    q('#slide9 .s9-grid-label').innerHTML= t.slide9.gridLabel;
-    qa('#slide9 .s9-card').forEach((card,ci) => {
-      q('.s9-card-title', card).innerHTML = t.slide9.cardTitles[ci];
-      q('.s9-card-sub',   card).innerHTML = t.slide9.cardSubs[ci];
-      qa('.s9-point', card).forEach((pt,pi) => pt.innerHTML = t.slide9.points[ci][pi]);
+    // Slide 6 (API Access)
+    q('#slide6 .s9-tag').innerHTML       = t.slide6.tag;
+    q('#slide6 .s9-title').innerHTML     = t.slide6.title;
+    q('#slide6 .s9-lead').innerHTML      = t.slide6.lead;
+    q('#slide6 .s9-note').innerHTML      = t.slide6.note;
+    q('#slide6 .s9-grid-label').innerHTML= t.slide6.gridLabel;
+    qa('#slide6 .s9-card').forEach((card,ci) => {
+      q('.s9-card-title', card).innerHTML = t.slide6.cardTitles[ci];
+      q('.s9-card-sub',   card).innerHTML = t.slide6.cardSubs[ci];
+      qa('.s9-point', card).forEach((pt,pi) => pt.innerHTML = t.slide6.points[ci][pi]);
     });
-    q('#slide9 .s9-result-text').innerHTML = t.slide9.resultText;
-    q('#slide9 .s9-result-sub').innerHTML  = t.slide9.resultSub;
+    q('#slide6 .s9-result-text').innerHTML = t.slide6.resultText;
+    q('#slide6 .s9-result-sub').innerHTML  = t.slide6.resultSub;
 
-    // Slide 10
-    q('#slide10 .s10-tag').innerHTML = t.slide10.tag;
-    q('#slide10 .s10-h1').innerHTML  = t.slide10.title;
-    qa('#slide10 .s10-stat-label').forEach((el,i)  => el.innerHTML = t.slide10.statLabels[i]);
-    qa('#slide10 .s10-panel-title').forEach((el,i) => el.innerHTML = t.slide10.panelTitles[i]);
-    qa('#slide10 .s10-plat-name').forEach((el,i)   => el.innerHTML = t.slide10.platNames[i]);
-    qa('#slide10 .s10-alert-text').forEach((el,i)  => el.innerHTML = t.slide10.alertTexts[i]);
-    qa('#slide10 .s10-alert-time').forEach((el,i)  => el.innerHTML = t.slide10.alertTimes[i]);
+    // Slide 7 (Producer Dashboard)
+    q('#slide7 .s10-tag').innerHTML = t.slide7.tag;
+    q('#slide7 .s10-h1').innerHTML  = t.slide7.title;
+    qa('#slide7 .s10-stat-label').forEach((el,i)  => el.innerHTML = t.slide7.statLabels[i]);
+    qa('#slide7 .s10-panel-title').forEach((el,i) => el.innerHTML = t.slide7.panelTitles[i]);
+    qa('#slide7 .s10-plat-name').forEach((el,i)   => el.innerHTML = t.slide7.platNames[i]);
+    qa('#slide7 .s10-alert-text').forEach((el,i)  => el.innerHTML = t.slide7.alertTexts[i]);
+    qa('#slide7 .s10-alert-time').forEach((el,i)  => el.innerHTML = t.slide7.alertTimes[i]);
 
-    // Slide 11
-    q('#slide11 .s11-tag').innerHTML   = t.slide11.tag;
-    q('#slide11 .s11-title').innerHTML = t.slide11.title;
-    qa('#slide11 .s11-badge').forEach((el,i) => el.innerHTML = t.slide11.badges[i]);
-    qa('#slide11 .s11-panel.before .s11-item-text').forEach((el,i) => el.innerHTML = t.slide11.beforeItems[i]);
-    qa('#slide11 .s11-panel.after  .s11-item-text').forEach((el,i) => el.innerHTML = t.slide11.afterItems[i]);
-    q('#slide11 .s11-banner-text').innerHTML = t.slide11.bannerText;
+    // Slide 8 (The Result)
+    q('#slide8 .s11-tag').innerHTML   = t.slide8.tag;
+    q('#slide8 .s11-title').innerHTML = t.slide8.title;
+    qa('#slide8 .s11-badge').forEach((el,i) => el.innerHTML = t.slide8.badges[i]);
+    qa('#slide8 .s11-panel.before .s11-item-text').forEach((el,i) => el.innerHTML = t.slide8.beforeItems[i]);
+    qa('#slide8 .s11-panel.after  .s11-item-text').forEach((el,i) => el.innerHTML = t.slide8.afterItems[i]);
+    q('#slide8 .s11-banner-text').innerHTML = t.slide8.bannerText;
 
     document.documentElement.lang = lang;
   }
@@ -2185,7 +1657,7 @@
   }
 
   function animateCountUp() {
-    qa('#slide10 .s10-stat-val').forEach((el, i) => {
+    qa('#slide7 .s10-stat-val').forEach((el, i) => {
       const target = parseInt(el.dataset.target);
       const suffix = el.dataset.suffix || '';
       const duration = 2500;
@@ -2211,8 +1683,8 @@
     slides[current].classList.add('active');
     elapsed = 0;
     startTimer();
-    if (current === 9) {
-      qa('#slide10 .s10-stat-val').forEach(el => {
+    if (current === 6) {
+      qa('#slide7 .s10-stat-val').forEach(el => {
         el.textContent = '0' + (el.dataset.suffix || '');
       });
       setTimeout(animateCountUp, 2800);
@@ -2361,31 +1833,24 @@
       return;
     }
     const lang = document.getElementById('btnEn').classList.contains('active') ? 'en' : 'te';
-    const idx  = String(current + 1).padStart(2, '0');
+    const audioNums = ['01','02','03','04','08','09','10','11'];
+    const idx  = audioNums[current] || String(current + 1).padStart(2, '0');
     const src  = `audio/${lang}_${idx}.mp3`;
 
-    _audioObj = new Audio(src);
+    const ao = new Audio(src);
+    _audioObj = ao;
     btn.classList.add('speaking');
-
-    // Pause slide timer while audio plays
     pause();
 
-    _audioObj.onended = () => {
-      _audioObj = null;
-      btn.classList.remove('speaking');
-      // Resume progress bar after audio finishes naturally
-      resume();
-    };
-    _audioObj.onerror = () => {
+    function onEnd() {
+      if (_audioObj !== ao) return; // manual stop already handled
       _audioObj = null;
       btn.classList.remove('speaking');
       resume();
-    };
-    _audioObj.play().catch(() => {
-      _audioObj = null;
-      btn.classList.remove('speaking');
-      resume();
-    });
+    }
+    ao.addEventListener('ended', onEnd);
+    ao.addEventListener('error', onEnd);
+    ao.play().catch(onEnd);
   }
 
 
