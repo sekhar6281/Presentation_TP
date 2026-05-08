@@ -982,6 +982,26 @@
       .s2-title .line1,.s2-title .line2 { font-size:1.1rem !important; }
       .s2-revenue-number { font-size:2rem !important; }
     }
+
+    /* ════ TABLET  600–1023px  (JS transform handles slide content) ════ */
+    @media (min-width: 600px) and (max-width: 1023px) {
+      /* Fixed UI elements are outside the scaled wrapper — shrink them */
+      .lang-toggle { top:10px !important; right:10px !important; }
+      .lang-btn    { padding:7px 16px !important; font-size:0.78rem !important; }
+      .voice-btn   { width:36px !important; height:36px !important; font-size:0.95rem !important;
+                     bottom:12px !important; right:12px !important; }
+      .s-progress  { height:3px !important; }
+    }
+
+    /* ════ MOBILE voice button explicit size ════ */
+    @media (max-width: 599px) {
+      .voice-btn {
+        width:46px !important; height:46px !important;
+        bottom:14px !important; right:14px !important;
+        font-size:1.15rem !important;
+        box-shadow:0 4px 16px rgba(15,23,42,0.15) !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2159,6 +2179,20 @@
      VOICE / AUDIO SUMMARIES  (pre-generated MP3)
   ══════════════════════════════════════════ */
   let _audioObj = null;
+
+  // Unlock audio on first user gesture (required by iOS/Android autoplay policy)
+  (function unlockAudio() {
+    function unlock() {
+      const a = new Audio();
+      a.play().catch(() => {});
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('touchend', unlock);
+      document.removeEventListener('click', unlock);
+    }
+    document.addEventListener('touchstart', unlock, { once: true, passive: true });
+    document.addEventListener('touchend',   unlock, { once: true, passive: true });
+    document.addEventListener('click',      unlock, { once: true });
+  })();
 
   function stopAudio() {
     if (_audioObj) {
