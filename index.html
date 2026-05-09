@@ -456,8 +456,8 @@
     .s9-tag   { display:inline-flex; align-items:center; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue); border:1.5px solid rgba(37,99,235,0.22); padding:5px 14px; border-radius:100px; background:var(--blue-l); width:fit-content; opacity:0; }
     .s9-title { font-size:2.5rem; font-weight:900; line-height:1.1; opacity:0; color:var(--text); letter-spacing:-0.02em; }
     .s9-accent { color:var(--blue); }
-    .s9-lead  { font-size:0.88rem; color:var(--text2); line-height:1.7; opacity:0; }
-    .s9-note  { font-size:0.76rem; color:var(--text2); line-height:1.65; padding:12px 16px; border-left:3px solid var(--blue); background:var(--blue-l); border-radius:0 var(--r3) var(--r3) 0; opacity:0; }
+    .s9-lead  { font-size:0.88rem; color:var(--text); font-weight:600; line-height:1.7; opacity:0; }
+    .s9-note  { font-size:0.76rem; color:var(--text); font-weight:600; line-height:1.65; padding:12px 16px; border-left:3px solid var(--blue); background:var(--blue-l); border-radius:0 var(--r3) var(--r3) 0; opacity:0; }
     .s9-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
     .s9-card { background:var(--surface); border:1.5px solid var(--border2); border-radius:var(--r2); padding:14px 12px; display:flex; flex-direction:column; gap:8px; opacity:0; box-shadow:var(--sh1); transition:transform 0.25s,box-shadow 0.25s; }
     .s9-card:hover { transform:translateY(-4px); box-shadow:var(--sh2); }
@@ -468,9 +468,9 @@
     .s9-card-icon.green  { background:var(--green-l); border:1.5px solid rgba(22,163,74,0.25); }
     .s9-card-icon.purple { background:var(--purple-l);border:1.5px solid rgba(124,58,237,0.25); }
     .s9-card-title { font-size:0.84rem; font-weight:800; color:var(--text); }
-    .s9-card-sub   { font-size:0.68rem; color:var(--text2); margin-top:1px; }
+    .s9-card-sub   { font-size:0.68rem; color:var(--text); font-weight:600; margin-top:1px; }
     .s9-card-points { display:flex; flex-direction:column; gap:5px; }
-    .s9-point { display:flex; align-items:flex-start; gap:6px; font-size:0.65rem; color:var(--text2); line-height:1.4; }
+    .s9-point { display:flex; align-items:flex-start; gap:6px; font-size:0.65rem; color:var(--text); font-weight:600; line-height:1.4; }
     .s9-point::before { content:'›'; color:var(--amber); flex-shrink:0; font-weight:700; }
     .s9-card:nth-child(2) .s9-point::before { color:var(--blue); }
     .s9-card:nth-child(3) .s9-point::before { color:var(--green); }
@@ -479,7 +479,7 @@
     .s9-result-icon  { font-size:1.3rem; flex-shrink:0; }
     .s9-result-text  { font-size:0.8rem; font-weight:700; color:var(--green); }
     .s9-result-sub   { font-size:0.68rem; color:var(--green2); margin-top:2px; }
-    .s9-grid-label   { font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text2); opacity:0; }
+    .s9-grid-label   { font-size:0.64rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); opacity:0; }
     #slide8.active .s9-tag   { animation:riseUpFast 0.7s 0.4s ease both; }
     #slide8.active .s9-title { animation:riseUp     0.9s 1.2s cubic-bezier(0.34,1.56,0.64,1) both; }
     #slide8.active .s9-lead  { animation:riseUpFast 0.7s 2.5s ease both; }
