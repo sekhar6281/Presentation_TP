@@ -293,113 +293,100 @@
     #slide5.active .s8-block:nth-child(2){ animation:s5BlockIn 0.7s 2.7s cubic-bezier(0.34,1.56,0.64,1) both; }
     #slide5.active .s8-block:nth-child(3){ animation:s5BlockIn 0.7s 3.4s cubic-bezier(0.34,1.56,0.64,1) both; }
 
-    /* ════ SLIDE 6 — Vertical Timeline + Right Dashboard ════ */
-    @keyframes spin       { to { transform:rotate(360deg); } }
-    @keyframes s6StepIn   { 0%{opacity:0;transform:translateX(-18px)} 100%{opacity:1;transform:none} }
-    @keyframes s6CheckIn  { 0%{transform:scale(0) rotate(-25deg)} 65%{transform:scale(1.25) rotate(5deg)} 100%{transform:scale(1) rotate(0)} }
-    @keyframes s6StatIn   { 0%{opacity:0;transform:translateY(16px) scale(0.95)} 100%{opacity:1;transform:none} }
-    @keyframes s6RunPulse { 0%,100%{box-shadow:0 0 0 3px rgba(37,99,235,0.12),var(--sh2)} 50%{box-shadow:0 0 0 6px rgba(37,99,235,0.18),var(--sh3)} }
+    /* ════ SLIDE 6 — Control Room (dark) ════ */
+    @keyframes spin        { to { transform:rotate(360deg); } }
+    @keyframes s6CardIn    { 0%{opacity:0;transform:translateY(24px) scale(0.95)} 100%{opacity:1;transform:none} }
+    @keyframes s6CheckIn   { 0%{transform:scale(0) rotate(-25deg)} 65%{transform:scale(1.25) rotate(5deg)} 100%{transform:scale(1) rotate(0)} }
+    @keyframes s6LiveDot   { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.65)} }
+    @keyframes s6RunGlow   { 0%,100%{box-shadow:0 0 18px rgba(59,130,246,0.2),0 0 0 1px rgba(59,130,246,0.4)} 50%{box-shadow:0 0 36px rgba(59,130,246,0.38),0 0 0 1px rgba(59,130,246,0.65)} }
+    @keyframes s6DoneGlow  { 0%{box-shadow:0 0 0 rgba(34,197,94,0)} 100%{box-shadow:0 0 28px rgba(34,197,94,0.22)} }
+    @keyframes s6ResIn     { 0%{opacity:0;transform:translateY(7px)} 100%{opacity:1;transform:none} }
+    @keyframes s6IconRun   { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
 
-    /* ── Layout ── */
-    #slide6 { flex-direction:column; align-items:stretch; padding:14px 44px 12px; gap:10px; }
+    /* ── Dark slide background ── */
+    #slide6 {
+      flex-direction:column; align-items:stretch; padding:14px 40px 12px; gap:9px;
+      background:#0c1629;
+      background-image:
+        radial-gradient(ellipse 90% 60% at 50% -8%, rgba(37,99,235,0.22) 0%, transparent 55%),
+        radial-gradient(circle, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size:100%, 30px 30px;
+    }
+
+    /* ── Header (white on dark) ── */
     .s6-header { display:flex; flex-direction:column; align-items:center; gap:3px; flex-shrink:0; }
-    .s6-tag    { display:inline-flex; align-items:center; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue); border:1.5px solid rgba(37,99,235,0.22); padding:4px 13px; border-radius:100px; background:var(--blue-l); width:fit-content; opacity:0; }
-    .s6-title  { font-size:1.75rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; color:var(--text); letter-spacing:-0.02em; }
-    .s6-accent { color:var(--blue); }
-    .s6-lead   { font-size:0.75rem; color:var(--text3); text-align:center; max-width:680px; margin:0 auto; opacity:0; }
+    .s6-tag    { display:inline-flex; align-items:center; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:#60a5fa; border:1px solid rgba(96,165,250,0.3); padding:4px 14px; border-radius:100px; background:rgba(59,130,246,0.12); width:fit-content; opacity:0; }
+    .s6-title  { font-size:1.78rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; color:rgba(255,255,255,0.95); letter-spacing:-0.025em; }
+    .s6-accent { color:#60a5fa; }
+    .s6-lead   { font-size:0.74rem; color:rgba(255,255,255,0.42); text-align:center; max-width:640px; margin:0 auto; opacity:0; }
     #slide6.active .s6-tag   { animation:riseUpFast 0.6s 0.15s ease both; }
     #slide6.active .s6-title { animation:riseUp     0.7s 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-lead  { animation:riseUpFast 0.6s 0.75s ease both; }
+    #slide6.active .s6-lead  { animation:riseUpFast 0.6s 0.8s ease both; }
 
-    /* ── Main two-column area ── */
-    .s6-main { display:flex; gap:22px; flex:1; min-height:0; }
-    .s6-left  { width:43%; display:flex; flex-direction:column; gap:0; min-height:0; }
-    .s6-right { flex:1; display:flex; flex-direction:column; gap:10px; min-height:0; }
+    /* ── System status bar ── */
+    .s6-sysbar { display:flex; align-items:center; gap:14px; flex-shrink:0; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:7px 16px; }
+    .s6-sys-live { display:flex; align-items:center; gap:7px; flex-shrink:0; }
+    .s6-sys-dot  { width:7px; height:7px; border-radius:50%; background:#22c55e; flex-shrink:0; animation:s6LiveDot 1.4s ease-in-out infinite; }
+    .s6-sys-label{ font-size:0.6rem; font-weight:800; color:#22c55e; letter-spacing:0.14em; text-transform:uppercase; }
+    .s6-sys-sep  { width:1px; height:14px; background:rgba(255,255,255,0.1); flex-shrink:0; }
+    .s6-sys-prog { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
+    .s6-prog-track{ flex:1; height:4px; background:rgba(255,255,255,0.09); border-radius:2px; overflow:hidden; }
+    .s6-prog-fill { height:100%; background:linear-gradient(90deg,#3b82f6 0%,#22c55e 100%); border-radius:2px; width:0%; transition:width 0.65s cubic-bezier(0.4,0,0.2,1); }
+    .s6-prog-count{ font-size:0.6rem; font-weight:700; color:rgba(255,255,255,0.55); white-space:nowrap; min-width:72px; }
+    .s6-sys-timer { font-size:0.6rem; font-weight:700; color:rgba(255,255,255,0.35); font-family:'SF Mono','Fira Code',monospace; letter-spacing:0.04em; flex-shrink:0; }
 
-    /* ── Vertical timeline steps ── */
-    .s6-vstep {
-      display:flex; align-items:center; gap:12px;
-      padding:11px 14px;
-      background:var(--surface); border-radius:10px;
-      border:1.5px solid var(--border2);
-      border-left:4px solid var(--border2);
-      box-shadow:var(--sh1); flex-shrink:0;
-      opacity:0; transform:translateX(-18px);
-      transition:border-color 0.35s ease, border-left-color 0.35s ease, box-shadow 0.4s ease, background 0.35s ease;
+    /* ── 3 × 2 card grid ── */
+    .s6-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:12px; flex:1; min-height:0; }
+
+    /* ── Step card ── */
+    .s6-card {
+      display:flex; flex-direction:column; border-radius:14px;
+      background:rgba(255,255,255,0.035);
+      border:1px solid rgba(255,255,255,0.085);
+      padding:16px 18px 14px; position:relative; overflow:hidden;
+      opacity:0; transform:translateY(22px) scale(0.96);
+      transition:border-color 0.4s ease, background 0.4s ease;
     }
-    .s6-vstep.in   { animation:s6StepIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-    .s6-vstep.run  { border-left-color:var(--blue); border-color:rgba(37,99,235,0.3); background:rgba(37,99,235,0.025); animation:s6RunPulse 1.5s ease-in-out infinite; }
-    .s6-vstep.done { border-left-color:var(--green); border-color:rgba(22,163,74,0.25); background:rgba(22,163,74,0.02); box-shadow:var(--sh1); animation:none; opacity:1; transform:none; }
+    /* glass shine */
+    .s6-card::before { content:''; position:absolute; inset:0; background:linear-gradient(145deg,rgba(255,255,255,0.045) 0%,transparent 55%); border-radius:inherit; pointer-events:none; }
 
-    /* Step number badge */
-    .s6-vbadge { width:28px; height:28px; border-radius:7px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.56rem; font-weight:900; color:var(--text4); flex-shrink:0; letter-spacing:0.04em; transition:background 0.3s,color 0.3s,border-color 0.3s; }
-    .s6-vstep.run  .s6-vbadge { background:var(--blue-l); color:var(--blue); border-color:rgba(37,99,235,0.22); }
-    .s6-vstep.done .s6-vbadge { background:var(--green-l); color:var(--green); border-color:rgba(22,163,74,0.22); }
+    .s6-card.in   { animation:s6CardIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    .s6-card.run  { border-color:rgba(59,130,246,0.6); background:rgba(59,130,246,0.08); animation:s6RunGlow 1.8s ease-in-out infinite; }
+    .s6-card.done { border-color:rgba(34,197,94,0.5); background:rgba(34,197,94,0.07); animation:s6DoneGlow 0.5s ease forwards; opacity:1; transform:none; }
 
-    /* Icon */
-    .s6-vicon { font-size:1.45rem; flex-shrink:0; line-height:1; filter:grayscale(0.55); transition:filter 0.4s; }
-    .s6-vstep.run  .s6-vicon,
-    .s6-vstep.done .s6-vicon { filter:none; }
+    /* top row: step badge + spinner/check */
+    .s6-card-top  { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-shrink:0; }
+    .s6-card-step { font-size:0.52rem; font-weight:900; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.28); background:rgba(255,255,255,0.06); padding:3px 9px; border-radius:5px; border:1px solid rgba(255,255,255,0.08); transition:color 0.35s,background 0.35s,border-color 0.35s; }
+    .s6-card.run  .s6-card-step { color:#60a5fa; background:rgba(59,130,246,0.18); border-color:rgba(59,130,246,0.35); }
+    .s6-card.done .s6-card-step { color:#4ade80; background:rgba(34,197,94,0.14); border-color:rgba(34,197,94,0.32); }
 
-    /* Name + desc */
-    .s6-vinfo { flex:1; min-width:0; }
-    .s6-vname { font-size:0.78rem; font-weight:800; color:var(--text); line-height:1.2; }
-    .s6-vdesc { font-size:0.6rem; color:var(--text3); }
+    /* indicator (spinner → check) */
+    .s6-card-ind  { width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.12); flex-shrink:0; transition:background 0.3s; }
+    .s6-card.run  .s6-card-ind { background:transparent; border:2.5px solid rgba(59,130,246,0.2); border-top-color:#3b82f6; animation:spin 0.65s linear infinite; }
+    .s6-card.done .s6-card-ind { background:#22c55e; border:none; animation:s6CheckIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both; display:flex; align-items:center; justify-content:center; }
+    .s6-card.done .s6-card-ind::after { content:'✓'; font-size:0.54rem; color:#fff; font-weight:900; }
 
-    /* Right: status indicator + result badge */
-    .s6-vright { display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
-    .s6-vstatus { width:15px; height:15px; border-radius:50%; background:var(--border2); transition:background 0.3s; }
-    .s6-vstep.run  .s6-vstatus { background:transparent; border:2.5px solid rgba(37,99,235,0.25); border-top-color:var(--blue); animation:spin 0.7s linear infinite; }
-    .s6-vstep.done .s6-vstatus { background:var(--green); border:none; animation:s6CheckIn 0.45s cubic-bezier(0.34,1.56,0.64,1) both; display:flex; align-items:center; justify-content:center; }
-    .s6-vstep.done .s6-vstatus::after { content:'✓'; font-size:0.5rem; color:#fff; font-weight:900; }
-    .s6-vres { font-size:0.6rem; font-weight:700; color:var(--green); background:rgba(22,163,74,0.1); border:1px solid rgba(22,163,74,0.22); padding:1px 8px; border-radius:5px; white-space:nowrap; opacity:0; transform:scale(0.8) translateX(4px); transition:opacity 0.4s 0.1s ease, transform 0.4s 0.1s cubic-bezier(0.34,1.56,0.64,1); }
-    .s6-vstep.done .s6-vres { opacity:1; transform:none; }
+    /* icon */
+    .s6-card-icon { font-size:2.4rem; line-height:1; margin-bottom:7px; filter:grayscale(1) brightness(0.45); transition:filter 0.5s; flex-shrink:0; }
+    .s6-card.run  .s6-card-icon { filter:none; animation:s6IconRun 1.5s ease-in-out infinite; }
+    .s6-card.done .s6-card-icon { filter:none; animation:none; }
 
-    /* Vertical connector between steps (sibling of s6-vstep) */
-    .s6-vconn { width:3px; height:18px; margin-left:26px; background:var(--border2); border-radius:1.5px; flex-shrink:0; position:relative; overflow:hidden; }
-    .s6-vconn-fill { position:absolute; inset:0; background:var(--green); border-radius:1.5px; transform:scaleY(0); transform-origin:top; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); }
-    .s6-vconn.go .s6-vconn-fill { transform:scaleY(1); }
+    /* name */
+    .s6-card-name { font-size:0.92rem; font-weight:900; color:rgba(255,255,255,0.88); line-height:1.2; margin-bottom:4px; flex-shrink:0; }
+    /* desc */
+    .s6-card-desc { font-size:0.63rem; color:rgba(255,255,255,0.38); line-height:1.45; flex:1; }
 
-    /* ── Right panel: Stats ── */
-    .s6-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; flex-shrink:0; }
-    .s6-stat { background:var(--surface); border:1.5px solid var(--border2); border-radius:10px; padding:10px 14px; display:flex; flex-direction:column; gap:2px; box-shadow:var(--sh1); opacity:0; border-top:3px solid var(--border2); }
-    .s6-stat:nth-child(1) { border-top-color:var(--red); }
-    .s6-stat:nth-child(2) { border-top-color:var(--green); }
-    .s6-stat:nth-child(3) { border-top-color:var(--blue); }
-    #slide6.active .s6-stat:nth-child(1) { animation:s6StatIn 0.55s 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-stat:nth-child(2) { animation:s6StatIn 0.55s 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-stat:nth-child(3) { animation:s6StatIn 0.55s 0.9s cubic-bezier(0.34,1.56,0.64,1) both; }
-    .s6-stat-val   { font-size:1.55rem; font-weight:900; letter-spacing:-0.03em; color:var(--text); }
-    .s6-stat:nth-child(1) .s6-stat-val { color:var(--red); }
-    .s6-stat:nth-child(2) .s6-stat-val { color:var(--green); }
-    .s6-stat:nth-child(3) .s6-stat-val { color:var(--blue); }
-    .s6-stat-label { font-size:0.58rem; color:var(--text3); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; }
+    /* divider */
+    .s6-card-div  { height:1px; background:rgba(255,255,255,0.07); margin:10px 0; flex-shrink:0; }
 
-    /* ── Terminal Log ── */
-    .s6-log { flex:1; width:100%; border-radius:var(--r1); overflow:hidden; border:1.5px solid var(--border2); box-shadow:var(--sh3); display:flex; flex-direction:column; min-height:0; }
-    .s6-log-bar { display:flex; align-items:center; gap:6px; padding:8px 14px; background:#e8eaed; border-bottom:1px solid var(--border2); flex-shrink:0; }
-    .s6-dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
-    .s6-dot.r { background:#ff5f57; } .s6-dot.y { background:#febc2e; } .s6-dot.g { background:#28c840; }
-    .s6-log-title { font-size:0.68rem; font-weight:600; color:var(--text3); margin-left:8px; font-family:'SF Mono','Fira Code','Consolas',monospace; }
-    .s6-log-live  { margin-left:auto; font-size:0.6rem; font-weight:700; color:var(--green); letter-spacing:0.08em; display:flex; align-items:center; gap:5px; }
-    .s6-log-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); animation:voicePulse 1.2s ease-in-out infinite; }
-    .s6-log-body { flex:1; padding:10px 16px; display:flex; flex-direction:column; gap:8px; background:#f8fafc; font-family:'SF Mono','Fira Code','Consolas',monospace; overflow:hidden; }
-    .s6-ll { display:flex; align-items:center; gap:10px; opacity:0; transform:translateX(-8px); transition:opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-    .s6-ll.show { opacity:1; transform:none; }
-    .s6-lt { font-size:0.64rem; color:var(--text4); flex-shrink:0; width:56px; }
-    .s6-li { font-size:0.95rem; flex-shrink:0; width:20px; text-align:center; line-height:1; }
-    .s6-ltag { font-size:0.58rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; padding:2px 8px; border-radius:4px; flex-shrink:0; width:52px; text-align:center; }
-    .s6-ltag.sc { background:rgba(37,99,235,0.1);  color:var(--blue);   border:1px solid rgba(37,99,235,0.2); }
-    .s6-ltag.ve { background:rgba(124,58,237,0.1); color:var(--purple); border:1px solid rgba(124,58,237,0.2); }
-    .s6-ltag.dm { background:rgba(217,119,6,0.1);  color:var(--amber);  border:1px solid rgba(217,119,6,0.2); }
-    .s6-ltag.rm { background:rgba(220,38,38,0.1);  color:var(--red);    border:1px solid rgba(220,38,38,0.2); }
-    .s6-ltag.bl { background:rgba(220,38,38,0.07); color:var(--red);    border:1px solid rgba(220,38,38,0.15); }
-    .s6-ltag.no { background:rgba(22,163,74,0.1);  color:var(--green);  border:1px solid rgba(22,163,74,0.2); }
-    .s6-lm { font-size:0.74rem; color:var(--text2); line-height:1.4; }
-    .s6-hi-r { color:var(--red);    font-weight:700; }
-    .s6-hi-b { color:var(--blue);   font-weight:700; }
-    .s6-hi-a { color:var(--amber);  font-weight:700; }
-    .s6-hi-g { color:var(--green);  font-weight:700; }
+    /* status text (QUEUED → RUNNING → COMPLETE) */
+    .s6-card-status { font-size:0.59rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.2); transition:color 0.3s; flex-shrink:0; }
+    .s6-card.run  .s6-card-status { color:#3b82f6; }
+    .s6-card.done .s6-card-status { color:#22c55e; }
+
+    /* result (appears on done) */
+    .s6-card-result { font-size:0.62rem; font-weight:700; color:rgba(34,197,94,0.85); margin-top:4px; opacity:0; flex-shrink:0; }
+    .s6-card.done .s6-card-result { animation:s6ResIn 0.5s 0.18s ease both; }
 
     /* ════ SLIDE 7 — Platform Coverage ════ */
     /* ════ SLIDE 7 — Platform Coverage (3+2 layout) ════ */
@@ -821,43 +808,35 @@
       .s5-eye-box { width:110px !important; padding:10px !important; }
       .s5-screen-preview { width:88px !important; height:56px !important; }
 
-      /* ────── SLIDE 6 — Mobile vertical timeline + dashboard ────── */
+      /* ────── SLIDE 6 — Mobile control room (2×3 grid) ────── */
       #slide6 {
         padding:46px 12px 12px !important;
-        gap:8px !important;
+        gap:7px !important;
         overflow-y:auto !important;
-        align-items:stretch !important;
       }
-      #slide6 .s6-header { gap:2px !important; }
-      #slide6 .s6-title  { font-size:1.3rem !important; }
-      #slide6 .s6-lead   { font-size:0.68rem !important; }
-      /* Stack main columns vertically on mobile */
-      #slide6 .s6-main   { flex-direction:column !important; gap:10px !important; }
-      #slide6 .s6-left   { width:100% !important; }
-      #slide6 .s6-right  { width:100% !important; }
-      /* Compact step cards */
-      #slide6 .s6-vstep  { padding:8px 10px !important; gap:8px !important; }
-      #slide6 .s6-vbadge { width:22px !important; height:22px !important; font-size:0.48rem !important; border-radius:5px !important; }
-      #slide6 .s6-vicon  { font-size:1.2rem !important; }
-      #slide6 .s6-vname  { font-size:0.7rem !important; }
-      #slide6 .s6-vdesc  { font-size:0.56rem !important; }
-      #slide6 .s6-vstatus{ width:12px !important; height:12px !important; }
-      #slide6 .s6-vres   { font-size:0.54rem !important; padding:1px 6px !important; }
-      #slide6 .s6-vconn  { height:12px !important; margin-left:20px !important; }
-      /* Stats: smaller */
-      #slide6 .s6-stats  { gap:7px !important; }
-      #slide6 .s6-stat   { padding:7px 10px !important; }
-      #slide6 .s6-stat-val   { font-size:1.2rem !important; }
-      #slide6 .s6-stat-label { font-size:0.5rem !important; }
-      /* Terminal: 4 lines max */
-      #slide6 .s6-log        { flex:none !important; max-height:152px !important; overflow:hidden !important; }
-      #slide6 .s6-log-body   { padding:7px 10px !important; gap:5px !important; }
-      #slide6 .s6-lm         { font-size:0.6rem !important; }
-      #slide6 .s6-lt         { font-size:0.54rem !important; width:44px !important; }
-      #slide6 .s6-ltag       { font-size:0.48rem !important; width:42px !important; }
-      #slide6 .s6-ll:nth-child(n+5) { display:none !important; }
-      #slide6 .s6-log-title  { font-size:0.62rem !important; }
-      #slide6 .s6-log-live   { font-size:0.56rem !important; }
+      #slide6 .s6-title { font-size:1.28rem !important; }
+      #slide6 .s6-lead  { font-size:0.67rem !important; }
+      #slide6 .s6-sysbar { padding:6px 10px !important; gap:9px !important; }
+      #slide6 .s6-sys-label { font-size:0.52rem !important; }
+      #slide6 .s6-prog-count{ font-size:0.52rem !important; min-width:60px !important; }
+      #slide6 .s6-sys-timer { display:none !important; }
+      #slide6 .s6-sys-sep:last-of-type { display:none !important; }
+      /* 2 columns × 3 rows */
+      #slide6 .s6-grid {
+        grid-template-columns:repeat(2,1fr) !important;
+        grid-template-rows:repeat(3,1fr) !important;
+        gap:8px !important;
+      }
+      #slide6 .s6-card { padding:11px 12px 10px !important; border-radius:11px !important; }
+      #slide6 .s6-card-top  { margin-bottom:8px !important; }
+      #slide6 .s6-card-step { font-size:0.44rem !important; padding:2px 7px !important; }
+      #slide6 .s6-card-ind  { width:14px !important; height:14px !important; }
+      #slide6 .s6-card-icon { font-size:1.8rem !important; margin-bottom:5px !important; }
+      #slide6 .s6-card-name { font-size:0.76rem !important; margin-bottom:3px !important; }
+      #slide6 .s6-card-desc { font-size:0.56rem !important; }
+      #slide6 .s6-card-div  { margin:7px 0 !important; }
+      #slide6 .s6-card-status { font-size:0.5rem !important; }
+      #slide6 .s6-card-result { font-size:0.52rem !important; }
 
       /* ────── SLIDE 7 — Platform Coverage (mobile single-column) ────── */
       #slide7 {
@@ -1236,112 +1215,87 @@
 
 <!-- ══════════ SLIDE 6: Takedown Process ══════════ -->
 <div class="slide" id="slide6">
+
   <!-- Header -->
   <div class="s6-header">
     <div class="s6-tag">Automated Pipeline</div>
     <h2 class="s6-title">The Takedown <span class="s6-accent">Process</span></h2>
-    <p class="s6-lead">Zero humans. Zero delays. Six automated steps — each one triggered the moment the last completes.</p>
+    <p class="s6-lead">Every step fires the moment the last one completes — zero human input, zero delays.</p>
   </div>
 
-  <!-- Main: left vertical timeline + right dashboard -->
-  <div class="s6-main">
+  <!-- System status bar -->
+  <div class="s6-sysbar">
+    <div class="s6-sys-live"><div class="s6-sys-dot"></div><span class="s6-sys-label">System Live</span></div>
+    <div class="s6-sys-sep"></div>
+    <div class="s6-sys-prog">
+      <div class="s6-prog-track"><div class="s6-prog-fill" id="s6ProgFill"></div></div>
+      <span class="s6-prog-count" id="s6ProgCount">0 / 6 complete</span>
+    </div>
+    <div class="s6-sys-sep"></div>
+    <span class="s6-sys-timer" id="s6SysTimer">00:00.00</span>
+  </div>
 
-    <!-- LEFT: Vertical step timeline -->
-    <div class="s6-left">
-      <div class="s6-vstep">
-        <div class="s6-vbadge">01</div>
-        <div class="s6-vicon">🔍</div>
-        <div class="s6-vinfo">
-          <div class="s6-vname">Detect</div>
-          <div class="s6-vdesc">Scans 50+ platforms every minute</div>
-        </div>
-        <div class="s6-vright"><div class="s6-vstatus"></div><div class="s6-vres">247 found</div></div>
-      </div>
-      <div class="s6-vconn"><div class="s6-vconn-fill"></div></div>
-      <div class="s6-vstep">
-        <div class="s6-vbadge">02</div>
-        <div class="s6-vicon">🧬</div>
-        <div class="s6-vinfo">
-          <div class="s6-vname">Verify</div>
-          <div class="s6-vdesc">AI audio fingerprint matching</div>
-        </div>
-        <div class="s6-vright"><div class="s6-vstatus"></div><div class="s6-vres">99.8% confidence</div></div>
-      </div>
-      <div class="s6-vconn"><div class="s6-vconn-fill"></div></div>
-      <div class="s6-vstep">
-        <div class="s6-vbadge">03</div>
-        <div class="s6-vicon">⚖️</div>
-        <div class="s6-vinfo">
-          <div class="s6-vname">File DMCA</div>
-          <div class="s6-vdesc">Legal notice auto-generated &amp; submitted</div>
-        </div>
-        <div class="s6-vright"><div class="s6-vstatus"></div><div class="s6-vres">Filed &lt; 30 sec</div></div>
-      </div>
-      <div class="s6-vconn"><div class="s6-vconn-fill"></div></div>
-      <div class="s6-vstep">
-        <div class="s6-vbadge">04</div>
-        <div class="s6-vicon">🗑️</div>
-        <div class="s6-vinfo">
-          <div class="s6-vname">Remove</div>
-          <div class="s6-vdesc">Platform enforces takedown order</div>
-        </div>
-        <div class="s6-vright"><div class="s6-vstatus"></div><div class="s6-vres">Content deleted ✓</div></div>
-      </div>
-      <div class="s6-vconn"><div class="s6-vconn-fill"></div></div>
-      <div class="s6-vstep">
-        <div class="s6-vbadge">05</div>
-        <div class="s6-vicon">🚫</div>
-        <div class="s6-vinfo">
-          <div class="s6-vname">Block</div>
-          <div class="s6-vdesc">Content ID prevents re-upload</div>
-        </div>
-        <div class="s6-vright"><div class="s6-vstatus"></div><div class="s6-vres">Permanent block ✓</div></div>
-      </div>
-      <div class="s6-vconn"><div class="s6-vconn-fill"></div></div>
-      <div class="s6-vstep">
-        <div class="s6-vbadge">06</div>
-        <div class="s6-vicon">📊</div>
-        <div class="s6-vinfo">
-          <div class="s6-vname">Notify</div>
-          <div class="s6-vdesc">Dashboard updated, producer notified</div>
-        </div>
-        <div class="s6-vright"><div class="s6-vstatus"></div><div class="s6-vres">Report delivered ✓</div></div>
-      </div>
+  <!-- 3 × 2 card grid -->
+  <div class="s6-grid">
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 01</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🔍</div>
+      <div class="s6-card-name">Detect</div>
+      <div class="s6-card-desc">Scans 50+ platforms continuously every minute — YouTube, TikTok, Telegram &amp; more</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ 247 piracy copies found</div>
     </div>
 
-    <!-- RIGHT: Stats + Terminal -->
-    <div class="s6-right">
-      <!-- Stats row -->
-      <div class="s6-stats">
-        <div class="s6-stat">
-          <div class="s6-stat-val">247</div>
-          <div class="s6-stat-label">Copies Detected</div>
-        </div>
-        <div class="s6-stat">
-          <div class="s6-stat-val">98.7%</div>
-          <div class="s6-stat-label">Removal Rate</div>
-        </div>
-        <div class="s6-stat">
-          <div class="s6-stat-val">&lt; 72hr</div>
-          <div class="s6-stat-label">Avg Takedown</div>
-        </div>
-      </div>
-      <!-- Terminal -->
-      <div class="s6-log">
-        <div class="s6-log-bar">
-          <span class="s6-dot r"></span><span class="s6-dot y"></span><span class="s6-dot g"></span>
-          <span class="s6-log-title">takedown-system — live process log</span>
-          <span class="s6-log-live">PROCESSING</span>
-        </div>
-        <div class="s6-log-body">
-          <div class="s6-ll"><span class="s6-lt">00:00:01</span><span class="s6-li">🔍</span><span class="s6-ltag sc">SCAN</span><span class="s6-lm">Scanning 50+ platforms → <span class="s6-hi-r">FOUND: 247 piracy copies across YouTube, TikTok, Telegram</span></span></div>
-          <div class="s6-ll"><span class="s6-lt">00:00:47</span><span class="s6-li">🧬</span><span class="s6-ltag ve">VERIFY</span><span class="s6-lm">AI fingerprint match: <span class="s6-hi-b">99.8% confidence</span> — piracy confirmed, proceeding</span></div>
-          <div class="s6-ll"><span class="s6-lt">00:01:12</span><span class="s6-li">⚖️</span><span class="s6-ltag dm">DMCA</span><span class="s6-lm">Legal notice auto-filed → Case <span class="s6-hi-a">#2024-078234</span> submitted in 28 seconds</span></div>
-          <div class="s6-ll"><span class="s6-lt">00:11:34</span><span class="s6-li">🗑️</span><span class="s6-ltag rm">REMOVE</span><span class="s6-lm">Platform enforced → <span class="s6-hi-g">247 copies DELETED ✓</span> (avg: 11 min)</span></div>
-          <div class="s6-ll"><span class="s6-lt">00:11:35</span><span class="s6-li">🚫</span><span class="s6-ltag bl">BLOCK</span><span class="s6-lm">Content ID activated → <span class="s6-hi-g">Permanent re-upload block ENABLED ✓</span></span></div>
-          <div class="s6-ll"><span class="s6-lt">00:11:36</span><span class="s6-li">📊</span><span class="s6-ltag no">NOTIFY</span><span class="s6-lm">Dashboard synced → <span class="s6-hi-g">Full report delivered to producer ✓</span></span></div>
-        </div>
-      </div>
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 02</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🧬</div>
+      <div class="s6-card-name">Verify</div>
+      <div class="s6-card-desc">AI audio fingerprint cross-referenced against the original master recording</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ 99.8% match confidence</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 03</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">⚖️</div>
+      <div class="s6-card-name">File DMCA</div>
+      <div class="s6-card-desc">Legal takedown notice auto-generated and submitted to platform in under 30 seconds</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ Case #2024-078234 filed</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 04</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🗑️</div>
+      <div class="s6-card-name">Remove</div>
+      <div class="s6-card-desc">Platform reviews and enforces the DMCA notice — content pulled from all regions</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ 247 copies deleted ✓</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 05</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🚫</div>
+      <div class="s6-card-name">Block</div>
+      <div class="s6-card-desc">Content ID fingerprint activated — any future re-upload is blocked automatically</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ Permanent re-upload block ✓</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 06</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">📊</div>
+      <div class="s6-card-name">Notify</div>
+      <div class="s6-card-desc">Dashboard updated in real-time — producer receives full report with proof of removal</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ Full report delivered ✓</div>
     </div>
 
   </div>
@@ -2190,35 +2144,66 @@
 
   /* ── Slide 4 typewriter ── */
   /* ── Slide 6 pipeline state machine ── */
-  let _s6Timers = [];
-  function clearSlide6() { _s6Timers.forEach(clearTimeout); _s6Timers = []; }
+  let _s6Timers = [], _s6Clock = null;
+  function clearSlide6() {
+    _s6Timers.forEach(clearTimeout); _s6Timers = [];
+    if (_s6Clock) { clearInterval(_s6Clock); _s6Clock = null; }
+  }
   function startSlide6() {
     clearSlide6();
-    const steps = [...document.querySelectorAll('#slide6 .s6-vstep')];
-    const conns = [...document.querySelectorAll('#slide6 .s6-vconn')];
-    const lines = [...document.querySelectorAll('#slide6 .s6-ll')];
+    const cards = [...document.querySelectorAll('#slide6 .s6-card')];
     // Full reset
-    steps.forEach(s => { s.className = 's6-vstep'; });
-    conns.forEach(c => { c.className = 's6-vconn'; });
-    lines.forEach(l => l.classList.remove('show'));
+    cards.forEach(c => {
+      c.className = 's6-card';
+      const st = c.querySelector('.s6-card-status');
+      if (st) st.textContent = 'QUEUED';
+    });
+    const pf = document.getElementById('s6ProgFill');
+    const pc = document.getElementById('s6ProgCount');
+    const tm = document.getElementById('s6SysTimer');
+    if (pf) pf.style.width = '0%';
+    if (pc) pc.textContent = '0 / 6 complete';
+    if (tm) tm.textContent = '00:00.00';
 
-    // [appear_ms, run_ms, done_ms]  (slide audio ~17.8s)
+    // Live clock
+    const t0 = Date.now();
+    _s6Clock = setInterval(() => {
+      const el = document.getElementById('s6SysTimer');
+      if (!el) return;
+      const d = Date.now() - t0;
+      const s = Math.floor(d / 1000);
+      const cs = Math.floor((d % 1000) / 10);
+      el.textContent =
+        String(Math.floor(s / 60)).padStart(2, '0') + ':' +
+        String(s % 60).padStart(2, '0') + '.' +
+        String(cs).padStart(2, '0');
+    }, 50);
+
+    // [appear_ms, run_ms, done_ms]
     const seq = [
-      [260,  850,  2000],   // Detect
-      [400,  2100, 3300],   // Verify
-      [530,  3400, 4600],   // DMCA
-      [660,  4700, 6900],   // Remove
-      [790,  7000, 8200],   // Block
-      [920,  8300, 9500],   // Notify
+      [250,  800,  2000],
+      [420,  2100, 3350],
+      [580,  3450, 4700],
+      [740,  4800, 7000],
+      [900,  7100, 8350],
+      [1060, 8450, 9700],
     ];
     seq.forEach(([appear, run, done], i) => {
-      _s6Timers.push(setTimeout(() => steps[i].classList.add('in'),  appear));
-      _s6Timers.push(setTimeout(() => steps[i].classList.add('run'), run));
+      _s6Timers.push(setTimeout(() => cards[i].classList.add('in'), appear));
       _s6Timers.push(setTimeout(() => {
-        steps[i].classList.remove('run');
-        steps[i].classList.add('done');
-        if (conns[i]) conns[i].classList.add('go');
-        if (lines[i]) lines[i].classList.add('show');
+        cards[i].classList.add('run');
+        const st = cards[i].querySelector('.s6-card-status');
+        if (st) st.textContent = 'RUNNING';
+      }, run));
+      _s6Timers.push(setTimeout(() => {
+        cards[i].classList.remove('run');
+        cards[i].classList.add('done');
+        const st = cards[i].querySelector('.s6-card-status');
+        if (st) st.textContent = 'COMPLETE';
+        const p = document.getElementById('s6ProgFill');
+        const c = document.getElementById('s6ProgCount');
+        if (p) p.style.width = ((i + 1) / 6 * 100) + '%';
+        if (c) c.textContent = (i + 1) + ' / 6 complete';
       }, done));
     });
   }
