@@ -293,90 +293,98 @@
     #slide5.active .s8-block:nth-child(2){ animation:s5BlockIn 0.7s 2.7s cubic-bezier(0.34,1.56,0.64,1) both; }
     #slide5.active .s8-block:nth-child(3){ animation:s5BlockIn 0.7s 3.4s cubic-bezier(0.34,1.56,0.64,1) both; }
 
-    /* ════ SLIDE 6 — Animated Pipeline + Terminal Log ════ */
-    #slide6 { flex-direction:column; align-items:center; justify-content:flex-start; padding:18px 48px 16px; gap:14px; position:relative; overflow:hidden; }
-    .s6-header { display:flex; flex-direction:column; align-items:center; gap:4px; position:relative; z-index:1; }
-    .s6-tag    { display:inline-flex; align-items:center; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue); border:1.5px solid rgba(37,99,235,0.22); padding:5px 14px; border-radius:100px; background:var(--blue-l); width:fit-content; opacity:0; }
-    .s6-title  { font-size:1.9rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; color:var(--text); letter-spacing:-0.02em; }
+    /* ════ SLIDE 6 — Control Room (dark) ════ */
+    @keyframes spin        { to { transform:rotate(360deg); } }
+    @keyframes s6CardIn    { 0%{opacity:0;transform:translateY(24px) scale(0.95)} 100%{opacity:1;transform:none} }
+    @keyframes s6CheckIn   { 0%{transform:scale(0) rotate(-25deg)} 65%{transform:scale(1.25) rotate(5deg)} 100%{transform:scale(1) rotate(0)} }
+    @keyframes s6LiveDot   { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.65)} }
+    @keyframes s6RunGlow   { 0%,100%{box-shadow:0 0 18px rgba(59,130,246,0.2),0 0 0 1px rgba(59,130,246,0.4)} 50%{box-shadow:0 0 36px rgba(59,130,246,0.38),0 0 0 1px rgba(59,130,246,0.65)} }
+    @keyframes s6DoneGlow  { 0%{box-shadow:0 0 0 rgba(34,197,94,0)} 100%{box-shadow:0 0 28px rgba(34,197,94,0.22)} }
+    @keyframes s6ResIn     { 0%{opacity:0;transform:translateY(7px)} 100%{opacity:1;transform:none} }
+    @keyframes s6IconRun   { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+
+    /* ── Slide 6 — light theme background ── */
+    #slide6 {
+      flex-direction:column; align-items:stretch; padding:14px 40px 12px; gap:9px;
+      background:var(--bg);
+      background-image: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(37,99,235,0.07) 0%, transparent 55%);
+    }
+
+    /* ── Header ── */
+    .s6-header { display:flex; flex-direction:column; align-items:center; gap:3px; flex-shrink:0; }
+    .s6-tag    { display:inline-flex; align-items:center; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); border:1.5px solid rgba(37,99,235,0.22); padding:4px 14px; border-radius:100px; background:var(--blue-l); width:fit-content; opacity:0; }
+    .s6-title  { font-size:1.78rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; color:var(--text); letter-spacing:-0.025em; }
     .s6-accent { color:var(--blue); }
-    .s6-lead   { font-size:0.8rem; color:var(--text3); text-align:center; max-width:700px; opacity:0; }
+    .s6-lead   { font-size:0.74rem; color:var(--text3); text-align:center; max-width:640px; margin:0 auto; opacity:0; }
+    #slide6.active .s6-tag   { animation:riseUpFast 0.6s 0.15s ease both; }
+    #slide6.active .s6-title { animation:riseUp     0.7s 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+    #slide6.active .s6-lead  { animation:riseUpFast 0.6s 0.8s ease both; }
 
-    /* ── Pipeline ── */
-    .s6-pipeline { width:100%; position:relative; flex-shrink:0; height:148px; }
-    .s6-track-bg   { position:absolute; top:38px; left:calc(100%/12); right:calc(100%/12); height:4px; background:var(--border2); border-radius:2px; }
-    .s6-track-fill { position:absolute; top:38px; left:calc(100%/12); right:calc(100%/12); height:4px; background:linear-gradient(90deg,var(--blue) 0%,var(--purple) 55%,var(--green) 100%); border-radius:2px; clip-path:inset(0 100% 0 0 round 2px); z-index:1; }
-    @keyframes s6TrackGrow { to { clip-path:inset(0 0% 0 0 round 2px); } }
-    #slide6.active .s6-track-fill { animation:s6TrackGrow 2.2s 1.0s cubic-bezier(0.4,0,0.2,1) both; }
+    /* ── System status bar ── */
+    .s6-sysbar { display:flex; align-items:center; gap:14px; flex-shrink:0; background:var(--surface); border:1.5px solid var(--border2); border-radius:10px; padding:7px 16px; box-shadow:var(--sh1); }
+    .s6-sys-live { display:flex; align-items:center; gap:7px; flex-shrink:0; }
+    .s6-sys-dot  { width:7px; height:7px; border-radius:50%; background:var(--green); flex-shrink:0; animation:s6LiveDot 1.4s ease-in-out infinite; }
+    .s6-sys-label{ font-size:0.6rem; font-weight:800; color:var(--green); letter-spacing:0.14em; text-transform:uppercase; }
+    .s6-sys-sep  { width:1px; height:14px; background:var(--border2); flex-shrink:0; }
+    .s6-sys-prog { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
+    .s6-prog-track{ flex:1; height:5px; background:var(--border2); border-radius:3px; overflow:hidden; }
+    .s6-prog-fill { height:100%; background:linear-gradient(90deg,var(--blue) 0%,var(--green) 100%); border-radius:3px; width:0%; transition:width 0.65s cubic-bezier(0.4,0,0.2,1); }
+    .s6-prog-count{ font-size:0.6rem; font-weight:700; color:var(--text3); white-space:nowrap; min-width:72px; }
+    .s6-sys-timer { font-size:0.6rem; font-weight:700; color:var(--text4); font-family:'SF Mono','Fira Code',monospace; letter-spacing:0.04em; flex-shrink:0; }
 
-    .s6-nodes { display:grid; grid-template-columns:repeat(6,1fr); width:100%; position:relative; z-index:2; }
-    .s6-node  { display:flex; flex-direction:column; align-items:center; gap:9px; }
-    .s6-node-wrap { position:relative; width:76px; height:76px; display:flex; align-items:center; justify-content:center; }
-    .s6-node-ring { position:absolute; inset:-7px; border-radius:50%; border:2.5px solid rgba(37,99,235,0.3); opacity:0; transform:scale(1); }
-    .s6-node:last-child .s6-node-ring { border-color:rgba(22,163,74,0.4); }
-    @keyframes s6Ring { 0%{transform:scale(1);opacity:0.7} 100%{transform:scale(1.55);opacity:0} }
-    .s6-node-circle { width:76px; height:76px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; background:var(--surface); border:2px solid var(--border2); box-shadow:var(--sh2); opacity:0; }
-    .s6-node:last-child .s6-node-circle { border-color:rgba(22,163,74,0.3); background:rgba(240,253,244,0.97); }
-    @keyframes s6NodeIn { 0%{opacity:0;transform:scale(0.35) translateY(18px)} 65%{transform:scale(1.1) translateY(-3px)} 100%{opacity:1;transform:scale(1) translateY(0)} }
-    .s6-node-info { display:flex; flex-direction:column; align-items:center; gap:4px; opacity:0; }
-    .s6-node-badge { font-size:0.56rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; padding:2px 9px; border-radius:100px; background:var(--blue-l); color:var(--blue); border:1px solid rgba(37,99,235,0.2); }
-    .s6-node:last-child .s6-node-badge { background:var(--green-l); color:var(--green); border-color:rgba(22,163,74,0.2); }
-    .s6-node-title { font-size:0.78rem; font-weight:800; color:var(--text); text-align:center; line-height:1.2; }
-    .s6-node-time  { font-size:0.62rem; color:var(--text3); background:var(--surface2); border:1px solid var(--border); border-radius:5px; padding:1px 7px; }
-    /* Staggered node animations */
-    #slide6.active .s6-node:nth-child(1) .s6-node-circle { animation:s6NodeIn 0.6s 1.0s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-node:nth-child(2) .s6-node-circle { animation:s6NodeIn 0.6s 1.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-node:nth-child(3) .s6-node-circle { animation:s6NodeIn 0.6s 2.0s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-node:nth-child(4) .s6-node-circle { animation:s6NodeIn 0.6s 2.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-node:nth-child(5) .s6-node-circle { animation:s6NodeIn 0.6s 3.0s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-node:nth-child(6) .s6-node-circle { animation:s6NodeIn 0.6s 3.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-node:nth-child(1) .s6-node-ring { animation:s6Ring 0.9s 1.7s ease-out both; }
-    #slide6.active .s6-node:nth-child(2) .s6-node-ring { animation:s6Ring 0.9s 2.2s ease-out both; }
-    #slide6.active .s6-node:nth-child(3) .s6-node-ring { animation:s6Ring 0.9s 2.7s ease-out both; }
-    #slide6.active .s6-node:nth-child(4) .s6-node-ring { animation:s6Ring 0.9s 3.2s ease-out both; }
-    #slide6.active .s6-node:nth-child(5) .s6-node-ring { animation:s6Ring 0.9s 3.7s ease-out both; }
-    #slide6.active .s6-node:nth-child(6) .s6-node-ring { animation:s6Ring 0.9s 4.2s ease-out both; }
-    #slide6.active .s6-node:nth-child(1) .s6-node-info { animation:riseUpFast 0.5s 1.4s ease both; }
-    #slide6.active .s6-node:nth-child(2) .s6-node-info { animation:riseUpFast 0.5s 1.9s ease both; }
-    #slide6.active .s6-node:nth-child(3) .s6-node-info { animation:riseUpFast 0.5s 2.4s ease both; }
-    #slide6.active .s6-node:nth-child(4) .s6-node-info { animation:riseUpFast 0.5s 2.9s ease both; }
-    #slide6.active .s6-node:nth-child(5) .s6-node-info { animation:riseUpFast 0.5s 3.4s ease both; }
-    #slide6.active .s6-node:nth-child(6) .s6-node-info { animation:riseUpFast 0.5s 3.9s ease both; }
-    /* Header */
-    #slide6.active .s6-tag   { animation:riseUpFast 0.6s 0.2s ease both; }
-    #slide6.active .s6-title { animation:riseUp     0.7s 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-    #slide6.active .s6-lead  { animation:riseUpFast 0.6s 0.9s ease both; }
+    /* ── 3 × 2 card grid ── */
+    .s6-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:12px; flex:1; min-height:0; }
 
-    /* ── Terminal Log ── */
-    .s6-log { flex:1; width:100%; border-radius:var(--r1); overflow:hidden; border:1.5px solid var(--border2); box-shadow:var(--sh3); display:flex; flex-direction:column; min-height:0; }
-    .s6-log-bar { display:flex; align-items:center; gap:6px; padding:8px 14px; background:#e8eaed; border-bottom:1px solid var(--border2); flex-shrink:0; }
-    .s6-dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
-    .s6-dot.r { background:#ff5f57; } .s6-dot.y { background:#febc2e; } .s6-dot.g { background:#28c840; }
-    .s6-log-title { font-size:0.68rem; font-weight:600; color:var(--text3); margin-left:8px; font-family:'SF Mono','Fira Code','Consolas',monospace; }
-    .s6-log-live  { margin-left:auto; font-size:0.6rem; font-weight:700; color:var(--green); letter-spacing:0.08em; display:flex; align-items:center; gap:5px; }
-    .s6-log-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); animation:voicePulse 1.2s ease-in-out infinite; }
-    .s6-log-body { flex:1; padding:12px 18px; display:flex; flex-direction:column; gap:9px; background:#f8fafc; font-family:'SF Mono','Fira Code','Consolas',monospace; overflow:hidden; }
-    .s6-ll { display:flex; align-items:center; gap:10px; opacity:0; }
-    .s6-lt { font-size:0.64rem; color:var(--text4); flex-shrink:0; width:56px; }
-    .s6-li { font-size:0.95rem; flex-shrink:0; width:20px; text-align:center; line-height:1; }
-    .s6-ltag { font-size:0.58rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; padding:2px 8px; border-radius:4px; flex-shrink:0; width:52px; text-align:center; }
-    .s6-ltag.sc { background:rgba(37,99,235,0.1);  color:var(--blue);   border:1px solid rgba(37,99,235,0.2); }
-    .s6-ltag.ve { background:rgba(124,58,237,0.1); color:var(--purple); border:1px solid rgba(124,58,237,0.2); }
-    .s6-ltag.dm { background:rgba(217,119,6,0.1);  color:var(--amber);  border:1px solid rgba(217,119,6,0.2); }
-    .s6-ltag.rm { background:rgba(220,38,38,0.1);  color:var(--red);    border:1px solid rgba(220,38,38,0.2); }
-    .s6-ltag.bl { background:rgba(220,38,38,0.07); color:var(--red);    border:1px solid rgba(220,38,38,0.15); }
-    .s6-ltag.no { background:rgba(22,163,74,0.1);  color:var(--green);  border:1px solid rgba(22,163,74,0.2); }
-    .s6-lm { font-size:0.74rem; color:var(--text2); line-height:1.4; }
-    .s6-hi-r { color:var(--red);    font-weight:700; }
-    .s6-hi-b { color:var(--blue);   font-weight:700; }
-    .s6-hi-a { color:var(--amber);  font-weight:700; }
-    .s6-hi-g { color:var(--green);  font-weight:700; }
-    /* Log lines appear sequentially after their node */
-    #slide6.active .s6-ll:nth-child(1) { animation:riseUpFast 0.5s 2.0s ease both; }
-    #slide6.active .s6-ll:nth-child(2) { animation:riseUpFast 0.5s 2.8s ease both; }
-    #slide6.active .s6-ll:nth-child(3) { animation:riseUpFast 0.5s 3.6s ease both; }
-    #slide6.active .s6-ll:nth-child(4) { animation:riseUpFast 0.5s 4.4s ease both; }
-    #slide6.active .s6-ll:nth-child(5) { animation:riseUpFast 0.5s 5.2s ease both; }
-    #slide6.active .s6-ll:nth-child(6) { animation:riseUpFast 0.5s 6.0s ease both; }
+    /* ── Step card (light theme) ── */
+    .s6-card {
+      display:flex; flex-direction:column; border-radius:14px;
+      background:var(--surface);
+      border:1.5px solid var(--border2);
+      box-shadow:var(--sh1);
+      padding:16px 18px 14px; position:relative; overflow:hidden;
+      opacity:0; transform:translateY(22px) scale(0.96);
+      transition:border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    }
+    /* top-left shine */
+    .s6-card::before { content:''; position:absolute; inset:0; background:linear-gradient(145deg,rgba(255,255,255,0.7) 0%,transparent 45%); border-radius:inherit; pointer-events:none; }
+
+    .s6-card.in   { animation:s6CardIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    .s6-card.run  { border-color:rgba(37,99,235,0.5); background:rgba(37,99,235,0.03); animation:s6RunGlow 1.8s ease-in-out infinite; }
+    .s6-card.done { border-color:rgba(22,163,74,0.4); background:rgba(22,163,74,0.03); animation:s6DoneGlow 0.5s ease forwards; opacity:1; transform:none; }
+
+    /* top row: step badge + indicator */
+    .s6-card-top  { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-shrink:0; }
+    .s6-card-step { font-size:0.52rem; font-weight:900; letter-spacing:0.14em; text-transform:uppercase; color:var(--text4); background:var(--surface2); padding:3px 9px; border-radius:5px; border:1px solid var(--border); transition:color 0.35s,background 0.35s,border-color 0.35s; }
+    .s6-card.run  .s6-card-step { color:var(--blue); background:var(--blue-l); border-color:rgba(37,99,235,0.25); }
+    .s6-card.done .s6-card-step { color:var(--green); background:var(--green-l); border-color:rgba(22,163,74,0.25); }
+
+    /* indicator (spinner → check) */
+    .s6-card-ind  { width:18px; height:18px; border-radius:50%; background:var(--border2); border:1.5px solid var(--border); flex-shrink:0; transition:background 0.3s; }
+    .s6-card.run  .s6-card-ind { background:transparent; border:2.5px solid rgba(37,99,235,0.2); border-top-color:var(--blue); animation:spin 0.65s linear infinite; }
+    .s6-card.done .s6-card-ind { background:var(--green); border:none; animation:s6CheckIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both; display:flex; align-items:center; justify-content:center; }
+    .s6-card.done .s6-card-ind::after { content:'✓'; font-size:0.54rem; color:#fff; font-weight:900; }
+
+    /* icon */
+    .s6-card-icon { font-size:2.4rem; line-height:1; margin-bottom:7px; filter:grayscale(1) opacity(0.35); transition:filter 0.5s; flex-shrink:0; }
+    .s6-card.run  .s6-card-icon { filter:none; animation:s6IconRun 1.5s ease-in-out infinite; }
+    .s6-card.done .s6-card-icon { filter:none; animation:none; }
+
+    /* name */
+    .s6-card-name { font-size:0.92rem; font-weight:900; color:var(--text); line-height:1.2; margin-bottom:4px; flex-shrink:0; }
+    /* desc */
+    .s6-card-desc { font-size:0.63rem; color:var(--text3); line-height:1.45; flex:1; }
+
+    /* divider */
+    .s6-card-div  { height:1px; background:var(--border); margin:10px 0; flex-shrink:0; }
+
+    /* status text */
+    .s6-card-status { font-size:0.59rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--text4); transition:color 0.3s; flex-shrink:0; }
+    .s6-card.run  .s6-card-status { color:var(--blue); }
+    .s6-card.done .s6-card-status { color:var(--green); }
+
+    /* result (appears on done) */
+    .s6-card-result { font-size:0.62rem; font-weight:700; color:var(--green); margin-top:4px; opacity:0; flex-shrink:0; }
+    .s6-card.done .s6-card-result { animation:s6ResIn 0.5s 0.18s ease both; }
 
     /* ════ SLIDE 7 — Platform Coverage ════ */
     /* ════ SLIDE 7 — Platform Coverage (3+2 layout) ════ */
@@ -798,50 +806,35 @@
       .s5-eye-box { width:110px !important; padding:10px !important; }
       .s5-screen-preview { width:88px !important; height:56px !important; }
 
-      /* ────── SLIDE 6 — Mobile pipeline + terminal ────── */
+      /* ────── SLIDE 6 — Mobile control room (2×3 grid) ────── */
       #slide6 {
-        flex-direction:column !important;
-        align-items:center !important;
-        justify-content:flex-start !important;
+        padding:46px 12px 12px !important;
+        gap:7px !important;
         overflow-y:auto !important;
-        padding:48px 12px 16px !important;
-        gap:10px !important;
       }
-      #slide6 .s6-header { margin-bottom:4px !important; gap:3px !important; }
-      #slide6 .s6-title  { font-size:1.35rem !important; }
-      #slide6 .s6-lead   { font-size:0.72rem !important; }
-      /* Pipeline: horizontal scroll on mobile */
-      #slide6 .s6-pipeline {
-        height:120px !important;
-        width:100% !important;
-        overflow-x:auto !important;
-        overflow-y:visible !important;
-        min-width:0 !important;
+      #slide6 .s6-title { font-size:1.28rem !important; }
+      #slide6 .s6-lead  { font-size:0.67rem !important; }
+      #slide6 .s6-sysbar { padding:6px 10px !important; gap:9px !important; }
+      #slide6 .s6-sys-label { font-size:0.52rem !important; }
+      #slide6 .s6-prog-count{ font-size:0.52rem !important; min-width:60px !important; }
+      #slide6 .s6-sys-timer { display:none !important; }
+      #slide6 .s6-sys-sep:last-of-type { display:none !important; }
+      /* 2 columns × 3 rows */
+      #slide6 .s6-grid {
+        grid-template-columns:repeat(2,1fr) !important;
+        grid-template-rows:repeat(3,1fr) !important;
+        gap:8px !important;
       }
-      #slide6 .s6-nodes {
-        min-width:480px !important;
-      }
-      #slide6 .s6-node-circle {
-        width:52px !important; height:52px !important;
-        font-size:1.4rem !important;
-      }
-      #slide6 .s6-node-ring {
-        width:52px !important; height:52px !important;
-      }
-      #slide6 .s6-node-badge { font-size:0.52rem !important; padding:1px 5px !important; }
-      #slide6 .s6-node-title { font-size:0.7rem !important; }
-      #slide6 .s6-node-time  { font-size:0.6rem !important; }
-      /* Terminal: show only first 4 lines */
-      #slide6 .s6-log {
-        width:100% !important;
-        flex:none !important;
-        max-height:168px !important;
-        overflow:hidden !important;
-      }
-      #slide6 .s6-log-body { font-size:0.62rem !important; gap:4px !important; padding:8px !important; }
-      #slide6 .s6-ll:nth-child(n+5) { display:none !important; }
-      #slide6 .s6-log-title { font-size:0.68rem !important; }
-      #slide6 .s6-log-live  { font-size:0.6rem !important; padding:2px 6px !important; }
+      #slide6 .s6-card { padding:11px 12px 10px !important; border-radius:11px !important; }
+      #slide6 .s6-card-top  { margin-bottom:8px !important; }
+      #slide6 .s6-card-step { font-size:0.44rem !important; padding:2px 7px !important; }
+      #slide6 .s6-card-ind  { width:14px !important; height:14px !important; }
+      #slide6 .s6-card-icon { font-size:1.8rem !important; margin-bottom:5px !important; }
+      #slide6 .s6-card-name { font-size:0.76rem !important; margin-bottom:3px !important; }
+      #slide6 .s6-card-desc { font-size:0.56rem !important; }
+      #slide6 .s6-card-div  { margin:7px 0 !important; }
+      #slide6 .s6-card-status { font-size:0.5rem !important; }
+      #slide6 .s6-card-result { font-size:0.52rem !important; }
 
       /* ────── SLIDE 7 — Platform Coverage (mobile single-column) ────── */
       #slide7 {
@@ -1011,18 +1004,7 @@
       .s11-banner-text { font-size:0.78rem !important; }
       .s11-banner { padding:8px 16px !important; }
 
-      /* ────── Mobile one-by-one slide-in animations: Slide 6 ────── */
-      @keyframes s6CardIn {
-        0%   { opacity:0; transform:translateX(-32px) scale(0.96); }
-        60%  { transform:translateX(4px) scale(1.01); }
-        100% { opacity:1; transform:translateX(0) scale(1); }
-      }
-      #slide6.active .s6-step:nth-child(1)  { animation:s6CardIn 0.55s 0.35s cubic-bezier(0.22,1,0.36,1) both !important; }
-      #slide6.active .s6-step:nth-child(3)  { animation:s6CardIn 0.55s 0.75s cubic-bezier(0.22,1,0.36,1) both !important; }
-      #slide6.active .s6-step:nth-child(5)  { animation:s6CardIn 0.55s 1.15s cubic-bezier(0.22,1,0.36,1) both !important; }
-      #slide6.active .s6-step:nth-child(7)  { animation:s6CardIn 0.55s 1.55s cubic-bezier(0.22,1,0.36,1) both !important; }
-      #slide6.active .s6-step:nth-child(9)  { animation:s6CardIn 0.55s 1.95s cubic-bezier(0.22,1,0.36,1) both !important; }
-      #slide6.active .s6-step:nth-child(11) { animation:s6CardIn 0.55s 2.35s cubic-bezier(0.22,1,0.36,1) both !important; }
+      /* Slide 6 mobile card animations handled by JS state machine (startSlide6) */
 
       /* ────── Mobile one-by-one animations: Slide 7 cards ────── */
       #slide7.active .s7-plat-card:nth-child(1) { animation:fadeUp 0.6s 0.4s cubic-bezier(0.22,1,0.36,1) both !important; }
@@ -1231,83 +1213,89 @@
 
 <!-- ══════════ SLIDE 6: Takedown Process ══════════ -->
 <div class="slide" id="slide6">
+
+  <!-- Header -->
   <div class="s6-header">
     <div class="s6-tag">Automated Pipeline</div>
     <h2 class="s6-title">The Takedown <span class="s6-accent">Process</span></h2>
-    <p class="s6-lead">Zero humans. Zero delays. Six automated steps from detection to removal.</p>
+    <p class="s6-lead">Every step fires the moment the last one completes — zero human input, zero delays.</p>
   </div>
 
-  <!-- Pipeline visualization -->
-  <div class="s6-pipeline">
-    <div class="s6-track-bg"></div>
-    <div class="s6-track-fill"></div>
-    <div class="s6-nodes">
-      <div class="s6-node">
-        <div class="s6-node-wrap"><div class="s6-node-ring"></div><div class="s6-node-circle">🔍</div></div>
-        <div class="s6-node-info">
-          <div class="s6-node-badge">STEP 1</div>
-          <div class="s6-node-title">Detect</div>
-          <div class="s6-node-time">&lt; 1 min</div>
-        </div>
-      </div>
-      <div class="s6-node">
-        <div class="s6-node-wrap"><div class="s6-node-ring"></div><div class="s6-node-circle">🧬</div></div>
-        <div class="s6-node-info">
-          <div class="s6-node-badge">STEP 2</div>
-          <div class="s6-node-title">Verify</div>
-          <div class="s6-node-time">&lt; 2 min</div>
-        </div>
-      </div>
-      <div class="s6-node">
-        <div class="s6-node-wrap"><div class="s6-node-ring"></div><div class="s6-node-circle">⚖️</div></div>
-        <div class="s6-node-info">
-          <div class="s6-node-badge">STEP 3</div>
-          <div class="s6-node-title">File DMCA</div>
-          <div class="s6-node-time">&lt; 30 sec</div>
-        </div>
-      </div>
-      <div class="s6-node">
-        <div class="s6-node-wrap"><div class="s6-node-ring"></div><div class="s6-node-circle">🗑️</div></div>
-        <div class="s6-node-info">
-          <div class="s6-node-badge">STEP 4</div>
-          <div class="s6-node-title">Remove</div>
-          <div class="s6-node-time">10 min–72 hr</div>
-        </div>
-      </div>
-      <div class="s6-node">
-        <div class="s6-node-wrap"><div class="s6-node-ring"></div><div class="s6-node-circle">🚫</div></div>
-        <div class="s6-node-info">
-          <div class="s6-node-badge">STEP 5</div>
-          <div class="s6-node-title">Block</div>
-          <div class="s6-node-time">Permanent</div>
-        </div>
-      </div>
-      <div class="s6-node">
-        <div class="s6-node-wrap"><div class="s6-node-ring"></div><div class="s6-node-circle">📊</div></div>
-        <div class="s6-node-info">
-          <div class="s6-node-badge">STEP 6</div>
-          <div class="s6-node-title">Notify</div>
-          <div class="s6-node-time">Real-time</div>
-        </div>
-      </div>
+  <!-- System status bar -->
+  <div class="s6-sysbar">
+    <div class="s6-sys-live"><div class="s6-sys-dot"></div><span class="s6-sys-label">System Live</span></div>
+    <div class="s6-sys-sep"></div>
+    <div class="s6-sys-prog">
+      <div class="s6-prog-track"><div class="s6-prog-fill" id="s6ProgFill"></div></div>
+      <span class="s6-prog-count" id="s6ProgCount">0 / 6 complete</span>
     </div>
+    <div class="s6-sys-sep"></div>
+    <span class="s6-sys-timer" id="s6SysTimer">00:00.00</span>
   </div>
 
-  <!-- Terminal log -->
-  <div class="s6-log">
-    <div class="s6-log-bar">
-      <span class="s6-dot r"></span><span class="s6-dot y"></span><span class="s6-dot g"></span>
-      <span class="s6-log-title">takedown-system — live process log</span>
-      <span class="s6-log-live">PROCESSING</span>
+  <!-- 3 × 2 card grid -->
+  <div class="s6-grid">
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 01</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🔍</div>
+      <div class="s6-card-name">Detect</div>
+      <div class="s6-card-desc">Scans 50+ platforms continuously every minute — YouTube, TikTok, Telegram &amp; more</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ 247 piracy copies found</div>
     </div>
-    <div class="s6-log-body">
-      <div class="s6-ll"><span class="s6-lt">00:00:01</span><span class="s6-li">🔍</span><span class="s6-ltag sc">SCAN</span><span class="s6-lm">Scanning 50+ platforms every minute → <span class="s6-hi-r">FOUND: 2 piracy copies on YouTube</span></span></div>
-      <div class="s6-ll"><span class="s6-lt">00:00:47</span><span class="s6-li">🧬</span><span class="s6-ltag ve">VERIFY</span><span class="s6-lm">AI fingerprint match: <span class="s6-hi-b">99.8% confidence</span> — piracy confirmed</span></div>
-      <div class="s6-ll"><span class="s6-lt">00:01:12</span><span class="s6-li">⚖️</span><span class="s6-ltag dm">DMCA</span><span class="s6-lm">Legal notice auto-prepared and filed → Case <span class="s6-hi-a">#2024-078234</span> submitted</span></div>
-      <div class="s6-ll"><span class="s6-lt">00:11:34</span><span class="s6-li">🗑️</span><span class="s6-ltag rm">REMOVE</span><span class="s6-lm">YouTube processed the notice → <span class="s6-hi-g">2 copies DELETED ✓</span></span></div>
-      <div class="s6-ll"><span class="s6-lt">00:11:35</span><span class="s6-li">🚫</span><span class="s6-ltag bl">BLOCK</span><span class="s6-lm">Content ID activated → <span class="s6-hi-g">Permanent re-upload block ENABLED ✓</span></span></div>
-      <div class="s6-ll"><span class="s6-lt">00:11:36</span><span class="s6-li">📊</span><span class="s6-ltag no">NOTIFY</span><span class="s6-lm">Dashboard updated → <span class="s6-hi-g">Producer notified. Full report ready ✓</span></span></div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 02</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🧬</div>
+      <div class="s6-card-name">Verify</div>
+      <div class="s6-card-desc">AI audio fingerprint cross-referenced against the original master recording</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ 99.8% match confidence</div>
     </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 03</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">⚖️</div>
+      <div class="s6-card-name">File DMCA</div>
+      <div class="s6-card-desc">Legal takedown notice auto-generated and submitted to platform in under 30 seconds</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ Case #2024-078234 filed</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 04</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🗑️</div>
+      <div class="s6-card-name">Remove</div>
+      <div class="s6-card-desc">Platform reviews and enforces the DMCA notice — content pulled from all regions</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ 247 copies deleted ✓</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 05</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">🚫</div>
+      <div class="s6-card-name">Block</div>
+      <div class="s6-card-desc">Content ID fingerprint activated — any future re-upload is blocked automatically</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ Permanent re-upload block ✓</div>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-card-top"><span class="s6-card-step">STEP 06</span><div class="s6-card-ind"></div></div>
+      <div class="s6-card-icon">📊</div>
+      <div class="s6-card-name">Notify</div>
+      <div class="s6-card-desc">Dashboard updated in real-time — producer receives full report with proof of removal</div>
+      <div class="s6-card-div"></div>
+      <div class="s6-card-status">QUEUED</div>
+      <div class="s6-card-result">↳ Full report delivered ✓</div>
+    </div>
+
   </div>
 </div>
 
@@ -2071,8 +2059,6 @@
     q('#slide6 .s6-tag').innerHTML = t.slide6.tag;
     q('#slide6 .s6-title').innerHTML = t.slide6.title;
     q('#slide6 .s6-lead').innerHTML = t.slide6.lead;
-    qa('#slide6 .s6-step-title').forEach((el,i) => el.innerHTML = t.slide6.stepTitles[i]);
-    qa('#slide6 .s6-step-desc').forEach((el,i)  => el.innerHTML = t.slide6.stepDescs[i]);
 
     // Slide 7 (Platform Coverage — new)
     q('#slide7 .s7-tag').innerHTML = t.slide7.tag;
@@ -2155,6 +2141,71 @@
   }
 
   /* ── Slide 4 typewriter ── */
+  /* ── Slide 6 pipeline state machine ── */
+  let _s6Timers = [], _s6Clock = null;
+  function clearSlide6() {
+    _s6Timers.forEach(clearTimeout); _s6Timers = [];
+    if (_s6Clock) { clearInterval(_s6Clock); _s6Clock = null; }
+  }
+  function startSlide6() {
+    clearSlide6();
+    const cards = [...document.querySelectorAll('#slide6 .s6-card')];
+    // Full reset
+    cards.forEach(c => {
+      c.className = 's6-card';
+      const st = c.querySelector('.s6-card-status');
+      if (st) st.textContent = 'QUEUED';
+    });
+    const pf = document.getElementById('s6ProgFill');
+    const pc = document.getElementById('s6ProgCount');
+    const tm = document.getElementById('s6SysTimer');
+    if (pf) pf.style.width = '0%';
+    if (pc) pc.textContent = '0 / 6 complete';
+    if (tm) tm.textContent = '00:00.00';
+
+    // Live clock
+    const t0 = Date.now();
+    _s6Clock = setInterval(() => {
+      const el = document.getElementById('s6SysTimer');
+      if (!el) return;
+      const d = Date.now() - t0;
+      const s = Math.floor(d / 1000);
+      const cs = Math.floor((d % 1000) / 10);
+      el.textContent =
+        String(Math.floor(s / 60)).padStart(2, '0') + ':' +
+        String(s % 60).padStart(2, '0') + '.' +
+        String(cs).padStart(2, '0');
+    }, 50);
+
+    // [appear_ms, run_ms, done_ms]
+    const seq = [
+      [250,  800,  2000],
+      [420,  2100, 3350],
+      [580,  3450, 4700],
+      [740,  4800, 7000],
+      [900,  7100, 8350],
+      [1060, 8450, 9700],
+    ];
+    seq.forEach(([appear, run, done], i) => {
+      _s6Timers.push(setTimeout(() => cards[i].classList.add('in'), appear));
+      _s6Timers.push(setTimeout(() => {
+        cards[i].classList.add('run');
+        const st = cards[i].querySelector('.s6-card-status');
+        if (st) st.textContent = 'RUNNING';
+      }, run));
+      _s6Timers.push(setTimeout(() => {
+        cards[i].classList.remove('run');
+        cards[i].classList.add('done');
+        const st = cards[i].querySelector('.s6-card-status');
+        if (st) st.textContent = 'COMPLETE';
+        const p = document.getElementById('s6ProgFill');
+        const c = document.getElementById('s6ProgCount');
+        if (p) p.style.width = ((i + 1) / 6 * 100) + '%';
+        if (c) c.textContent = (i + 1) + ' / 6 complete';
+      }, done));
+    });
+  }
+
   let _s4TypeTimer = null, _s4TypeInterval = null;
   function startSlide4Typewriter() {
     clearTimeout(_s4TypeTimer); clearInterval(_s4TypeInterval);
@@ -2180,6 +2231,7 @@
 
   function goTo(idx) {
     clearTimeout(_s4TypeTimer); clearInterval(_s4TypeInterval);
+    clearSlide6();
     stopAudio();
     slides[current].classList.remove('active');
     current = (idx + slides.length) % slides.length;
@@ -2187,6 +2239,7 @@
     elapsed = 0;
     startTimer();
     if (current === 3) startSlide4Typewriter();
+    if (current === 5) startSlide6();
     if (current === 8) {
       qa('#slide9 .s10-stat-val').forEach(el => {
         el.textContent = '0' + (el.dataset.suffix || '');
