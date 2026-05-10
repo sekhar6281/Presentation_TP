@@ -383,8 +383,12 @@
 
     /* name */
     .s6-card-name { font-size:0.88rem; font-weight:900; color:var(--text); line-height:1.2; margin-bottom:3px; flex-shrink:0; }
-    /* desc */
-    .s6-card-desc { font-size:0.63rem; color:var(--text); font-weight:600; line-height:1.45; flex:1; }
+    /* desc — NO flex:1, fixed natural height so COMPLETE+result
+       always sit at a predictable position above the card bottom */
+    .s6-card-desc { font-size:0.63rem; color:var(--text); font-weight:600; line-height:1.45; flex-shrink:0; }
+    /* spacer: absorbs extra vertical space between desc and divider,
+       capped at 60px so COMPLETE+result never get pushed off-screen */
+    .s6-card-spacer { flex:1; max-height:60px; }
 
     /* divider */
     .s6-card-div  { height:1px; background:var(--border); margin:7px 0; flex-shrink:0; }
@@ -1321,6 +1325,7 @@
       <div class="s6-card-icon">🔍</div>
       <div class="s6-card-name">Detect</div>
       <div class="s6-card-desc">Scans 50+ platforms continuously every minute — YouTube, TikTok, Telegram &amp; more</div>
+      <div class="s6-card-spacer"></div>
       <div class="s6-card-div"></div>
       <div class="s6-card-status">QUEUED</div>
       <div class="s6-card-result">↳ 247 piracy copies found</div>
@@ -1331,6 +1336,7 @@
       <div class="s6-card-icon">🧬</div>
       <div class="s6-card-name">Verify</div>
       <div class="s6-card-desc">AI audio fingerprint cross-referenced against the original master recording</div>
+      <div class="s6-card-spacer"></div>
       <div class="s6-card-div"></div>
       <div class="s6-card-status">QUEUED</div>
       <div class="s6-card-result">↳ 99.8% match confidence</div>
@@ -1341,6 +1347,7 @@
       <div class="s6-card-icon">⚖️</div>
       <div class="s6-card-name">File DMCA</div>
       <div class="s6-card-desc">Legal takedown notice auto-generated and submitted to platform in under 30 seconds</div>
+      <div class="s6-card-spacer"></div>
       <div class="s6-card-div"></div>
       <div class="s6-card-status">QUEUED</div>
       <div class="s6-card-result">↳ Case #2024-078234 filed</div>
@@ -1351,6 +1358,7 @@
       <div class="s6-card-icon">🗑️</div>
       <div class="s6-card-name">Remove</div>
       <div class="s6-card-desc">Platform reviews and enforces the DMCA notice — content pulled from all regions</div>
+      <div class="s6-card-spacer"></div>
       <div class="s6-card-div"></div>
       <div class="s6-card-status">QUEUED</div>
       <div class="s6-card-result">↳ 247 copies deleted ✓</div>
@@ -1361,6 +1369,7 @@
       <div class="s6-card-icon">🚫</div>
       <div class="s6-card-name">Block</div>
       <div class="s6-card-desc">Content ID fingerprint activated — any future re-upload is blocked automatically</div>
+      <div class="s6-card-spacer"></div>
       <div class="s6-card-div"></div>
       <div class="s6-card-status">QUEUED</div>
       <div class="s6-card-result">↳ Permanent re-upload block ✓</div>
@@ -1371,6 +1380,7 @@
       <div class="s6-card-icon">📊</div>
       <div class="s6-card-name">Notify</div>
       <div class="s6-card-desc">Dashboard updated in real-time — producer receives full report with proof of removal</div>
+      <div class="s6-card-spacer"></div>
       <div class="s6-card-div"></div>
       <div class="s6-card-status">QUEUED</div>
       <div class="s6-card-result">↳ Full report delivered ✓</div>
