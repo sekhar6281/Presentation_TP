@@ -2227,8 +2227,23 @@
     _s6Timers.forEach(clearTimeout); _s6Timers = [];
     if (_s6Clock) { clearInterval(_s6Clock); _s6Clock = null; }
   }
+  function fixS6GridRows() {
+    const grid = document.querySelector('#slide6 .s6-grid');
+    if (!grid) return;
+    // Read the grid's actual flex-allocated height, then set explicit pixel rows
+    // This bypasses CSS Grid's unreliable 1fr behaviour in flex children
+    requestAnimationFrame(() => {
+      const h = grid.clientHeight;
+      if (h > 20) {
+        const rowH = Math.floor((h - 9) / 2);
+        grid.style.gridTemplateRows = rowH + 'px ' + rowH + 'px';
+      }
+    });
+  }
+
   function startSlide6() {
     clearSlide6();
+    fixS6GridRows();
     const cards = [...document.querySelectorAll('#slide6 .s6-card')];
     // Full reset
     cards.forEach(c => {
@@ -2436,6 +2451,8 @@
     wrapper.style.top  = offsetY + 'px';
     wrapper.style.width  = '';
     wrapper.style.height = '';
+    // Re-fix slide 6 grid rows if slide 6 is active (viewport size changed)
+    if (current === 5) setTimeout(fixS6GridRows, 50);
   }
 
   window.addEventListener('resize', scalePresentation);
