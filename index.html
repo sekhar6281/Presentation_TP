@@ -316,23 +316,23 @@
 
     /* ── Slide 6 — light theme background ── */
     #slide6 {
-      flex-direction:column; align-items:stretch; padding:14px 40px 12px; gap:9px;
+      flex-direction:column; align-items:stretch; padding:10px 40px 8px; gap:6px;
       background:var(--bg);
       background-image: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(37,99,235,0.07) 0%, transparent 55%);
     }
 
     /* ── Header ── */
-    .s6-header { display:flex; flex-direction:column; align-items:center; gap:3px; flex-shrink:0; }
-    .s6-tag    { display:inline-flex; align-items:center; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); border:1.5px solid rgba(37,99,235,0.22); padding:4px 14px; border-radius:100px; background:var(--blue-l); width:fit-content; opacity:0; }
-    .s6-title  { font-size:1.78rem; font-weight:900; line-height:1.1; text-align:center; opacity:0; color:var(--text); letter-spacing:-0.025em; }
+    .s6-header { display:flex; flex-direction:column; align-items:center; gap:2px; flex-shrink:0; }
+    .s6-tag    { display:inline-flex; align-items:center; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); border:1.5px solid rgba(37,99,235,0.22); padding:3px 12px; border-radius:100px; background:var(--blue-l); width:fit-content; opacity:0; }
+    .s6-title  { font-size:1.55rem; font-weight:900; line-height:1.08; text-align:center; opacity:0; color:var(--text); letter-spacing:-0.025em; }
     .s6-accent { color:var(--blue); }
-    .s6-lead   { font-size:0.74rem; color:var(--text2); text-align:center; max-width:640px; margin:0 auto; opacity:0; }
+    .s6-lead   { font-size:0.68rem; color:var(--text2); text-align:center; max-width:640px; margin:0 auto; opacity:0; }
     #slide6.active .s6-tag   { animation:zoomShrink 1.2s 0.1s cubic-bezier(0.22,1,0.36,1) both; }
     #slide6.active .s6-title { animation:boomIn     1.0s 0.5s cubic-bezier(0.22,1,0.36,1) both; }
     #slide6.active .s6-lead  { animation:crashLeft  0.8s 1.0s cubic-bezier(0.22,1,0.36,1) both; }
 
     /* ── System status bar ── */
-    .s6-sysbar { display:flex; align-items:center; gap:14px; flex-shrink:0; background:var(--surface); border:1.5px solid var(--border2); border-radius:10px; padding:7px 16px; box-shadow:var(--sh1); }
+    .s6-sysbar { display:flex; align-items:center; gap:12px; flex-shrink:0; background:var(--surface); border:1.5px solid var(--border2); border-radius:10px; padding:5px 14px; box-shadow:var(--sh1); }
     .s6-sys-live { display:flex; align-items:center; gap:7px; flex-shrink:0; }
     .s6-sys-dot  { width:7px; height:7px; border-radius:50%; background:var(--green); flex-shrink:0; animation:s6LiveDot 1.4s ease-in-out infinite; }
     .s6-sys-label{ font-size:0.6rem; font-weight:800; color:var(--green); letter-spacing:0.14em; text-transform:uppercase; }
@@ -344,7 +344,7 @@
     .s6-sys-timer { font-size:0.6rem; font-weight:700; color:var(--text2); font-family:'SF Mono','Fira Code',monospace; letter-spacing:0.04em; flex-shrink:0; }
 
     /* ── 3 × 2 card grid ── */
-    .s6-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:12px; flex:1; min-height:0; }
+    .s6-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:9px; flex:1; min-height:0; }
 
     /* ── Step card (light theme) ── */
     .s6-card {
@@ -352,7 +352,7 @@
       background:var(--surface);
       border:1.5px solid var(--border2);
       box-shadow:var(--sh1);
-      padding:16px 18px 14px; position:relative; overflow:hidden;
+      padding:11px 16px 10px; position:relative; overflow:hidden;
       opacity:0; transform:translateY(22px) scale(0.96);
       transition:border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
     }
@@ -364,7 +364,7 @@
     .s6-card.done { border-color:rgba(22,163,74,0.4); background:rgba(22,163,74,0.03); animation:s6DoneGlow 0.5s ease forwards; opacity:1; transform:none; }
 
     /* top row: step badge + indicator */
-    .s6-card-top  { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-shrink:0; }
+    .s6-card-top  { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-shrink:0; }
     .s6-card-step { font-size:0.52rem; font-weight:900; letter-spacing:0.14em; text-transform:uppercase; color:var(--text); background:var(--surface2); padding:3px 9px; border-radius:5px; border:1px solid var(--border); transition:color 0.35s,background 0.35s,border-color 0.35s; }
     .s6-card.run  .s6-card-step { color:var(--blue); background:var(--blue-l); border-color:rgba(37,99,235,0.25); }
     .s6-card.done .s6-card-step { color:var(--green); background:var(--green-l); border-color:rgba(22,163,74,0.25); }
@@ -376,17 +376,17 @@
     .s6-card.done .s6-card-ind::after { content:'✓'; font-size:0.54rem; color:#fff; font-weight:900; }
 
     /* icon */
-    .s6-card-icon { font-size:2.4rem; line-height:1; margin-bottom:7px; filter:grayscale(1) opacity(0.35); transition:filter 0.5s; flex-shrink:0; }
+    .s6-card-icon { font-size:2.0rem; line-height:1; margin-bottom:5px; filter:grayscale(1) opacity(0.35); transition:filter 0.5s; flex-shrink:0; }
     .s6-card.run  .s6-card-icon { filter:none; animation:s6IconRun 1.5s ease-in-out infinite; }
     .s6-card.done .s6-card-icon { filter:none; animation:none; }
 
     /* name */
-    .s6-card-name { font-size:0.92rem; font-weight:900; color:var(--text); line-height:1.2; margin-bottom:4px; flex-shrink:0; }
+    .s6-card-name { font-size:0.88rem; font-weight:900; color:var(--text); line-height:1.2; margin-bottom:3px; flex-shrink:0; }
     /* desc */
     .s6-card-desc { font-size:0.63rem; color:var(--text); font-weight:600; line-height:1.45; flex:1; }
 
     /* divider */
-    .s6-card-div  { height:1px; background:var(--border); margin:10px 0; flex-shrink:0; }
+    .s6-card-div  { height:1px; background:var(--border); margin:7px 0; flex-shrink:0; }
 
     /* status text */
     .s6-card-status { font-size:0.59rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); transition:color 0.3s; flex-shrink:0; }
